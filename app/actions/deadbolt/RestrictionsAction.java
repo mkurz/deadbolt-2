@@ -65,7 +65,7 @@ public class RestrictionsAction extends AbstractDeadboltAction<Restrictions>
         boolean roleOk = false;
         if (roleHolder != null)
         {
-            And[] andedRestrictions = configuration.value();
+            And[] andedRestrictions = configuration.roles();
 
             for (int i = 0; !roleOk && i < andedRestrictions.length; i++)
             {

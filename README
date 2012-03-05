@@ -1,4 +1,58 @@
-This is your new Play 2.0 application
-=====================================
+Deadbolt 2 - An authorisation system for Play 2
+-----------------------------------------------
 
-This file will be packaged with your application, when using `play dist`.
+This is the fast I'm exhausted and falling asleep readme.  Proper docs to be added tomorrow.
+
+General
+-------
+Implement DeadboltHandler.  Update your application.conf to have
+deadbolt.handler=<fully-qualified name of your implementation>
+
+Controller restrictions
+-----------------------
+
+NB Method-level annotations override controller-level annotations.  All controller restrictions can be applied at the
+controller level or method level.
+
+Name:
+    Dynamic
+Used for:
+    arbitrary security.  Requires an implementation of a DynamicResourceHandler, accessible through the DeadboltHandler
+Parameters:
+    name - the resource name
+    meta - additional info passed into the DynamicResourceHandler at runtime
+    content - indicates the response format in case of access failure
+    handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+Examples:
+    @Dynamic("foo", "hurdy:gurdy")
+    @Dynamic(name="foo", meta="hurdy:gurdy", content="json", handler=my.special.FunkyDeadboltHandler)
+
+-
+
+Name:
+    Restrict
+Used for:
+    static security.  Requires an implementation of a RoleHolder, accessible through the DeadboltHandler.  Role names are ANDed together.
+Parameters:
+    roles - the resource name
+    content - indicates the response format in case of access failure
+    handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+Examples:
+    @Restrict("foo") // restricts access to RoleHolders with the foo role
+    @Restrict({"foo", "bar"}) // restricts access to RoleHolders with both the foo and bar roles
+
+-
+
+Name:
+    Restrictions
+Used for:
+    static security.  Requires an implementation of a RoleHolder, accessible through the DeadboltHandler.  Role names are ANDed together within And annotations, and ORed together between And annotations.
+Parameters:
+    roles - the resource name
+    content - indicates the response format in case of access failure
+    handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+Examples:
+    @Restrictions({@And("foo"), @And("bar")}) // restricts access to RoleHolders with either the foo or bar roles
+
+
+More to come tomorrow!

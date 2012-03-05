@@ -66,7 +66,7 @@ public class RestrictAction extends AbstractDeadboltAction<Restrict>
         if (roleHolder != null)
         {
             roleOk = checkRole(roleHolder,
-                               configuration.value());
+                               configuration.roles());
         }
 
         return roleOk;
