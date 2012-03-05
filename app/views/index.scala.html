@@ -1,0 +1,39 @@
+@import utils.deadbolt.TemplateUtils._
+
+@main("Deadbolt example for Play! 2") {
+
+<h4>Restrict</h4>
+<div>The following box should contain text:
+    <div class="box">
+        @deadbolt.restrict(la(as("foo"))) {
+            foo
+        }
+    </div>
+</div>
+
+<div>The following box should not contain text:
+    <div class="box">
+        @deadbolt.restrict(la(as("bar"))) {
+            bar
+        }
+    </div>
+</div>
+
+
+<h4>Dynamic</h4>
+<div>The following box should contain text:
+    <div class="box">
+        @deadbolt.dynamic("foo", "hurdy:gurdy") {
+        foo
+        }
+    </div>
+</div>
+
+<div>The following box should not contain text:
+    <div class="box">
+        @deadbolt.dynamic("bar") {
+        bar
+        }
+    </div>
+</div>
+}
