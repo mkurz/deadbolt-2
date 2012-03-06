@@ -48,7 +48,7 @@ public class DynamicAction extends AbstractDeadboltAction<Dynamic>
             }
             else
             {
-                if (resourceHandler.isAllowed(configuration.name(),
+                if (resourceHandler.isAllowed(configuration.value(),
                                               configuration.meta(),
                                               deadboltHandler))
                 {

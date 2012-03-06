@@ -40,7 +40,7 @@ public @interface Dynamic
      *
      * @return the name of the resource
      */
-    String name();
+    String value();
 
     /**
      * Additional information when deciding on access to the resource.  It's a free formatted string, so you can pass

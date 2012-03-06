@@ -39,7 +39,7 @@ public @interface Restrictions
      * Within an {@link And}, the relation is AND.  Between {@link And}s, the relationship is OR.
      * @return
      */
-    And[] roles();
+    And[] value();
 
     /**
      * Indicates the expected response type.  Useful when working with non-HTML responses.  This is free text, which you

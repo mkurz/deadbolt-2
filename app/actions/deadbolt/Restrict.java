@@ -40,7 +40,7 @@ public @interface Restrict
      *
      * @return the role names
      */
-    String[] roles();
+    String[] value();
 
     /**
      * Indicates the expected response type.  Useful when working with non-HTML responses.  This is free text, which you
