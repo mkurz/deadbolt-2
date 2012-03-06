@@ -16,6 +16,7 @@
 package actions.deadbolt;
 
 import controllers.deadbolt.DeadboltHandler;
+import play.mvc.With;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -28,6 +29,7 @@ import java.lang.annotation.Target;
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
+@With(UnrestrictedAction.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Documented
