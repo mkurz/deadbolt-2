@@ -16,7 +16,39 @@
 package controllers.deadbolt;
 
 /**
- * @author Steve Chaloner
+ * Implementations of this interface are used to process dynamic restrictions (both from the view and the controller). A
+ * good system to use is to have a single DynamicResourceHandler returned from your {@link DeadboltHandler} which in turn
+ * delegates the isAllowed call to a an inner DynamicResourceHandler specific to the restriction name, e.g.
+ *
+ * public class MyDynamicResourceHandler
+ * {
+ *     private static final Map&lt;String, DynamicResourceHandler&gt; HANDLERS = new HashMap&lt;String, DynamicResourceHandler&gt;();
+ *
+ *     static
+ *     {
+ *         HANDLERS.put("foo",
+ *                      new DynamicResourceHandler()
+ *                      {
+ *                          public boolean isAllowed(String name,
+ *                                                   String meta,
+ *                                                   DeadboltHandler deadboltHandler)
+ *                          {
+ *                              // something specific to foo
+ *                          }
+ *                      });
+ *        // repeat for your other dynamic restrictions
+ *     }
+ *
+ *     public boolean isAllowed(String name,
+ *                              String meta,
+ *                              DeadboltHandler deadboltHandler)
+ *     {
+ *         return HANDLERS.get(name).isAllowed(name, meta, deadboltHandler);
+ *     }
+ *
+ * }
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public interface DynamicResourceHandler
 {

@@ -25,7 +25,10 @@ import java.lang.annotation.RetentionPolicy;
  * - re-using the {@link Restrict} annotation to parameterize isn't possible, because Play will apply
  * {@link RestrictAction}s to the individual parameters
  *
- * @author Steve Chaloner
+ * The semantics are the same as {@link Restrict}, e.g. @And({"foo", "bar"}) , for example, requires the
+ * {@link models.deadbolt.RoleHolder} to have both the foo and bar roles.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

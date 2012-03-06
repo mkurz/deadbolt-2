@@ -26,7 +26,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author Steve Chaloner
+ * An ANDed set of restrictions.  @Restrict({"foo", "bar"}) , for example, requires the {@link models.deadbolt.RoleHolder}
+ * to have both the foo and bar roles.
+ *
+ * Role names that start with ! are negated, so @Restrict({"foo", "!bar"}) requires the {@link models.deadbolt.RoleHolder}
+ * to have the foo role AND NOT the bar role.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 @With(RestrictAction.class)
 @Retention(RetentionPolicy.RUNTIME)

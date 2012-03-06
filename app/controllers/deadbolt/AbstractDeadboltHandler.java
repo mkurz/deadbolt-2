@@ -20,7 +20,9 @@ import play.mvc.Result;
 import play.mvc.Results;
 
 /**
- * @author Steve Chaloner
+ * Abstract implementation of {@link DeadboltHandler} that gives a standard unauthorised result when access fails.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public abstract class AbstractDeadboltHandler extends Results implements DeadboltHandler
 {
@@ -34,7 +36,6 @@ public abstract class AbstractDeadboltHandler extends Results implements Deadbol
 
     /**
      * {@inheritDoc}
-     * @param content
      */
     public Result onAccessFailure(String content)
     {

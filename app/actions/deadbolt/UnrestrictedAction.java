@@ -19,10 +19,13 @@ import play.mvc.Http;
 import play.mvc.Result;
 
 /**
- * @author Steve Chaloner
+ * Implements the {@link Unrestricted} functionality, i.e. there are no restrictions on the resource.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public class UnrestrictedAction extends AbstractDeadboltAction<Unrestricted>
 {
+    /** {@inheritDoc} */
     @Override
     public Result call(Http.Context ctx) throws Throwable
     {

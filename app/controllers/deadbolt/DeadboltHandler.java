@@ -19,7 +19,11 @@ import models.deadbolt.RoleHolder;
 import play.mvc.Result;
 
 /**
- * @author Steve Chaloner
+ * DeadboltHandler implementations are the main hook into the Deadbolt system.  Here, you can apply authentication
+ * checks using {@link DeadboltHandler#beforeRoleCheck}, get the current user, decide what to do when access fails and
+ * provide implementations for dynamic security.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public interface DeadboltHandler
 {
@@ -38,7 +42,10 @@ public interface DeadboltHandler
 
     /**
      * Invoked when an access failure is detected on <i>controllerClassName</i>.
-     * @param content
+     *
+     * @param content the content type hint.  This can be used to return a response in the appropriate content
+     * type, e.g. JSON
+     * @return the action result
      */
     Result onAccessFailure(String content);
 

@@ -22,7 +22,10 @@ import play.Play;
 import java.util.List;
 
 /**
- * @author Steve Chaloner
+ * Provides the entry point for view-level annotations.  Also loads and stores the global {@link DeadboltHandler} given
+ * in application.conf.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public class Deadbolt
 {

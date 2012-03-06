@@ -21,10 +21,14 @@ import play.mvc.Http;
 import play.mvc.Result;
 
 /**
- * @author Steve Chaloner
+ * Implements the {@link Restrictions} functionality, i.e. within an {@link And} roles are ANDed, and between
+ * {@link And} the role groups are ORed.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public class RestrictionsAction extends AbstractDeadboltAction<Restrictions>
 {
+    /** {@inheritDoc} */
     @Override
     public Result call(Http.Context ctx) throws Throwable
     {

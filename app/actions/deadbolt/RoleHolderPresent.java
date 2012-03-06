@@ -25,7 +25,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author Steve Chaloner
+ * A {@link models.deadbolt.RoleHolder} must be provided by the {@link DeadboltHandler} to have access to the resource,
+ * but no role checks are performed.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})

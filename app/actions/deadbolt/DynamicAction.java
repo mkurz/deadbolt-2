@@ -24,10 +24,11 @@ import play.mvc.Result;
  * A dynamic restriction is user-defined, and so completely arbitrary.  Hence, no checks on role holders, etc, occur
  * here.
  *
- * @author Steve Chaloner
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public class DynamicAction extends AbstractDeadboltAction<Dynamic>
 {
+    /** {@inheritDoc} */
     @Override
     public Result call(Http.Context ctx) throws Throwable
     {

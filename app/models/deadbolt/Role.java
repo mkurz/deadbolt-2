@@ -16,7 +16,10 @@
 package models.deadbolt;
 
 /**
- * @author Steve Chaloner
+ * A role that can be held by a {@link RoleHolder}.  Checks are done on the name of the role, not using object equality
+ * on the Role itself.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public interface Role
 {

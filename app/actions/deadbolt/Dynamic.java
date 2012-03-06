@@ -26,7 +26,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author Steve Chaloner
+ * A dynamic security restriction.  The implementation of the block/allow behaviour is provided through a
+ * {@link controllers.deadbolt.DynamicResourceHandler}.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 @With(DynamicAction.class)
 @Retention(RetentionPolicy.RUNTIME)

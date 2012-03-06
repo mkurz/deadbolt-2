@@ -21,10 +21,13 @@ import play.mvc.Http;
 import play.mvc.Result;
 
 /**
- * @author Steve Chaloner
+ * Implements the {@link Restrict} functionality, i.e. a single set of ANDed roles.
+ * ,
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public class RestrictAction extends AbstractDeadboltAction<Restrict>
 {
+    /** {@inheritDoc} */
     @Override
     public Result call(Http.Context ctx) throws Throwable
     {
@@ -55,7 +58,7 @@ public class RestrictAction extends AbstractDeadboltAction<Restrict>
 
         return result;
     }
-    
+
     private boolean isAllowed(Http.Context ctx,
                               DeadboltHandler deadboltHandler)
     {

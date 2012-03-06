@@ -21,10 +21,14 @@ import play.mvc.Http;
 import play.mvc.Result;
 
 /**
- * @author Steve Chaloner
+ * Implements the {@link RoleHolderPresent} functionality, i.e. a {@link RoleHolder} must be provided by the
+ * {@link DeadboltHandler} to have access to the resource, but no role checks are performed.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public class RoleHolderPresentAction extends AbstractDeadboltAction<RoleHolderPresent>
 {
+    /** {@inheritDoc} */
     @Override
     public Result call(Http.Context ctx) throws Throwable
     {

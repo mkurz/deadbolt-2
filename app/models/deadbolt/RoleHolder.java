@@ -18,7 +18,9 @@ package models.deadbolt;
 import java.util.List;
 
 /**
- * @author Steve Chaloner
+ * A RoleHolder represents something, typically a user, that will try to access the application.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public interface RoleHolder
 {

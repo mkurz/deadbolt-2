@@ -26,7 +26,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author Steve Chaloner
+ * Within an {@link And} roles are ANDed, and between {@link And} the role groups are ORed.  For example,
+ * @Restrictions({@And("foo"), @And("hurdy", "gurdy)}) means the {@link models.deadbolt.RoleHolder} must have either the
+ * foo role OR both the hurdy AND gurdy roles.
+ *
+ * Role names that start with ! are negated, so @Restrictions({@And("foo", "bar"), @And("hurdy", "!gurdy")}) requires
+ * the {@link models.deadbolt.RoleHolder} to have either the foo role AND the bar roles, or the hurdy AND NOT the gurdy
+ * roles.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 @With(RestrictionsAction.class)
 @Retention(RetentionPolicy.RUNTIME)

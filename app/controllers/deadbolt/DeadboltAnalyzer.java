@@ -22,10 +22,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Steve Chaloner
+ * This carries out static checks, e.g. for {@link actions.deadbolt.Restrict} and {@link actions.deadbolt.Restrictions}.
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  */
 public class DeadboltAnalyzer
 {
+    /**
+     * Checks if the roleHolder has all the role names.  In other words, this gives AND support.
+     *
+     * @param roleHolder the role holder
+     * @param roleNames the role names.  Any role name starting with ! will be negated.
+     * @return true if the role holder meets the restrictions (so access will be allowed), otherwise false
+     */
     public static boolean checkRole(RoleHolder roleHolder,
                                     String[] roleNames)
     {
@@ -79,6 +88,4 @@ public class DeadboltAnalyzer
         }
         return hasRole;
     }
-
-
 }
