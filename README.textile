@@ -37,7 +37,6 @@ controller level or method level.
 *Examples*
 
 * @Dynamic("foo", "hurdy:gurdy")
-
 * @Dynamic(name="foo", meta="hurdy:gurdy", content="json", handler=my.special.FunkyDeadboltHandler)
 
 
@@ -52,6 +51,7 @@ controller level or method level.
 * @Restrict("foo") // restricts access to RoleHolders with the foo role
 * @Restrict({"foo", "bar"}) // restricts access to RoleHolders with both the foo and bar roles
 
+
 *Name* Restrictions
 *Used for* static security.  Requires an implementation of a RoleHolder, accessible through the DeadboltHandler.  Role names are ANDed together within And annotations, and ORed together between And annotations.
 *Parameters*
@@ -61,6 +61,26 @@ controller level or method level.
 
 *Examples*
 * @Restrictions({@And("foo"), @And("bar")}) // restricts access to RoleHolders with either the foo or bar roles
+
+
+*Name* Unrestricted
+*Used for* Marks the resource as unrestricted - no role checking, or presence of a role holder, is required
+*Parameters*
+* content - indicates the response format in case of access failure
+* handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+
+*Examples*
+* @Unrestricted
+
+
+*Name* RoleHolderPresent
+*Used for* Marks the resource as restricted, but only to logged-in users
+*Parameters*
+* content - indicates the response format in case of access failure
+* handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+
+*Examples*
+* @RoleHolderPresent
 
 
 h2. View restrictions
@@ -99,89 +119,20 @@ Notes:
   bar
  }
 
-More to come later!
-|*Used for*|arbitrary security.  Requires an implementation of a DynamicResourceHandler, accessible through the DeadboltHandler|
-|*Parameters*|name - the resource name
-meta - additional info passed into the DynamicResourceHandler at runtime
- content - indicates the response format in case of access failure
- handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
-
-Examples:
-
-bq. @Dynamic("foo", "hurdy:gurdy")
-
-bq. @Dynamic(name="foo", meta="hurdy:gurdy", content="json", handler=my.special.FunkyDeadboltHandler)
 
 
-Name:
- Restrict
+*Name* roleHolderPresent.scala.html
+*Used for* ensuring the viewer is logged in.  This is the view equivalent of @RoleHolderPresent
+*Parameters*
+* name - the resource name
+* meta - additional info passed into the DynamicResourceHandler at runtime
 
-Used for:
- static security.  Requires an implementation of a RoleHolder, accessible through the DeadboltHandler.  Role names are ANDed together.
-
-Parameters:
- roles - the resource name
- content - indicates the response format in case of access failure
- handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
-
-Examples:
- @Restrict("foo") // restricts access to RoleHolders with the foo role
- @Restrict({"foo", "bar"}) // restricts access to RoleHolders with both the foo and bar roles
-
-Name:
- Restrictions
-
-Used for:
- static security.  Requires an implementation of a RoleHolder, accessible through the DeadboltHandler.  Role names are ANDed together within And annotations, and ORed together between And annotations.
-
-Parameters:
- roles - the resource name
- content - indicates the response format in case of access failure
- handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
-
-Examples:
-bq. @Restrictions({@And("foo"), @And("bar")}) // restricts access to RoleHolders with either the foo or bar roles
-
-
-h2. View restrictions
-
-Name:
- deadbolt.restrict
-
-Used for:
- static security.  This is the view equivalent of @Restrictions.
-
-Parameters:
- roles - a List of String arrays.  Roles within an array are ANDed together; Each array represents an OR.
-
-Examples:
-bq. @deadbolt.restrict(la(as("foo"))) {
-   foo
- }
-
-Notes:
- As a convenience to create the lists and arrays, you can import the methods of TemplateUtils and use the following methods
-  - la - create a list of arrays
-  - as - create an array of strings
- You can see this used in the example above.  A more detailed example is
- @deadbolt.restrict(la(as("foo"),as("bar"))) {
+*Examples*
+* @deadbolt.roleHolderPresent() {
   foo
  }
 
 
-Name:
- dynamic.scala.html
-Used for:
- arbitrary security.  This is the view equivalent of @Dynamic
-Parameters:
- name - the resource name
- meta - additional info passed into the DynamicResourceHandler at runtime
-Examples:
- @deadbolt.dynamic("foo") {
-  foo
- }
- @deadbolt.dynamic("bar", "hurdy:gurdy") {
-  bar
- }
+*Note* There is no tag equivalent of @Unrestricted
 
 More to come later!
