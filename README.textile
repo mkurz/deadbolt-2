@@ -15,21 +15,10 @@ h2. Controller restrictions
 NB Method-level annotations override controller-level annotations.  All controller restrictions can be applied at the
 controller level or method level.
 
-
-h2. General
-
-Implement DeadboltHandler.  Update your application.conf to have
-bq. deadbolt.handler=<fully-qualified name of your implementation>
-
-h2. Controller restrictions
-
-NB Method-level annotations override controller-level annotations.  All controller restrictions can be applied at the
-controller level or method level.
-
 *Name* Dynamic
 *Used for* arbitrary security.  Requires an implementation of a DynamicResourceHandler, accessible through the DeadboltHandler
 *Parameters*
-* name - the resource name
+* value - the resource name
 * meta - additional info passed into the DynamicResourceHandler at runtime
 * content - indicates the response format in case of access failure
 * handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
@@ -43,7 +32,7 @@ controller level or method level.
 *Name* Restrict
 *Used for* static security.  Requires an implementation of a RoleHolder, accessible through the DeadboltHandler.  Role names are ANDed together.
 *Parameters*
-* roles - the resource name
+* value - the ANDed role names
 * content - indicates the response format in case of access failure
 * handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
 
@@ -55,7 +44,7 @@ controller level or method level.
 *Name* Restrictions
 *Used for* static security.  Requires an implementation of a RoleHolder, accessible through the DeadboltHandler.  Role names are ANDed together within And annotations, and ORed together between And annotations.
 *Parameters*
-* roles - the resource name
+* value - the restriction combinations
 * content - indicates the response format in case of access failure
 * handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
 
