@@ -139,8 +139,8 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
      */
     protected void markActionAsAuthorised(Http.Context ctx)
     {
-        ctx.request().args.put(ACTION_AUTHORISED,
-                               true);
+        ctx.args.put(ACTION_AUTHORISED,
+                     true);
     }
 
     /**
@@ -150,8 +150,8 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
      */
     protected void markActionAsUnauthorised(Http.Context ctx)
     {
-        ctx.request().args.put(ACTION_UNAUTHORISED,
-                               true);
+        ctx.args.put(ACTION_UNAUTHORISED,
+                     true);
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
      */
     protected boolean isActionAuthorised(Http.Context ctx)
     {
-        Object o = ctx.request().args.get(ACTION_AUTHORISED);
+        Object o = ctx.args.get(ACTION_AUTHORISED);
         return o != null && (Boolean)o;
     }
 
@@ -174,7 +174,7 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
      */
     protected boolean isActionUnauthorised(Http.Context ctx)
     {
-        Object o = ctx.request().args.get(ACTION_UNAUTHORISED);
+        Object o = ctx.args.get(ACTION_UNAUTHORISED);
         return o != null && (Boolean)o;
     }
 }
