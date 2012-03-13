@@ -25,39 +25,30 @@ import play.mvc.Result;
  * ,
  * @author Steve Chaloner (steve@objectify.be)
  */
-public class RestrictAction extends AbstractDeadboltAction<Restrict>
+public class RestrictAction extends AbstractRestrictiveAction<Restrict>
 {
-    /** {@inheritDoc} */
     @Override
-    public Result call(Http.Context ctx) throws Throwable
+    public Result applyRestriction(Http.Context ctx,
+                                   DeadboltHandler deadboltHandler) throws Throwable
     {
         Result result;
-        if (isActionAuthorised(ctx))
+        if (isAllowed(ctx,
+                      deadboltHandler))
         {
+            markActionAsAuthorised(ctx);
             result = delegate.call(ctx);
         }
         else
         {
-            DeadboltHandler deadboltHandler = getDeadboltHandler(configuration.handler());
-            deadboltHandler.beforeRoleCheck();
-
-            if (isAllowed(ctx,
-                          deadboltHandler))
-            {
-                markActionAsAuthorised(ctx);
-                result = delegate.call(ctx);
-            }
-            else
-            {
-                markActionAsUnauthorised(ctx);
-                result = onAccessFailure(deadboltHandler,
-                                         configuration.content(),
-                                         ctx);
-            }
+            markActionAsUnauthorised(ctx);
+            result = onAccessFailure(deadboltHandler,
+                                     configuration.content(),
+                                     ctx);
         }
 
         return result;
     }
+
 
     private boolean isAllowed(Http.Context ctx,
                               DeadboltHandler deadboltHandler)
@@ -73,5 +64,11 @@ public class RestrictAction extends AbstractDeadboltAction<Restrict>
         }
 
         return roleOk;
+    }
+
+    @Override
+    public Class<? extends DeadboltHandler> getDeadboltHandlerClass()
+    {
+        return configuration.handler();
     }
 }

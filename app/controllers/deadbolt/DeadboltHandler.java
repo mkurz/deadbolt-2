@@ -30,8 +30,12 @@ public interface DeadboltHandler
     /**
      * Invoked immediately before controller or view restrictions are checked. This forms the integration with any
      * authentication actions that may need to occur.
+     *
+     * @return the action result if an action other than the delegate must be taken, otherwise null. For a case where
+     * the user is authenticated (or whatever your test condition is), this will be null otherwise the restriction
+     * won't be applied.
      */
-    void beforeRoleCheck();
+    Result beforeRoleCheck();
 
     /**
      * Gets the current {@link RoleHolder}, e.g. the current user.

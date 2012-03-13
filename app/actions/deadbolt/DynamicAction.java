@@ -26,45 +26,42 @@ import play.mvc.Result;
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
-public class DynamicAction extends AbstractDeadboltAction<Dynamic>
+public class DynamicAction extends AbstractRestrictiveAction<Dynamic>
 {
-    /** {@inheritDoc} */
     @Override
-    public Result call(Http.Context ctx) throws Throwable
+    public Result applyRestriction(Http.Context ctx,
+                                   DeadboltHandler deadboltHandler) throws Throwable
     {
+        DynamicResourceHandler resourceHandler = deadboltHandler.getDynamicResourceHandler();
         Result result;
-        if (isActionAuthorised(ctx))
+
+        if (resourceHandler == null)
         {
-            result = delegate.call(ctx);
+            throw new RuntimeException("A dynamic resource is specified but no dynamic resource handler is provided");
         }
         else
         {
-            DeadboltHandler deadboltHandler = getDeadboltHandler(configuration.handler());
-            deadboltHandler.beforeRoleCheck();
-
-            DynamicResourceHandler resourceHandler = deadboltHandler.getDynamicResourceHandler();
-            if (resourceHandler == null)
+            if (resourceHandler.isAllowed(configuration.value(),
+                                          configuration.meta(),
+                                          deadboltHandler))
             {
-                throw new RuntimeException("A dynamic resource is specified but no dynamic resource handler is provided");
+                markActionAsAuthorised(ctx);
+                result = delegate.call(ctx);
             }
             else
             {
-                if (resourceHandler.isAllowed(configuration.value(),
-                                              configuration.meta(),
-                                              deadboltHandler))
-                {
-                    markActionAsAuthorised(ctx);
-                    result = delegate.call(ctx);
-                }
-                else
-                {
-                    markActionAsUnauthorised(ctx);
-                    result = onAccessFailure(deadboltHandler,
-                                             configuration.content(),
-                                             ctx);
-                }
+                markActionAsUnauthorised(ctx);
+                result = onAccessFailure(deadboltHandler,
+                                         configuration.content(),
+                                         ctx);
             }
         }
         return result;
+    }
+
+    @Override
+    public Class<? extends DeadboltHandler> getDeadboltHandlerClass()
+    {
+        return configuration.handler();
     }
 }
