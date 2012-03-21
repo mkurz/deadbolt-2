@@ -21,6 +21,8 @@ use "publish-local" to publish to your local repository, or update Deadbolt's Bu
 need to update the Build.scala of your application to add a repository resolver for this.  See the sample application's Build.scala for
 an example.
 
+The dependency declaration is
+"be.objectify" % "deadbolt-2_2.9.1" % "1.0"
 
 h2. Controller restrictions
 
