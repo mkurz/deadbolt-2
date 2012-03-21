@@ -1,5 +1,0 @@
-@(name: String, meta: String = null)(body: => Html)
-
-@if(controllers.deadbolt.Deadbolt.viewDynamic(name, meta)) {
-    @body
-}

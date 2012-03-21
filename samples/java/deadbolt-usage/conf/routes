@@ -1,0 +1,23 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index()
+GET     /restrictIndex              controllers.RestrictController.index()
+GET     /restrict1                  controllers.RestrictController.restrictOne()
+GET     /restrict2                  controllers.RestrictController.restrictTwo()
+GET     /restrict3                  controllers.RestrictController.restrictThree()
+GET     /restrict4                  controllers.RestrictController.restrictFour()
+GET     /restrictionsIndex          controllers.RestrictionsController.index()
+GET     /restrictions1              controllers.RestrictionsController.restrictionsOne()
+GET     /restrictions2              controllers.RestrictionsController.restrictionsTwo()
+GET     /restrictions3              controllers.RestrictionsController.restrictionsThree()
+GET     /restrictions4              controllers.RestrictionsController.restrictionsFour()
+GET     /restrictions5              controllers.RestrictionsController.restrictionsFive()
+GET     /index                      controllers.DynamicRestrictionsController.index()
+GET     /pureLuck                   controllers.DynamicRestrictionsController.pureLuck()
+GET     /noWayJose                  controllers.DynamicRestrictionsController.noWayJose()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

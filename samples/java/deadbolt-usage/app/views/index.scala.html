@@ -1,0 +1,159 @@
+@import be.objectify.deadbolt.views.html._
+@import be.objectify.deadbolt.utils.TemplateUtils._
+
+@main("Deadbolt usage examples") {
+
+<h3>Set-up</h3>
+The current user has the roles "foo" and "bar".  For each example, the required roles will be stated, along with the
+expected result.
+
+<h3>Controller restrictions</h3>
+
+<h4>Restrict</h4>
+<ul>
+    <li>
+        <a href="@routes.RestrictController.index">Index</a>
+        <ul>
+            <li>controller-level restriction requiring foo and bar</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RestrictController.restrictOne">Restrict One</a>
+        <ul>
+            <li>method-level restriction requiring foo</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RestrictController.restrictTwo">Restrict Two</a>
+        <ul>
+            <li>method-level restriction requiring foo and bar</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RestrictController.restrictThree">Restrict Three</a>
+        <ul>
+            <li>method-level restriction requiring foo but not bar</li>
+            <li>should NOT be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RestrictController.restrictFour">Restrict Four</a>
+        <ul>
+            <li>method-level restriction requiring hurdy</li>
+            <li>should NOT be visible</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>Restrictions</h4>
+<ul>
+    <li>
+        <a href="@routes.RestrictionsController.index">Index</a>
+        <ul>
+            <li>controller-level restriction requiring foo or bar</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RestrictionsController.restrictionsOne">Restrictions One</a>
+        <ul>
+            <li>method-level restriction requiring foo and bar</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RestrictionsController.restrictionsTwo">Restrictions Two</a>
+        <ul>
+            <li>method-level restriction requiring foo or bar</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RestrictionsController.restrictionsThree">Restrictions Three</a>
+        <ul>
+            <li>method-level restriction requiring hurdy AND gurdy, or foo</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RestrictionsController.restrictionsFour">Restrictions Four</a>
+        <ul>
+            <li>method-level restriction requiring foo OR NOT bar</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RestrictionsController.restrictionsFive">Restrictions Five</a>
+        <ul>
+            <li>method-level restriction requiring hurdy and NOT foo</li>
+            <li>should NOT be visible</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>Dynamic</h4>
+<ul>
+    <li>
+        <a href="@routes.DynamicRestrictionsController.index">Index</a>
+        <ul>
+            <li>controller-level restriction requiring a role holder to be present</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DynamicRestrictionsController.pureLuck">Pure luck</a>
+        <ul>
+            <li>method-level restriction requiring the system time in milliseconds to be exactly divisible by 2</li>
+            <li>may be visible, depends on your luck</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DynamicRestrictionsController.noWayJose">No way, Jose</a>
+        <ul>
+            <li>method-level restriction using the same resource name as "pure luck" above, but specifying a different handler</li>
+            <li>should NOT be visible</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>Tag restrictions</h3>
+
+<div class="tagSection">
+    Tag: restrict   Requires: foo and bar.  Expected result: contents are visible
+    <div class="box">
+        @restrict(la(as("foo", "bar"))) {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: restrict   Requires: foo or bar.  Expected result: contents are visible
+    <div class="box">
+        @restrict(la(as("foo"), as("bar"))) {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: restrict   Requires: foo but not bar.  Expected result: contents are not visible
+    <div class="box">
+        @restrict(la(as("foo", "!bar"))) {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: dynamic   Requires: the system time in milliseconds to be exactly divisible by 2.  Expected result: depends on your luck!  Refresh the page a few times to see it change.
+    <div class="box">
+        @dynamic("pureLuck") {
+        Looks like you got lucky!
+        }
+    </div>
+</div>
+}

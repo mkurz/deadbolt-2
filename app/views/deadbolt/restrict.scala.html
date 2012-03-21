@@ -1,5 +1,0 @@
-@(roles: List[Array[String]], args: (Symbol,String)*)(body: => Html)
-
-@if(controllers.deadbolt.Deadbolt.viewRestrict(roles)) {
-    @body
-}
