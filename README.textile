@@ -8,10 +8,10 @@ Note that Deadbolt doesn't provide authentication!  You can use the existing aut
 h2. Configuration
 
 Implement DeadboltHandler.  Update your application.conf to have
-bq. deadbolt.handler=<fully-qualified name of your implementation>
+deadbolt.handler=fully-qualified name of your implementation
 
 Deadbolt doesn't cache the role holder within the same request by default.  You can enable this (typically with performance benefits) by add this to application.conf
-bq. deadbolt.cache-user=true
+deadbolt.cache-user=true
 
 
 h2. Installing Deadbolt
