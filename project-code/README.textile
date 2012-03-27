@@ -98,7 +98,9 @@ controller level or method level.
 * @DeadboltPattern("(.)*\\.edit")
 * @DeadboltPattern("printers.*.edit", patternType=PatternType.TREE)
 
-Note: TREE isn't implemented yet, this is still under development
+Notes:
+* Regular expressions are cached for efficiency
+* TREE isn't implemented yet, this is still under development
 
 h2. View restrictions
 

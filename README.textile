@@ -86,6 +86,22 @@ controller level or method level.
 * @RoleHolderPresent
 
 
+*Name* DeadboltPattern
+*Used for* Evaluating regular expressions or inference trees against user permissions
+*Parameters*
+* value - the pattern
+* patternType - indicates the type of pattern, either REGEX or TREE.  REGEX is the default value.
+* content - indicates the response format in case of access failure
+* handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+
+*Examples*
+* @DeadboltPattern("(.)*\\.edit")
+* @DeadboltPattern("printers.*.edit", patternType=PatternType.TREE)
+
+Notes:
+* Regular expressions are cached for efficiency
+* TREE isn't implemented yet, this is still under development
+
 h2. View restrictions
 
 If you don't want to use the full namespace of the tags, you can import some or all of them in your template.
@@ -129,7 +145,6 @@ Notes:
  }
 
 
-
 *Name* roleHolderPresent
 *Used for* ensuring the viewer is logged in.  This is the view equivalent of @RoleHolderPresent
 *Parameters*
@@ -138,6 +153,18 @@ Notes:
 
 *Examples*
 * @roleHolderPresent() {
+  foo
+ }
+
+
+*Name* deadboltPattern
+*Used for* checking regexs or inference trees against user permissions.  This is the view equivalent of @DeadboltPattern
+*Parameters*
+* value - the pattern value
+* patternType - the pattern type, i.e. REGEX or TREE
+
+*Examples*
+* @deadboltPattern("(.)*\\.edit") {
   foo
  }
 
