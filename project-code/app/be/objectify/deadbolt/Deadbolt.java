@@ -104,7 +104,7 @@ public class Deadbolt
     public static boolean viewDynamic(String name,
                                       String meta)
     {
-        DynamicResourceHandler resourceHandler = DEADBOLT_HANDLER.getDynamicResourceHandler();
+        DynamicResourceHandler resourceHandler = DEADBOLT_HANDLER.getDynamicResourceHandler(Http.Context.current());
         boolean allowed = false;
         if (resourceHandler == null)
         {
@@ -131,7 +131,7 @@ public class Deadbolt
      */
     public static boolean viewRoleHolderPresent()
     {
-        RoleHolder roleHolder = DEADBOLT_HANDLER.getRoleHolder();
+        RoleHolder roleHolder = DEADBOLT_HANDLER.getRoleHolder(Http.Context.current());
         boolean allowed = false;
 
         if (roleHolder != null)
@@ -150,7 +150,7 @@ public class Deadbolt
         switch (patternType)
         {
             case REGEX:
-                allowed = DeadboltAnalyzer.checkRegexPattern(DEADBOLT_HANDLER.getRoleHolder(),
+                allowed = DeadboltAnalyzer.checkRegexPattern(DEADBOLT_HANDLER.getRoleHolder(Http.Context.current()),
                                                              getPattern(value));
                 break;
             case TREE:

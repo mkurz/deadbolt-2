@@ -19,6 +19,7 @@ import be.objectify.deadbolt.AbstractDeadboltHandler;
 import be.objectify.deadbolt.DynamicResourceHandler;
 import be.objectify.deadbolt.models.RoleHolder;
 import models.User;
+import play.mvc.Http;
 import play.mvc.Result;
 import views.html.accessFailed;
 
@@ -27,26 +28,27 @@ import views.html.accessFailed;
  */
 public class MyAlternativeDeadboltHandler extends AbstractDeadboltHandler
 {
-    public Result beforeRoleCheck()
+    public Result beforeRoleCheck(Http.Context context)
     {
         // returning null means that everything is OK.  Return a real result if you want a redirect to a login page or
         // somewhere else
         return null;
     }
 
-    public RoleHolder getRoleHolder()
+    public RoleHolder getRoleHolder(Http.Context context)
     {
         // in a real application, the user name would probably be in the session following a login process
         return User.findByUserName("steve");
     }
 
-    public DynamicResourceHandler getDynamicResourceHandler()
+    public DynamicResourceHandler getDynamicResourceHandler(Http.Context context)
     {
         return new MyAlternativeDynamicResourceHandler();
     }
 
     @Override
-    public Result onAccessFailure(String content)
+    public Result onAccessFailure(Http.Context context,
+                                  String content)
     {
         // you can return any result from here - forbidden, etc
         return ok(accessFailed.render());

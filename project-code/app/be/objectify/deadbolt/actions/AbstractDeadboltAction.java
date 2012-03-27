@@ -111,7 +111,8 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
     {
         Logger.warn(String.format("Deadbolt: Access failure on [%s]",
                                   ctx.request().uri()));
-        return deadboltHandler.onAccessFailure(content);
+        return deadboltHandler.onAccessFailure(ctx,
+                                               content);
     }
 
     /**

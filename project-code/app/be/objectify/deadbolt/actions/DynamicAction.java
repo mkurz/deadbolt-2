@@ -32,7 +32,7 @@ public class DynamicAction extends AbstractRestrictiveAction<Dynamic>
     public Result applyRestriction(Http.Context ctx,
                                    DeadboltHandler deadboltHandler) throws Throwable
     {
-        DynamicResourceHandler resourceHandler = deadboltHandler.getDynamicResourceHandler();
+        DynamicResourceHandler resourceHandler = deadboltHandler.getDynamicResourceHandler(ctx);
         Result result;
 
         if (resourceHandler == null)

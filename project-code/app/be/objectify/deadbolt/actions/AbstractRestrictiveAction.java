@@ -37,7 +37,7 @@ public abstract class AbstractRestrictiveAction<T> extends AbstractDeadboltActio
         else
         {
             DeadboltHandler deadboltHandler = getDeadboltHandler(getDeadboltHandlerClass());
-            result = deadboltHandler.beforeRoleCheck();
+            result = deadboltHandler.beforeRoleCheck(ctx);
 
             if (result == null)
             {

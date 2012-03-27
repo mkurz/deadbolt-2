@@ -43,14 +43,14 @@ public class RequestUtils
             }
             else
             {
-                roleHolder = deadboltHandler.getRoleHolder();
+                roleHolder = deadboltHandler.getRoleHolder(ctx);
                 ctx.args.put(Deadbolt.CACHE_USER,
                              roleHolder);
             }
         }
         else
         {
-            roleHolder = deadboltHandler.getRoleHolder();
+            roleHolder = deadboltHandler.getRoleHolder(ctx);
         }
 
         return roleHolder;

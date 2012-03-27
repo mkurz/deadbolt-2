@@ -16,6 +16,7 @@
 package be.objectify.deadbolt;
 
 import be.objectify.deadbolt.models.RoleHolder;
+import play.mvc.Http;
 import play.mvc.Result;
 
 /**
@@ -31,32 +32,37 @@ public interface DeadboltHandler
      * Invoked immediately before controller or view restrictions are checked. This forms the integration with any
      * authentication actions that may need to occur.
      *
+     * @param context the HTTP context
      * @return the action result if an action other than the delegate must be taken, otherwise null. For a case where
      * the user is authenticated (or whatever your test condition is), this will be null otherwise the restriction
      * won't be applied.
      */
-    Result beforeRoleCheck();
+    Result beforeRoleCheck(Http.Context context);
 
     /**
      * Gets the current {@link RoleHolder}, e.g. the current user.
      *
+     * @param context the HTTP context
      * @return the current role holder
      */
-    RoleHolder getRoleHolder();
+    RoleHolder getRoleHolder(Http.Context context);
 
     /**
      * Invoked when an access failure is detected on <i>controllerClassName</i>.
      *
+     * @param context the HTTP context
      * @param content the content type hint.  This can be used to return a response in the appropriate content
      * type, e.g. JSON
      * @return the action result
      */
-    Result onAccessFailure(String content);
+    Result onAccessFailure(Http.Context context,
+                           String content);
 
     /**
      * Gets the handler used for dealing with resources restricted to specific users/groups.
      *
+     * @param context the HTTP context
      * @return the handler for restricted resources. May be null.
      */
-    DynamicResourceHandler getDynamicResourceHandler();
+    DynamicResourceHandler getDynamicResourceHandler(Http.Context context);
 }
