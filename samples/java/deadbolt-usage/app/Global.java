@@ -17,6 +17,7 @@
 import com.avaje.ebean.Ebean;
 import models.SecurityRole;
 import models.User;
+import models.UserPermission;
 import play.Application;
 import play.GlobalSettings;
 
@@ -41,6 +42,13 @@ public class Global extends GlobalSettings
             }
         }
 
+        if (UserPermission.find.findRowCount() == 0)
+        {
+            UserPermission permission = new UserPermission();
+            permission.value = "printers.edit";
+            permission.save();
+        }
+        
         if (User.find.findRowCount() == 0)
         {
             User user = new User();
@@ -48,10 +56,14 @@ public class Global extends GlobalSettings
             user.roles = new ArrayList<SecurityRole>();
             user.roles.add(SecurityRole.findByRoleName("foo"));
             user.roles.add(SecurityRole.findByRoleName("bar"));
+            user.permissions = new ArrayList<UserPermission>();
+            user.permissions.add(UserPermission.findByValue("printers.edit"));
 
             user.save();
             Ebean.saveManyToManyAssociations(user,
                                              "roles");
+            Ebean.saveManyToManyAssociations(user,
+                                             "permissions");
         }
     }
 }

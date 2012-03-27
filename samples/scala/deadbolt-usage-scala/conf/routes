@@ -18,9 +18,6 @@ GET     /restrictions5              controllers.RestrictionsController.restricti
 GET     /index                      controllers.DynamicRestrictionsController.index()
 GET     /pureLuck                   controllers.DynamicRestrictionsController.pureLuck()
 GET     /noWayJose                  controllers.DynamicRestrictionsController.noWayJose()
-GET     /regexIndex                 controllers.RegexPatternController.index()
-GET     /editPrinter                controllers.RegexPatternController.editPrinter()
-GET     /detonatePrinter            controllers.RegexPatternController.detonatePrinter()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -4,11 +4,7 @@
 @main("Deadbolt usage examples") {
 
 <h3>Set-up</h3>
-<ul>
-    <li>The current user has the roles "foo" and "bar".</li>
-    <li>The current user has the permission "printers.edit".</li>
-</ul>
-  For each example, the required roles will be stated, along with the
+The current user has the roles "foo" and "bar".  For each example, the required roles will be stated, along with the
 expected result.
 
 <h3>Controller restrictions</h3>
@@ -122,85 +118,4 @@ expected result.
         </ul>
     </li>
 </ul>
-
-<h4>DeadboltPattern</h4>
-<ul>
-    <li>
-        <a href="@routes.RegexPatternController.index">Index</a>
-        <ul>
-            <li>controller-level restriction that requires any permission to be present</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RegexPatternController.editPrinter">Edit printer</a>
-        <ul>
-            <li>method-level restriction requiring *.edit as a permission (regex: "(.)*\.edit")</li>
-            <li>may be visible, depends on your luck</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RegexPatternController.detonatePrinter">Detontate printer</a>
-        <ul>
-            <li>method-level restriction requiring *.detonate as a permission (regex: "(.)*\.detonate")</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-</ul>
-
-<h3>Tag restrictions</h3>
-
-<div class="tagSection">
-    Tag: restrict   Requires: foo and bar.  Expected result: contents are visible
-    <div class="box">
-        @restrict(la(as("foo", "bar"))) {
-        This content should be visible
-        }
-    </div>
-</div>
-
-<div class="tagSection">
-    Tag: restrict   Requires: foo or bar.  Expected result: contents are visible
-    <div class="box">
-        @restrict(la(as("foo"), as("bar"))) {
-        This content should be visible
-        }
-    </div>
-</div>
-
-<div class="tagSection">
-    Tag: restrict   Requires: foo but not bar.  Expected result: contents are not visible
-    <div class="box">
-        @restrict(la(as("foo", "!bar"))) {
-        This content should be visible
-        }
-    </div>
-</div>
-
-<div class="tagSection">
-    Tag: dynamic   Requires: the system time in milliseconds to be exactly divisible by 2.  Expected result: depends on your luck!  Refresh the page a few times to see it change.
-    <div class="box">
-        @dynamic("pureLuck") {
-        Looks like you got lucky!
-        }
-    </div>
-</div>
-
-<div class="tagSection">
-    Tag: deadboltPattern   Requires: The role holder to have a permission equivalent to *.edit (regex: "(.)*\.edit")  Expected result: contents are visible
-    <div class="box">
-        @deadboltPattern("(.)*\\.edit") {
-        This content should be visible
-        }
-    </div>
-</div>
-
-<div class="tagSection">
-    Tag: deadboltPattern   Requires: The role holder to have a permission equivalent to *.detonate (regex: "(.)*\.detonate")  Expected result: contents are not visible
-    <div class="box">
-        @deadboltPattern("(.)*\\.detonate") {
-        This content should not be visible
-        }
-    </div>
-</div>
 }

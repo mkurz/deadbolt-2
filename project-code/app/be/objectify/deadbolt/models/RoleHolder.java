@@ -25,4 +25,6 @@ import java.util.List;
 public interface RoleHolder
 {
     List<? extends Role> getRoles();
+
+    List<? extends Permission> getPermissions();
 }

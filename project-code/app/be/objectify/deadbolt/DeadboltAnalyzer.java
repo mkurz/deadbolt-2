@@ -15,11 +15,14 @@
  */
 package be.objectify.deadbolt;
 
+import be.objectify.deadbolt.models.Permission;
 import be.objectify.deadbolt.models.Role;
 import be.objectify.deadbolt.models.RoleHolder;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * This carries out static checks, e.g. for {@link be.objectify.deadbolt.actions.Restrict} and {@link be.objectify.deadbolt.actions.Restrictions}.
@@ -87,5 +90,25 @@ public class DeadboltAnalyzer
             }
         }
         return hasRole;
+    }
+    
+    public static boolean checkRegexPattern(RoleHolder roleHolder,
+                                           Pattern pattern)
+    {
+        boolean roleOk = false;
+        if (roleHolder != null)
+        {
+            List<? extends Permission> permissions = roleHolder.getPermissions();
+            if (permissions != null)
+            {
+                for (Iterator<? extends Permission> iterator = permissions.iterator(); !roleOk && iterator.hasNext(); )
+                {
+                    Permission permission = iterator.next();
+                    roleOk = pattern.matcher(permission.getValue()).matches();
+                }
+            }
+        }
+
+        return roleOk;
     }
 }

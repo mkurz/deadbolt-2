@@ -18,10 +18,14 @@ package be.objectify.deadbolt;
 import be.objectify.deadbolt.models.RoleHolder;
 import be.objectify.deadbolt.utils.RequestUtils;
 import play.Configuration;
+import play.Logger;
 import play.Play;
+import play.cache.Cache;
 import play.mvc.Http;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.regex.Pattern;
 
 /**
  * Provides the entry point for view-level annotations.  Also loads and stores the global {@link DeadboltHandler} given
@@ -136,5 +140,39 @@ public class Deadbolt
         }
 
         return allowed;
+    }
+    
+    public static boolean viewPattern(String value,
+                                      PatternType patternType) throws Exception
+    {
+        boolean allowed = false;
+        
+        switch (patternType)
+        {
+            case REGEX:
+                allowed = DeadboltAnalyzer.checkRegexPattern(DEADBOLT_HANDLER.getRoleHolder(),
+                                                             getPattern(value));
+                break;
+            case TREE:
+                Logger.error("Tree patterns are not yet supported");
+                break;
+            default:
+                Logger.error("Unknown pattern type: " + patternType);
+        }
+        
+        return allowed;
+    }
+
+    public static Pattern getPattern(final String patternValue) throws Exception
+    {
+        return Cache.getOrElse("Deadbolt." + patternValue,
+                               new Callable<Pattern>()
+                               {
+                                   public Pattern call() throws Exception
+                                   {
+                                       return Pattern.compile(patternValue);
+                                   }
+                               },
+                               0);
     }
 }

@@ -16,50 +16,35 @@
 package models;
 
 import be.objectify.deadbolt.models.Permission;
-import be.objectify.deadbolt.models.Role;
-import be.objectify.deadbolt.models.RoleHolder;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.List;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
 @Entity
-public class User extends Model implements RoleHolder
+public class UserPermission extends Model implements Permission
 {
     @Id
     public Long id;
-    
-    public String userName;
 
-    @ManyToMany
-    public List<SecurityRole> roles;
+    public String value;
 
-    @ManyToMany
-    public List<UserPermission> permissions;
+    public static final Model.Finder<Long, UserPermission> find = new Model.Finder<Long, UserPermission>(Long.class,
+                                                                                                         UserPermission.class);
 
-    public static final Finder<Long, User> find = new Finder<Long, User>(Long.class,
-                                                                         User.class);
-
-    public List<? extends Role> getRoles()
+    public String getValue()
     {
-        return roles;
+        return value;
     }
-    
-    public List<? extends Permission> getPermissions()
-    {
-        return permissions;
-    }
-    
-    public static User findByUserName(String userName)
+
+    public static UserPermission findByValue(String value)
     {
         return find.where()
-                   .eq("userName",
-                       userName)
+                   .eq("value",
+                       value)
                    .findUnique();
     }
 }
