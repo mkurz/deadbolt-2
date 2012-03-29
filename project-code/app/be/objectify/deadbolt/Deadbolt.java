@@ -15,75 +15,34 @@
  */
 package be.objectify.deadbolt;
 
-import be.objectify.deadbolt.models.RoleHolder;
-import be.objectify.deadbolt.utils.RequestUtils;
-import play.Configuration;
-import play.Logger;
-import play.Play;
-import play.cache.Cache;
-import play.mvc.Http;
-
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.regex.Pattern;
 
+import play.Logger;
+import play.cache.Cache;
+import play.mvc.Http;
+import be.objectify.deadbolt.models.RoleHolder;
+import be.objectify.deadbolt.utils.PluginUtils;
+import be.objectify.deadbolt.utils.RequestUtils;
+
 /**
- * Provides the entry point for view-level annotations.  Also loads and stores the global {@link DeadboltHandler} given
- * in application.conf.
+ * Provides the entry point for view-level annotations.
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
 public class Deadbolt
 {
-    public static final String DEADBOLT_HANDLER_KEY = "deadbolt.handler";
-
-    public static final String CACHE_USER = "deadbolt.cache-user";
-
-    public static boolean CACHE_USER_PER_REQUEST = false;
-
-    public static final DeadboltHandler DEADBOLT_HANDLER;
-
-    static
-    {
-        Configuration configuration = Play.application().configuration();
-
-        if (!configuration.keys().contains(DEADBOLT_HANDLER_KEY))
-        {
-            throw configuration.reportError(DEADBOLT_HANDLER_KEY,
-                                            "A Deadbolt handler must be defined",
-                                            null);
-        }
-
-        String deadboltHandlerName = null;
-        try
-        {
-
-            deadboltHandlerName = configuration.getString(DEADBOLT_HANDLER_KEY);
-            DEADBOLT_HANDLER = (DeadboltHandler)Class.forName(deadboltHandlerName).newInstance();
-        }
-        catch (Exception e)
-        {
-            throw configuration.reportError(DEADBOLT_HANDLER_KEY,
-                                            "Error creating Deadbolt handler: " + deadboltHandlerName,
-                                            e);
-        }
-
-        if (configuration.keys().contains(CACHE_USER))
-        {
-            CACHE_USER_PER_REQUEST = configuration.getBoolean(CACHE_USER);
-        }
-    }
-
     /**
      * Used for restrict tags in the template.
      *
      * @param roles a list of String arrays.  Within an array, the roles are ANDed.  The arrays in the list are OR'd.
      * @return true if the view can be accessed, otherwise false
      */
-    public static boolean viewRestrict(List<String[]> roles)
+    public static boolean viewRestrict(List<String[]> roles) throws Throwable
     {
         boolean roleOk = false;
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(DEADBOLT_HANDLER,
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getHandler(),
                                                            Http.Context.current());
         for (int i = 0; !roleOk && i < roles.size(); i++)
         {
@@ -102,9 +61,9 @@ public class Deadbolt
      * @return true if the view can be accessed, otherwise false
      */
     public static boolean viewDynamic(String name,
-                                      String meta)
+                                      String meta) throws Throwable
     {
-        DynamicResourceHandler resourceHandler = DEADBOLT_HANDLER.getDynamicResourceHandler(Http.Context.current());
+        DynamicResourceHandler resourceHandler = PluginUtils.getHandler().getDynamicResourceHandler(Http.Context.current());
         boolean allowed = false;
         if (resourceHandler == null)
         {
@@ -114,7 +73,7 @@ public class Deadbolt
         {
             if (resourceHandler.isAllowed(name,
                                           meta,
-                                          DEADBOLT_HANDLER,
+                                          PluginUtils.getHandler(),
                                           Http.Context.current()))
             {
                 allowed = true;
@@ -129,9 +88,9 @@ public class Deadbolt
      *
      * @return true if the view can be accessed, otherwise false
      */
-    public static boolean viewRoleHolderPresent()
+    public static boolean viewRoleHolderPresent() throws Throwable
     {
-        RoleHolder roleHolder = DEADBOLT_HANDLER.getRoleHolder(Http.Context.current());
+        RoleHolder roleHolder = PluginUtils.getHandler().getRoleHolder(Http.Context.current());
         boolean allowed = false;
 
         if (roleHolder != null)
@@ -150,7 +109,7 @@ public class Deadbolt
         switch (patternType)
         {
             case REGEX:
-                allowed = DeadboltAnalyzer.checkRegexPattern(DEADBOLT_HANDLER.getRoleHolder(Http.Context.current()),
+                allowed = DeadboltAnalyzer.checkRegexPattern(PluginUtils.getHandler().getRoleHolder(Http.Context.current()),
                                                              getPattern(value));
                 break;
             case TREE:

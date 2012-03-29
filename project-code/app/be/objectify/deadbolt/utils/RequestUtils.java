@@ -15,10 +15,11 @@
  */
 package be.objectify.deadbolt.utils;
 
-import be.objectify.deadbolt.Deadbolt;
-import be.objectify.deadbolt.DeadboltHandler;
-import be.objectify.deadbolt.models.RoleHolder;
+import play.Logger;
 import play.mvc.Http;
+import be.objectify.deadbolt.DeadboltHandler;
+import be.objectify.deadbolt.DeadboltPlugin;
+import be.objectify.deadbolt.models.RoleHolder;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
@@ -33,26 +34,30 @@ public class RequestUtils
     public static final RoleHolder getRoleHolder(DeadboltHandler deadboltHandler,
                                                  Http.Context ctx)
     {
-        Object cachedUser = ctx.args.get(Deadbolt.CACHE_USER);
-        RoleHolder roleHolder;
-        if (Deadbolt.CACHE_USER_PER_REQUEST)
-        {
-            if (cachedUser != null)
-            {
-                roleHolder = (RoleHolder)cachedUser;
-            }
-            else
-            {
-                roleHolder = deadboltHandler.getRoleHolder(ctx);
-                ctx.args.put(Deadbolt.CACHE_USER,
-                             roleHolder);
-            }
+        Object cachedUser = ctx.args.get(DeadboltPlugin.CACHE_USER);
+        RoleHolder roleHolder = null;
+        try {
+	        if (PluginUtils.isUserCacheEnabled())
+	        {
+	            if (cachedUser != null)
+	            {
+	                roleHolder = (RoleHolder)cachedUser;
+	            }
+	            else
+	            {
+	                roleHolder = deadboltHandler.getRoleHolder(ctx);
+	                ctx.args.put(DeadboltPlugin.CACHE_USER,
+	                             roleHolder);
+	            }
+	        }
+	        else
+	        {
+	            roleHolder = deadboltHandler.getRoleHolder(ctx);
+	        }
         }
-        else
-        {
-            roleHolder = deadboltHandler.getRoleHolder(ctx);
+        catch (Exception e) {
+        	Logger.error(e.getMessage());
         }
-
         return roleHolder;
     }
 }
