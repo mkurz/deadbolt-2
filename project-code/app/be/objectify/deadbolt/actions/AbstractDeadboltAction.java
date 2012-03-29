@@ -19,6 +19,7 @@ import be.objectify.deadbolt.Deadbolt;
 import be.objectify.deadbolt.DeadboltAnalyzer;
 import be.objectify.deadbolt.DeadboltHandler;
 import be.objectify.deadbolt.models.RoleHolder;
+import be.objectify.deadbolt.utils.PluginUtils;
 import be.objectify.deadbolt.utils.RequestUtils;
 import play.Configuration;
 import play.Logger;
@@ -48,7 +49,7 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
      * @param <C> the actual class of the DeadboltHandler
      * @return an instance of DeadboltHandler.
      */
-    protected <C extends DeadboltHandler> DeadboltHandler getDeadboltHandler(Class<C> deadboltHandlerClass)
+    protected <C extends DeadboltHandler> DeadboltHandler getDeadboltHandler(Class<C> deadboltHandlerClass) throws Throwable
     {
         DeadboltHandler deadboltHandler;
         if (deadboltHandlerClass != null
@@ -66,7 +67,7 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
         }
         else
         {
-            deadboltHandler = Deadbolt.DEADBOLT_HANDLER;
+            deadboltHandler = PluginUtils.getHandler();
         }
         return deadboltHandler;
     }
