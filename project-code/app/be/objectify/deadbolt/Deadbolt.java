@@ -100,14 +100,18 @@ public class Deadbolt
 
         return allowed;
     }
-    
+
     public static boolean viewPattern(String value,
                                       PatternType patternType) throws Exception
     {
         boolean allowed = false;
-        
+
         switch (patternType)
         {
+            case EQUALITY:
+                allowed = DeadboltAnalyzer.checkPatternEquality(PluginUtils.getHandler().getRoleHolder(Http.Context.current()),
+                                                                value);
+                break;
             case REGEX:
                 allowed = DeadboltAnalyzer.checkRegexPattern(PluginUtils.getHandler().getRoleHolder(Http.Context.current()),
                                                              getPattern(value));
@@ -115,10 +119,13 @@ public class Deadbolt
             case TREE:
                 Logger.error("Tree patterns are not yet supported");
                 break;
+            case CUSTOM:
+                Logger.error("Tree patterns are not yet supported");
+                break;
             default:
                 Logger.error("Unknown pattern type: " + patternType);
         }
-        
+
         return allowed;
     }
 

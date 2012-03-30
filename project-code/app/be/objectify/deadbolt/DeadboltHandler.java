@@ -34,8 +34,8 @@ public interface DeadboltHandler
      *
      * @param context the HTTP context
      * @return the action result if an action other than the delegate must be taken, otherwise null. For a case where
-     * the user is authenticated (or whatever your test condition is), this will be null otherwise the restriction
-     * won't be applied.
+     *         the user is authenticated (or whatever your test condition is), this will be null otherwise the restriction
+     *         won't be applied.
      */
     Result beforeRoleCheck(Http.Context context);
 
@@ -52,7 +52,7 @@ public interface DeadboltHandler
      *
      * @param context the HTTP context
      * @param content the content type hint.  This can be used to return a response in the appropriate content
-     * type, e.g. JSON
+     *                type, e.g. JSON
      * @return the action result
      */
     Result onAccessFailure(Http.Context context,

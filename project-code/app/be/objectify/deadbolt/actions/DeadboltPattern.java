@@ -48,7 +48,7 @@ public @interface DeadboltPattern
      *
      * @return the type of pattern matching
      */
-    PatternType patternType() default PatternType.REGEX;
+    PatternType patternType() default PatternType.EQUALITY;
 
     /**
      * Indicates the expected response type.  Useful when working with non-HTML responses.  This is free text, which you

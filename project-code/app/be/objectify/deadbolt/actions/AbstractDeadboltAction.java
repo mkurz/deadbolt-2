@@ -34,7 +34,7 @@ import play.mvc.Result;
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
-public abstract class AbstractDeadboltAction<T> extends Action<T> 
+public abstract class AbstractDeadboltAction<T> extends Action<T>
 {
     private static final String ACTION_AUTHORISED = "deadbolt.action-authorised";
 
@@ -46,10 +46,11 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
      * - the global handler defined in the application.conf by deadbolt.handler
      *
      * @param deadboltHandlerClass the DeadboltHandler class, if any, coming from the annotation. May be null.
-     * @param <C> the actual class of the DeadboltHandler
+     * @param <C>                  the actual class of the DeadboltHandler
      * @return an instance of DeadboltHandler.
      */
-    protected <C extends DeadboltHandler> DeadboltHandler getDeadboltHandler(Class<C> deadboltHandlerClass) throws Throwable
+    protected <C extends DeadboltHandler> DeadboltHandler getDeadboltHandler(Class<C> deadboltHandlerClass) throws
+                                                                                                            Throwable
     {
         DeadboltHandler deadboltHandler;
         if (deadboltHandlerClass != null
@@ -73,7 +74,6 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
     }
 
     /**
-     *
      * @param roleHolder
      * @param roleNames
      * @return
@@ -86,7 +86,6 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
     }
 
     /**
-     *
      * @param roleHolder
      * @param roleNames
      * @return
@@ -102,8 +101,8 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
      * Wrapper for {@link DeadboltHandler#onAccessFailure} to ensure the access failure is logged.
      *
      * @param deadboltHandler the Deadbolt handler
-     * @param content the content type hint
-     * @param ctx th request context
+     * @param content         the content type hint
+     * @param ctx             th request context
      * @return the result of {@link DeadboltHandler#onAccessFailure}
      */
     protected Result onAccessFailure(DeadboltHandler deadboltHandler,
@@ -120,7 +119,7 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
      * Gets the {@link RoleHolder} from the {@link DeadboltHandler}, and logs an error if it's not present. Note that
      * at least one actions ({@link Unrestricted} does not not require a RoleHolder to be present.
      *
-     * @param ctx the request context
+     * @param ctx             the request context
      * @param deadboltHandler the Deadbolt handler
      * @return the RoleHolder, if any
      */
@@ -169,7 +168,7 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
     protected boolean isActionAuthorised(Http.Context ctx)
     {
         Object o = ctx.args.get(ACTION_AUTHORISED);
-        return o != null && (Boolean)o;
+        return o != null && (Boolean) o;
     }
 
     /**
@@ -181,6 +180,6 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
     protected boolean isActionUnauthorised(Http.Context ctx)
     {
         Object o = ctx.args.get(ACTION_UNAUTHORISED);
-        return o != null && (Boolean)o;
+        return o != null && (Boolean) o;
     }
 }

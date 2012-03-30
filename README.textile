@@ -22,7 +22,7 @@ need to update the Build.scala of your application to add a repository resolver 
 an example.
 
 The dependency declaration is
-"be.objectify" % "deadbolt-2_2.9.1" % "1.0"
+"be.objectify" % "deadbolt-2_2.9.1" % "1.1.1-SNAPSHOT"
 
 h2. Controller restrictions
 
@@ -90,7 +90,7 @@ controller level or method level.
 *Used for* Evaluating regular expressions or inference trees against user permissions
 *Parameters*
 * value - the pattern
-* patternType - indicates the type of pattern, either REGEX or TREE.  REGEX is the default value.
+* patternType - indicates the type of pattern, either EQUALITY, REGEX , TREE or CUSTOM.  EQUALITY is the default value.
 * content - indicates the response format in case of access failure
 * handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
 

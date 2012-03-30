@@ -35,13 +35,17 @@ import java.util.regex.Pattern;
 public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPattern>
 {
     @Override
-    public Result applyRestriction(Http.Context ctx, 
+    public Result applyRestriction(Http.Context ctx,
                                    DeadboltHandler deadboltHandler) throws Throwable
     {
         Result result;
-        
+
         switch (configuration.patternType())
         {
+            case EQUALITY:
+                result = equality(ctx,
+                                  deadboltHandler);
+                break;
             case REGEX:
                 result = regex(ctx,
                                deadboltHandler);
@@ -50,6 +54,9 @@ public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPat
                 result = tree(ctx,
                               deadboltHandler);
                 break;
+            case CUSTOM:
+                result = custom(ctx,
+                                deadboltHandler);
             default:
                 throw new RuntimeException("Unknown pattern type: " + configuration.patternType());
         }
@@ -57,19 +64,50 @@ public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPat
         return result;
     }
 
+    private Result custom(Http.Context ctx,
+                          DeadboltHandler deadboltHandler) throws Throwable
+    {
+        throw new UnsupportedOperationException("Custom patterns are not yet supported");
+    }
+
+    private Result equality(Http.Context ctx,
+                            DeadboltHandler deadboltHandler) throws Throwable
+    {
+        Result result;
+
+        final String patternValue = configuration.value();
+
+        if (DeadboltAnalyzer.checkPatternEquality(getRoleHolder(ctx,
+                                                                deadboltHandler),
+                                                  patternValue))
+        {
+            markActionAsAuthorised(ctx);
+            result = delegate.call(ctx);
+        }
+        else
+        {
+            markActionAsUnauthorised(ctx);
+            result = onAccessFailure(deadboltHandler,
+                                     configuration.content(),
+                                     ctx);
+        }
+
+        return result;
+    }
+
     /**
      * Checks access to the resource based on the regex
-     * 
-     * @param ctx the HTTP context
+     *
+     * @param ctx             the HTTP context
      * @param deadboltHandler the Deadbolt handler
      * @return the necessary result
      * @throws Throwable if something needs throwing
      */
-    private Result regex(Http.Context ctx, 
+    private Result regex(Http.Context ctx,
                          DeadboltHandler deadboltHandler) throws Throwable
     {
         Result result;
-        
+
         final String patternValue = configuration.value();
         Pattern pattern = Deadbolt.getPattern(patternValue);
 
@@ -87,14 +125,14 @@ public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPat
                                      configuration.content(),
                                      ctx);
         }
-        
+
         return result;
     }
 
     /**
      * Checks access to the resource based on the permission tree
      *
-     * @param ctx the HTTP context
+     * @param ctx             the HTTP context
      * @param deadboltHandler the Deadbolt handler
      * @return the necessary result
      * @throws Throwable if something needs throwing
@@ -104,7 +142,7 @@ public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPat
     {
         throw new UnsupportedOperationException("Tree patterns are not yet supported");
     }
-    
+
     @Override
     public Class<? extends DeadboltHandler> getDeadboltHandlerClass()
     {

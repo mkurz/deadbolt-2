@@ -1,5 +1,5 @@
 @(roles: List[Array[String]], args: (Symbol,String)*)(body: => Html)
 
 @if(be.objectify.deadbolt.Deadbolt.viewRestrict(roles)) {
-    @body
+@body
 }

@@ -35,7 +35,7 @@ public class DeadboltAnalyzer
      * Checks if the roleHolder has all the role names.  In other words, this gives AND support.
      *
      * @param roleHolder the role holder
-     * @param roleNames the role names.  Any role name starting with ! will be negated.
+     * @param roleNames  the role names.  Any role name starting with ! will be negated.
      * @return true if the role holder meets the restrictions (so access will be allowed), otherwise false
      */
     public static boolean checkRole(RoleHolder roleHolder,
@@ -91,9 +91,9 @@ public class DeadboltAnalyzer
         }
         return hasRole;
     }
-    
+
     public static boolean checkRegexPattern(RoleHolder roleHolder,
-                                           Pattern pattern)
+                                            Pattern pattern)
     {
         boolean roleOk = false;
         if (roleHolder != null)
@@ -105,6 +105,26 @@ public class DeadboltAnalyzer
                 {
                     Permission permission = iterator.next();
                     roleOk = pattern.matcher(permission.getValue()).matches();
+                }
+            }
+        }
+
+        return roleOk;
+    }
+
+    public static boolean checkPatternEquality(RoleHolder roleHolder,
+                                               String patternValue)
+    {
+        boolean roleOk = false;
+        if (roleHolder != null)
+        {
+            List<? extends Permission> permissions = roleHolder.getPermissions();
+            if (permissions != null)
+            {
+                for (Iterator<? extends Permission> iterator = permissions.iterator(); !roleOk && iterator.hasNext(); )
+                {
+                    Permission permission = iterator.next();
+                    roleOk = patternValue.equals(permission.getValue());
                 }
             }
         }

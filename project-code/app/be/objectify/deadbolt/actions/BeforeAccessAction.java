@@ -26,7 +26,9 @@ import play.mvc.Result;
  */
 public class BeforeAccessAction extends AbstractDeadboltAction<BeforeAccess>
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Result call(Http.Context ctx) throws Throwable
     {

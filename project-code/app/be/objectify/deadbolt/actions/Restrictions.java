@@ -27,14 +27,14 @@ import java.lang.annotation.Target;
 
 /**
  * Within an {@link And} roles are ANDed, and between {@link And} the role groups are ORed.  For example,
+ *
+ * @author Steve Chaloner (steve@objectify.be)
  * @Restrictions({@And("foo"), @And("hurdy", "gurdy)}) means the {@link be.objectify.deadbolt.models.RoleHolder} must have either the
  * foo role OR both the hurdy AND gurdy roles.
- *
+ * <p/>
  * Role names that start with ! are negated, so @Restrictions({@And("foo", "bar"), @And("hurdy", "!gurdy")}) requires
  * the {@link be.objectify.deadbolt.models.RoleHolder} to have either the foo role AND the bar roles, or the hurdy AND NOT the gurdy
  * roles.
- *
- * @author Steve Chaloner (steve@objectify.be)
  */
 @With(RestrictionsAction.class)
 @Retention(RetentionPolicy.RUNTIME)
@@ -45,6 +45,7 @@ public @interface Restrictions
 {
     /**
      * Within an {@link And}, the relation is AND.  Between {@link And}s, the relationship is OR.
+     *
      * @return
      */
     And[] value();

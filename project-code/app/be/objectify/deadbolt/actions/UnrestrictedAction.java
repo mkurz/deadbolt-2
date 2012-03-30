@@ -25,7 +25,9 @@ import play.mvc.Result;
  */
 public class UnrestrictedAction extends AbstractDeadboltAction<Unrestricted>
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Result call(Http.Context ctx) throws Throwable
     {

@@ -24,7 +24,7 @@ import java.lang.annotation.RetentionPolicy;
  * - it allows a 2-dimensional array as an annotation parameter
  * - re-using the {@link Restrict} annotation to parameterize isn't possible, because Play will apply
  * {@link RestrictAction}s to the individual parameters
- *
+ * <p/>
  * The semantics are the same as {@link Restrict}, e.g. @And({"foo", "bar"}) , for example, requires the
  * {@link be.objectify.deadbolt.models.RoleHolder} to have both the foo and bar roles.
  *

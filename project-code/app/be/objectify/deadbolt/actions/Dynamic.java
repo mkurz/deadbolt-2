@@ -48,7 +48,7 @@ public @interface Dynamic
     /**
      * Additional information when deciding on access to the resource.  It's a free formatted string, so you can pass
      * simple data or more complex string such as foo=bar,hurdy=gurdy which can be parsed into a map>
-     * 
+     *
      * @return the meta information
      */
     String meta() default "";
@@ -56,7 +56,7 @@ public @interface Dynamic
     /**
      * Indicates the expected response type.  Useful when working with non-HTML responses.  This is free text, which you
      * can use in {@link be.objectify.deadbolt.DeadboltHandler#onAccessFailure} to decide on how to handle the response.
-     * 
+     *
      * @return a content indicator
      */
     String content() default "";

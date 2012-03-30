@@ -29,6 +29,6 @@ public class CollectionUtils
 
     public static boolean isEmpty(Collection c)
     {
-        return c == null ||  c.isEmpty();
+        return c == null || c.isEmpty();
     }
 }

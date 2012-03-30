@@ -23,6 +23,7 @@ import play.mvc.Result;
 /**
  * Implements the {@link Restrict} functionality, i.e. a single set of ANDed roles.
  * ,
+ *
  * @author Steve Chaloner (steve@objectify.be)
  */
 public class RestrictAction extends AbstractRestrictiveAction<Restrict>

@@ -1,3 +1,4 @@
+@import be.objectify.deadbolt.PatternType
 @import be.objectify.deadbolt.views.html._
 @import be.objectify.deadbolt.utils.TemplateUtils._
 
@@ -5,8 +6,8 @@
 
 <h3>Set-up</h3>
 <ul>
-    <li>The current user has the roles "foo" and "bar".</li>
-    <li>The current user has the permission "printers.edit".</li>
+    <li>The current user has the roles "foo" and "bar".</li>printers.edit
+    <li>The current user has the permission "".</li>
 </ul>
   For each example, the required roles will be stated, along with the
 expected result.
@@ -187,9 +188,27 @@ expected result.
 </div>
 
 <div class="tagSection">
+    Tag: deadboltPattern   Requires: The role holder to have a permission exactly equal to "printers.edit"  Expected result: contents are visible
+    <div class="box">
+        @deadboltPattern("printers.edit") {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: deadboltPattern   Requires: The role holder to have a permission exactly equal to "printers.print"  Expected result: contents are not visible
+    <div class="box">
+        @deadboltPattern("printers.print") {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
     Tag: deadboltPattern   Requires: The role holder to have a permission equivalent to *.edit (regex: "(.)*\.edit")  Expected result: contents are visible
     <div class="box">
-        @deadboltPattern("(.)*\\.edit") {
+        @deadboltPattern("(.)*\\.edit", PatternType.REGEX) {
         This content should be visible
         }
     </div>
@@ -198,7 +217,7 @@ expected result.
 <div class="tagSection">
     Tag: deadboltPattern   Requires: The role holder to have a permission equivalent to *.detonate (regex: "(.)*\.detonate")  Expected result: contents are not visible
     <div class="box">
-        @deadboltPattern("(.)*\\.detonate") {
+        @deadboltPattern("(.)*\\.detonate", PatternType.REGEX) {
         This content should not be visible
         }
     </div>

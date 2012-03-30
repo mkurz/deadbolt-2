@@ -30,33 +30,35 @@ public class RequestUtils
     {
         // no-op
     }
-    
+
     public static final RoleHolder getRoleHolder(DeadboltHandler deadboltHandler,
                                                  Http.Context ctx)
     {
         Object cachedUser = ctx.args.get(DeadboltPlugin.CACHE_USER);
         RoleHolder roleHolder = null;
-        try {
-	        if (PluginUtils.isUserCacheEnabled())
-	        {
-	            if (cachedUser != null)
-	            {
-	                roleHolder = (RoleHolder)cachedUser;
-	            }
-	            else
-	            {
-	                roleHolder = deadboltHandler.getRoleHolder(ctx);
-	                ctx.args.put(DeadboltPlugin.CACHE_USER,
-	                             roleHolder);
-	            }
-	        }
-	        else
-	        {
-	            roleHolder = deadboltHandler.getRoleHolder(ctx);
-	        }
+        try
+        {
+            if (PluginUtils.isUserCacheEnabled())
+            {
+                if (cachedUser != null)
+                {
+                    roleHolder = (RoleHolder) cachedUser;
+                }
+                else
+                {
+                    roleHolder = deadboltHandler.getRoleHolder(ctx);
+                    ctx.args.put(DeadboltPlugin.CACHE_USER,
+                                 roleHolder);
+                }
+            }
+            else
+            {
+                roleHolder = deadboltHandler.getRoleHolder(ctx);
+            }
         }
-        catch (Exception e) {
-        	Logger.error(e.getMessage());
+        catch (Exception e)
+        {
+            Logger.error(e.getMessage());
         }
         return roleHolder;
     }

@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
 /**
  * An ANDed set of restrictions.  @Restrict({"foo", "bar"}) , for example, requires the {@link be.objectify.deadbolt.models.RoleHolder}
  * to have both the foo and bar roles.
- *
+ * <p/>
  * Role names that start with ! are negated, so @Restrict({"foo", "!bar"}) requires the {@link be.objectify.deadbolt.models.RoleHolder}
  * to have the foo role AND NOT the bar role.
  *

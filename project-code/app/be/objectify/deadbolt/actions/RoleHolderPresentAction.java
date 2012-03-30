@@ -28,7 +28,9 @@ import play.mvc.Result;
  */
 public class RoleHolderPresentAction extends AbstractDeadboltAction<RoleHolderPresent>
 {
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Result call(Http.Context ctx) throws Throwable
     {

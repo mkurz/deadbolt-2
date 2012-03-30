@@ -21,6 +21,11 @@ package be.objectify.deadbolt;
 public enum PatternType
 {
     /**
+     * Checks the pattern against the permissions of the user.  Exact, case-sensitive matches only!
+     */
+    EQUALITY,
+
+    /**
      * A standard regular expression that will be evaluated against the permissions of the RoleHolder
      */
     REGEX,
@@ -28,5 +33,10 @@ public enum PatternType
     /**
      * A tree of permissions that allows implications.  Note this isn't available yet!
      */
-    TREE
+    TREE,
+
+    /**
+     * Perform some custom matching on the pattern.  Note this isn't implemented yet!
+     */
+    CUSTOM
 }

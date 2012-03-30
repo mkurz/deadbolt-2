@@ -29,6 +29,7 @@ public class TemplateUtils
 {
     /**
      * Converts the arguments into a String array.  Convenience method for templates.
+     *
      * @param args the arguments
      * @return the arguments as an array
      */
@@ -39,6 +40,7 @@ public class TemplateUtils
 
     /**
      * Converts the argument array into a List of String arrays.  Convenience method for templates.
+     *
      * @param args the arguments
      * @return
      */

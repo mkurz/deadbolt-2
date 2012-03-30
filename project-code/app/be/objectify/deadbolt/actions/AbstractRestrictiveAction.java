@@ -21,7 +21,7 @@ import play.mvc.Result;
 
 /**
  * Convenience class for checking if an qction has already been authorised before applying the restrictions.
- * 
+ *
  * @author Steve Chaloner (steve@objectify.be)
  */
 public abstract class AbstractRestrictiveAction<T> extends AbstractDeadboltAction<T>
