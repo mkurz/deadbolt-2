@@ -59,7 +59,6 @@ public class TemplateUtils
      */
     public static RoleHolder roleHolder() throws Throwable
     {
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getHandler(), Http.Context.current());
-        return roleHolder;
+        return RequestUtils.getRoleHolder(PluginUtils.getHandler(), Http.Context.current());
     }
 }
