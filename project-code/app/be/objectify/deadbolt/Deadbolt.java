@@ -90,7 +90,7 @@ public class Deadbolt
      */
     public static boolean viewRoleHolderPresent() throws Throwable
     {
-        RoleHolder roleHolder = PluginUtils.getHandler().getRoleHolder(Http.Context.current());
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getHandler(), Http.Context.current());
         boolean allowed = false;
 
         if (roleHolder != null)
@@ -109,11 +109,11 @@ public class Deadbolt
         switch (patternType)
         {
             case EQUALITY:
-                allowed = DeadboltAnalyzer.checkPatternEquality(PluginUtils.getHandler().getRoleHolder(Http.Context.current()),
+                allowed = DeadboltAnalyzer.checkPatternEquality(RequestUtils.getRoleHolder(PluginUtils.getHandler(), Http.Context.current()),
                                                                 value);
                 break;
             case REGEX:
-                allowed = DeadboltAnalyzer.checkRegexPattern(PluginUtils.getHandler().getRoleHolder(Http.Context.current()),
+                allowed = DeadboltAnalyzer.checkRegexPattern(RequestUtils.getRoleHolder(PluginUtils.getHandler(), Http.Context.current()),
                                                              getPattern(value));
                 break;
             case TREE:
