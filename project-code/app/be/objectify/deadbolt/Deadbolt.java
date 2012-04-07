@@ -63,7 +63,8 @@ public class Deadbolt
     public static boolean viewDynamic(String name,
                                       String meta) throws Throwable
     {
-        DynamicResourceHandler resourceHandler = PluginUtils.getHandler().getDynamicResourceHandler(Http.Context.current());
+        Http.Context context = Http.Context.current();
+        DynamicResourceHandler resourceHandler = PluginUtils.getHandler().getDynamicResourceHandler(context);
         boolean allowed = false;
         if (resourceHandler == null)
         {
@@ -74,7 +75,7 @@ public class Deadbolt
             if (resourceHandler.isAllowed(name,
                                           meta,
                                           PluginUtils.getHandler(),
-                                          Http.Context.current()))
+                                          context))
             {
                 allowed = true;
             }
@@ -90,7 +91,8 @@ public class Deadbolt
      */
     public static boolean viewRoleHolderPresent() throws Throwable
     {
-        RoleHolder roleHolder = PluginUtils.getHandler().getRoleHolder(Http.Context.current());
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getHandler(),
+                                                           Http.Context.current());
         boolean allowed = false;
 
         if (roleHolder != null)
@@ -106,21 +108,27 @@ public class Deadbolt
     {
         boolean allowed = false;
 
+        Http.Context context = Http.Context.current();
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getHandler(),
+                                                           context);
         switch (patternType)
         {
             case EQUALITY:
-                allowed = DeadboltAnalyzer.checkPatternEquality(PluginUtils.getHandler().getRoleHolder(Http.Context.current()),
+                allowed = DeadboltAnalyzer.checkPatternEquality(roleHolder,
                                                                 value);
                 break;
             case REGEX:
-                allowed = DeadboltAnalyzer.checkRegexPattern(PluginUtils.getHandler().getRoleHolder(Http.Context.current()),
+                allowed = DeadboltAnalyzer.checkRegexPattern(roleHolder,
                                                              getPattern(value));
                 break;
             case TREE:
                 Logger.error("Tree patterns are not yet supported");
                 break;
             case CUSTOM:
-                Logger.error("Tree patterns are not yet supported");
+                allowed = DeadboltAnalyzer.checkCustomPattern(roleHolder,
+                                                              PluginUtils.getHandler(),
+                                                              context,
+                                                              value);
                 break;
             default:
                 Logger.error("Unknown pattern type: " + patternType);

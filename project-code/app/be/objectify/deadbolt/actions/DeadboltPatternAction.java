@@ -18,15 +18,10 @@ package be.objectify.deadbolt.actions;
 import be.objectify.deadbolt.Deadbolt;
 import be.objectify.deadbolt.DeadboltAnalyzer;
 import be.objectify.deadbolt.DeadboltHandler;
-import be.objectify.deadbolt.models.Permission;
-import be.objectify.deadbolt.models.RoleHolder;
-import play.cache.Cache;
+import be.objectify.deadbolt.DynamicResourceHandler;
 import play.mvc.Http;
 import play.mvc.Result;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.regex.Pattern;
 
 /**
@@ -67,7 +62,31 @@ public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPat
     private Result custom(Http.Context ctx,
                           DeadboltHandler deadboltHandler) throws Throwable
     {
-        throw new UnsupportedOperationException("Custom patterns are not yet supported");
+        DynamicResourceHandler resourceHandler = deadboltHandler.getDynamicResourceHandler(ctx);
+        Result result;
+
+        if (resourceHandler == null)
+        {
+            throw new RuntimeException("A custom permission type is specified but no dynamic resource handler is provided");
+        }
+        else
+        {
+            if (resourceHandler.checkPermission(configuration.value(),
+                                                deadboltHandler,
+                                                ctx))
+            {
+                markActionAsAuthorised(ctx);
+                result = delegate.call(ctx);
+            }
+            else
+            {
+                markActionAsUnauthorised(ctx);
+                result = onAccessFailure(deadboltHandler,
+                                         configuration.content(),
+                                         ctx);
+            }
+        }
+        return result;
     }
 
     private Result equality(Http.Context ctx,

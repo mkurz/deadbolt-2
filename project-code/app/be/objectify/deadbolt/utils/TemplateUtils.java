@@ -15,6 +15,9 @@
  */
 package be.objectify.deadbolt.utils;
 
+import be.objectify.deadbolt.models.RoleHolder;
+import play.mvc.Http;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -47,5 +50,15 @@ public class TemplateUtils
     public static List<String[]> la(String[]... args)
     {
         return Arrays.asList(args);
+    }
+
+    /**
+     * Used for roleHolder tags in the template.
+     *
+     * @return the current role holder
+     */
+    public static RoleHolder roleHolder() throws Throwable
+    {
+        return RequestUtils.getRoleHolder(PluginUtils.getHandler(), Http.Context.current());
     }
 }

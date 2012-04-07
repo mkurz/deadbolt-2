@@ -17,31 +17,20 @@ package security;
 
 import be.objectify.deadbolt.DeadboltHandler;
 import be.objectify.deadbolt.DynamicResourceHandler;
-import play.Logger;
 import play.mvc.Http;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-public class MyAlternativeDynamicResourceHandler implements DynamicResourceHandler
+public abstract class AbstractDynamicResourceHandler implements DynamicResourceHandler
 {
-    public boolean isAllowed(String name,
-                             String meta,
-                             DeadboltHandler deadboltHandler,
-                             Http.Context context)
+    public boolean checkPermission(String permissionValue, DeadboltHandler deadboltHandler, Http.Context ctx)
     {
-        // look something up in an LDAP directory, etc, and the answer isn't good for the user
         return false;
     }
 
-    public boolean checkPermission(String permissionValue,
-                                   DeadboltHandler deadboltHandler,
-                                   Http.Context ctx)
+    public boolean isAllowed(String name, String meta, DeadboltHandler deadboltHandler, Http.Context ctx)
     {
-        // Computer says no
         return false;
     }
 }

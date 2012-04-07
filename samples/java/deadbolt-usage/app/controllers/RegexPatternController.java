@@ -15,6 +15,7 @@
  */
 package controllers;
 
+import be.objectify.deadbolt.PatternType;
 import be.objectify.deadbolt.actions.DeadboltPattern;
 import be.objectify.deadbolt.actions.Dynamic;
 import be.objectify.deadbolt.actions.RoleHolderPresent;
@@ -26,7 +27,7 @@ import views.html.accessOk;
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-@DeadboltPattern(value = ".*")
+@DeadboltPattern(value = ".*", patternType = PatternType.REGEX)
 public class RegexPatternController extends Controller
 {
     public static Result index()
@@ -34,13 +35,13 @@ public class RegexPatternController extends Controller
         return ok(accessOk.render());
     }
 
-    @DeadboltPattern("(.)*\\.edit")
+    @DeadboltPattern(value = "(.)*\\.edit", patternType = PatternType.REGEX)
     public static Result editPrinter()
     {
         return ok(accessOk.render());
     }
 
-    @DeadboltPattern("(.)*\\.detonate")
+    @DeadboltPattern(value = "(.)*\\.detonate", patternType = PatternType.REGEX)
     public static Result detonatePrinter()
     {
         return ok(accessOk.render());

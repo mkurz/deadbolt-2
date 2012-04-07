@@ -67,4 +67,17 @@ public interface DynamicResourceHandler
                       String meta,
                       DeadboltHandler deadboltHandler,
                       Http.Context ctx);
+
+    /**
+     * Invoked when a {@link be.objectify.deadbolt.actions.DeadboltPattern} with a {@link PatternType#CUSTOM} type is
+     * used.
+     *
+     * @param permissionValue the permission value
+     * @param deadboltHandler the current {@link DeadboltHandler}
+     * @param ctx the context of the current request
+     * @return true if access based on the permission is  allowed, otherwise false
+     */
+    boolean checkPermission(String permissionValue,
+                            DeadboltHandler deadboltHandler,
+                            Http.Context ctx);
 }

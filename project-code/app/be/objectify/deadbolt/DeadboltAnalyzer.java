@@ -18,6 +18,7 @@ package be.objectify.deadbolt;
 import be.objectify.deadbolt.models.Permission;
 import be.objectify.deadbolt.models.Role;
 import be.objectify.deadbolt.models.RoleHolder;
+import play.mvc.Http;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -130,5 +131,27 @@ public class DeadboltAnalyzer
         }
 
         return roleOk;
+    }
+
+    public static boolean checkCustomPattern(RoleHolder roleHolder,
+                                             DeadboltHandler handler,
+                                             Http.Context context,
+                                             String value)
+    {
+        boolean patternOk = false;
+
+        DynamicResourceHandler dynamicResourceHandler = handler.getDynamicResourceHandler(context);
+        if (dynamicResourceHandler == null)
+        {
+            throw new RuntimeException("A custom permission type is specified but no dynamic resource handler is provided");
+        }
+        else
+        {
+            patternOk = dynamicResourceHandler.checkPermission(value,
+                                                               handler,
+                                                               context);
+        }
+
+        return patternOk;
     }
 }
