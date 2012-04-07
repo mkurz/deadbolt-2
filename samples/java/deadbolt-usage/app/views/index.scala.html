@@ -124,7 +124,25 @@ expected result.
     </li>
 </ul>
 
-<h4>DeadboltPattern</h4>
+<h4>DeadboltPattern - equality</h4>
+<ul>
+    <li>
+        <a href="@routes.EqualityPatternController.index">Index</a>
+        <ul>
+            <li>controller-level restriction that requires printers.edit as a permission</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.EqualityPatternController.detonatePrinter">Detonate printer</a>
+        <ul>
+            <li>controller-level restriction that requires printers.detonate as a permission</li>
+            <li>should not be visible</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>DeadboltPattern - regex</h4>
 <ul>
     <li>
         <a href="@routes.RegexPatternController.index">Index</a>
