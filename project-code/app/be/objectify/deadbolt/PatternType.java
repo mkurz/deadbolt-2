@@ -31,11 +31,6 @@ public enum PatternType
     REGEX,
 
     /**
-     * A tree of permissions that allows implications.  Note this isn't available yet!
-     */
-    TREE,
-
-    /**
      * Perform some custom matching on the pattern.  Note this isn't implemented yet!
      */
     CUSTOM

@@ -121,9 +121,6 @@ public class Deadbolt
                 allowed = DeadboltAnalyzer.checkRegexPattern(roleHolder,
                                                              getPattern(value));
                 break;
-            case TREE:
-                Logger.error("Tree patterns are not yet supported");
-                break;
             case CUSTOM:
                 allowed = DeadboltAnalyzer.checkCustomPattern(roleHolder,
                                                               PluginUtils.getHandler(),

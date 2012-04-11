@@ -7,3 +7,5 @@ tmp
 .idea
 project-code/deadbolt-2.iml
 samples/java/deadbolt-usage/deadbolt-usage.iml
+*.iml
+samples/java/deadbolt-usage/conf/evolutions

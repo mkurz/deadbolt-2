@@ -45,10 +45,6 @@ public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPat
                 result = regex(ctx,
                                deadboltHandler);
                 break;
-            case TREE:
-                result = tree(ctx,
-                              deadboltHandler);
-                break;
             case CUSTOM:
                 result = custom(ctx,
                                 deadboltHandler);
@@ -146,20 +142,6 @@ public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPat
         }
 
         return result;
-    }
-
-    /**
-     * Checks access to the resource based on the permission tree
-     *
-     * @param ctx             the HTTP context
-     * @param deadboltHandler the Deadbolt handler
-     * @return the necessary result
-     * @throws Throwable if something needs throwing
-     */
-    private Result tree(Http.Context ctx,
-                        DeadboltHandler deadboltHandler) throws Throwable
-    {
-        throw new UnsupportedOperationException("Tree patterns are not yet supported");
     }
 
     @Override

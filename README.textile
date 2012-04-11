@@ -13,6 +13,15 @@ deadbolt.handler=fully-qualified name of your implementation
 Deadbolt doesn't cache the role holder within the same request by default.  You can enable this (typically with performance benefits) by add this to application.conf
 deadbolt.cache-user=true
 
+h3. A note on contexts
+This issue was reported in github by jblipphaus:
+When getting a result through my DeadboltHandler I recognized, that the current Http.Context seems to "get lost", for example the @Messages("foo") call does not work any longer. So I had to add the following to the DeadboltHandler in my project:
+
+public Result onAccessFailure(Http.Context context, String s) {
+    Http.Context.current.set(context); // <-- this is needed to have a current Http.Context
+    return ok(views.html.index.render());
+}
+The same with the 'beforeRoleCheck' method.
 
 h2. Installing Deadbolt
 
@@ -22,7 +31,7 @@ need to update the Build.scala of your application to add a repository resolver 
 an example.
 
 The dependency declaration is
-"be.objectify" % "deadbolt-2_2.9.1" % "1.1.1-SNAPSHOT"
+"be.objectify" % "deadbolt-2_2.9.1" % "1.1.1"
 
 h2. Controller restrictions
 
@@ -87,20 +96,18 @@ controller level or method level.
 
 
 *Name* DeadboltPattern
-*Used for* Evaluating regular expressions or inference trees against user permissions
+*Used for* Evaluating exact matches, regular expressions or custom values against user permissions
 *Parameters*
 * value - the pattern
-* patternType - indicates the type of pattern, either EQUALITY, REGEX , TREE or CUSTOM.  EQUALITY is the default value.
+* patternType - indicates the type of pattern, either EQUALITY, REGEX or CUSTOM.  EQUALITY is the default value.
 * content - indicates the response format in case of access failure
 * handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
 
 *Examples*
 * @DeadboltPattern("(.)*\\.edit")
-* @DeadboltPattern("printers.*.edit", patternType=PatternType.TREE)
 
 Notes:
 * Regular expressions are cached for efficiency
-* TREE isn't implemented yet, this is still under development
 
 h2. View restrictions
 
@@ -158,13 +165,16 @@ Notes:
 
 
 *Name* deadboltPattern
-*Used for* checking regexs or inference trees against user permissions.  This is the view equivalent of @DeadboltPattern
+*Used for* checking exact matches, regexs or custom values against user permissions.  This is the view equivalent of @DeadboltPattern
 *Parameters*
 * value - the pattern value
-* patternType - the pattern type, i.e. REGEX or TREE
+* patternType - the pattern type, e.g. EQUALITY, REGEX, CUSTOM
 
 *Examples*
 * @deadboltPattern("(.)*\\.edit") {
+  foo
+ }
+* @deadboltPattern("(.)*\\.edit", PatternType.REGEX) {
   foo
  }
 
