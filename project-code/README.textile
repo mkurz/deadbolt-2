@@ -14,6 +14,7 @@ Deadbolt doesn't cache the role holder within the same request by default.  You 
 deadbolt.cache-user=true
 
 h3. A note on contexts
+
 This issue was reported in github by jblipphaus:
 When getting a result through my DeadboltHandler I recognized, that the current Http.Context seems to "get lost", for example the @Messages("foo") call does not work any longer. So I had to add the following to the DeadboltHandler in my project:
 

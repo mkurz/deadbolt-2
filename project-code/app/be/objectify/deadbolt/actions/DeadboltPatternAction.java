@@ -48,6 +48,7 @@ public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPat
             case CUSTOM:
                 result = custom(ctx,
                                 deadboltHandler);
+                break;
             default:
                 throw new RuntimeException("Unknown pattern type: " + configuration.patternType());
         }
