@@ -18,7 +18,7 @@ h3. A note on contexts
 This issue was reported in github by jblipphaus:
 When getting a result through my DeadboltHandler I recognized, that the current Http.Context seems to "get lost", for example the @Messages("foo") call does not work any longer. So I had to add the following to the DeadboltHandler in my project:
 
-public Result onAccessFailure(Http.Context context, String s) {
+bc. public Result onAccessFailure(Http.Context context, String s) {
     Http.Context.current.set(context); // <-- this is needed to have a current Http.Context
     return ok(views.html.index.render());
 }
@@ -32,7 +32,16 @@ need to update the Build.scala of your application to add a repository resolver 
 an example.
 
 The dependency declaration is
-"be.objectify" % "deadbolt-2_2.9.1" % "1.1.1"
+
+bc. "be.objectify" % "deadbolt-2_2.9.1" % "1.1.1"
+
+h2. The Deadbolt plugin
+
+Deadbolt requires its plugin to be declared in the conf/play.plugins file.  If this file doesn't exist (it's not created by default when you create a new project),
+just create it in the conf directory first, and then add
+
+bc. 10000:be.objectify.deadbolt.DeadboltPlugin
+
 
 h2. Controller restrictions
 

@@ -29,7 +29,7 @@ public class PluginUtils
         DeadboltPlugin plugin = orNull(unsafeApplication().plugin(DeadboltPlugin.class));
         if (plugin == null)
         {
-            throw new Exception("Deadbolt plugin was not registered or disabled (check you conf/play.plugins file)");
+            throw new Exception("The Deadbolt plugin was not registered,  or is disabled.  Please check your conf/play.plugins file.");
         }
         return plugin;
     }
