@@ -5,10 +5,10 @@ import PlayProject._
 object ApplicationBuild extends Build {
 
     val appName         = "deadbolt-usage-scala"
-    val appVersion      = "1.1.1"
+    val appVersion      = "1.1.2"
 
     val appDependencies = Seq(
-      "be.objectify" % "deadbolt-2_2.9.1" % "1.1.1"
+      "be.objectify" % "deadbolt-2_2.9.1" % "1.1.2"
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
