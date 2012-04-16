@@ -8,7 +8,7 @@ object ApplicationBuild extends Build {
     val appVersion      = "1.1.2"
 
     val appDependencies = Seq(
-      "be.objectify" % "deadbolt-2_2.9.1" % "1.1.2"
+      "deadbolt-2" % "deadbolt-2_2.9.1" % "1.1.2"
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(

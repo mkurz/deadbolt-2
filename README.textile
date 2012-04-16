@@ -29,14 +29,30 @@ The same with the 'beforeRoleCheck' method.
 
 h2. Installing Deadbolt
 
-At the moment, there is no open repository for Play 2 modules, so you need to deploy it to your own repository.  From the Play console,
-use "publish-local" to publish to your local repository, or update Deadbolt's Build.scala and publish to a remote repository.  You will
-need to update the Build.scala of your application to add a repository resolver for this.  See the sample application's Build.scala for
-an example.
+At the moment, there is no open repository for Play 2 modules, so Deadbolt 2 is hosted on github.  You will
+need to update the Build.scala of your application to add a repository resolver for this.
 
 The dependency declaration is
 
-bc. "be.objectify" % "deadbolt-2_2.9.1" % "1.1.2"
+bc. "be.objectify" %% "deadbolt-2" % "1.1.2"
+
+The Build.scala then looks like
+
+bc. object ApplicationBuild extends Build {
+
+        val appName         = "deadbolt-usage"
+        val appVersion      = "1.1.2"
+
+        val appDependencies = Seq(
+          "deadbolt-2" %% "deadbolt-2" % "1.1.2"
+        )
+
+        val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
+          // Change this to point to your local play repository
+          resolvers += "Objectify Play Repository" at "http://schaloner.github.com/releases/"
+        )
+
+    }
 
 h2. The Deadbolt plugin
 
