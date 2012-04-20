@@ -1,50 +1,54 @@
 package controllers
 
-import be.objectify.deadbolt.actions.{Restrictions, And}
 import views.html.accessOk
 import play.api.mvc.{Action, Controller}
+import be.objectify.deadbolt.scalabolt.Scalabolt
+import security.MyScalaboltHandler
 
 
 /**
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
-@Restrictions(Array(new And(Array("foo")),
-                    new And(Array("bar"))))
-object RestrictionsController extends Controller
+object RestrictionsController extends Controller with Scalabolt
 {
-  def index = Action
-              {
-                Ok(accessOk())
-              }
-
-  @Restrictions(Array(new And(Array("foo", "bar"))))
-  def restrictionsOne = Action
+  def restrictionsOne = SBRestrictions(List(Array("foo", "bar")), new MyScalaboltHandler)
                         {
-                          Ok(accessOk())
-                        }
-
-  @Restrictions(Array(new And(Array("foo")), new And(Array("foo"))))
-  def restrictionsTwo = Action
-                        {
-                          Ok(accessOk())
-                        }
-
-  @Restrictions(Array(new And(Array("hurdy", "gurdy")), new And(Array("foo"))))
-  def restrictionsThree = Action
+                          Action
                           {
                             Ok(accessOk())
                           }
+                        }
 
-  @Restrictions(Array(new And(Array("foo")), new And(Array("!bar"))))
-  def restrictionsFour = Action
+  def restrictionsTwo = SBRestrictions(List(Array("foo"), Array("bar")), new MyScalaboltHandler)
+                        {
+                          Action
+                          {
+                            Ok(accessOk())
+                          }
+                        }
+
+  def restrictionsThree = SBRestrictions(List(Array("hurdy", "gurdy"), Array("foo")), new MyScalaboltHandler)
+                          {
+                            Action
+                            {
+                              Ok(accessOk())
+                            }
+                          }
+
+  def restrictionsFour = SBRestrictions(List(Array("foo"), Array("!bar")), new MyScalaboltHandler)
                          {
-                           Ok(accessOk())
+                           Action
+                           {
+                             Ok(accessOk())
+                           }
                          }
 
-  @Restrictions(Array(new And(Array("hurdy", "foo"))))
-  def restrictionsFive = Action
+  def restrictionsFive = SBRestrictions(List(Array("hurdy", "foo")), new MyScalaboltHandler)
                          {
-                           Ok(accessOk())
+                           Action
+                           {
+                             Ok(accessOk())
+                           }
                          }
 }

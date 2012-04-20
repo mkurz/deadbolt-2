@@ -2,23 +2,18 @@ package controllers
 
 import play.api.mvc.{Action, Controller}
 import be.objectify.deadbolt.actions.RoleHolderPresent
-import be.objectify.deadbolt.actions.ScalaBoltActions
+import be.objectify.deadbolt.scalabolt.Scalabolt
 import views.html.accessOk
-import security.MyDeadboltHandler
+import security.{MyAlternativeDynamicResourceHandler, MyScalaboltHandler}
 
 /**
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
 @RoleHolderPresent
-object DynamicRestrictionsController extends Controller
+object DynamicRestrictionsController extends Controller with Scalabolt
 {
-  def index = Action
-              {
-                Ok(accessOk())
-              }
-
-  def pureLuck = ScalaBoltActions.DynamicAction("pureLuck", "", new MyDeadboltHandler)
+  def pureLuck = SBDynamic("pureLuck", "", new MyScalaboltHandler)
                  {
                    Action
                    {
@@ -26,8 +21,7 @@ object DynamicRestrictionsController extends Controller
                    }
                  }
 
-  @be.objectify.deadbolt.actions.Dynamic(value = "pureLuck")
-  def noWayJose = ScalaBoltActions.DynamicAction("pureLuck", "", new MyDeadboltHandler)
+  def noWayJose = SBDynamic("pureLuck", "", new MyScalaboltHandler(new MyAlternativeDynamicResourceHandler))
                   {
                     Action
                     {

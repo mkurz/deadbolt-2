@@ -1,7 +1,6 @@
 package security
 
-import java.lang.System
-import be.objectify.deadbolt.api.{DynamicResourceHandler, DeadboltHandler}
+import be.objectify.deadbolt.scalabolt.{DynamicResourceHandler, ScalaboltHandler}
 
 
 /**
@@ -11,5 +10,7 @@ import be.objectify.deadbolt.api.{DynamicResourceHandler, DeadboltHandler}
 
 class MyAlternativeDynamicResourceHandler extends DynamicResourceHandler
 {
-  def isAllowed(name: String, meta: String, handler: DeadboltHandler) = false
+  def isAllowed(name: String, meta: String, handler: ScalaboltHandler) = false
+
+  def checkPermission(permissionValue: String, deadboltHandler: ScalaboltHandler) = false
 }

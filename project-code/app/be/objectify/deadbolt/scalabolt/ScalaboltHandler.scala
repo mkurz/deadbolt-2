@@ -1,14 +1,14 @@
-package be.objectify.deadbolt.api
+package be.objectify.deadbolt.scalabolt
 
 import be.objectify.deadbolt.models.RoleHolder
-import play.api.mvc.{Result, Action}
+import play.api.mvc.{Session, Result}
 
 /**
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
 
-trait DeadboltHandler
+trait ScalaboltHandler
 {
   /**
    * Gets the current role holder e.g. the current user.
@@ -22,7 +22,7 @@ trait DeadboltHandler
    *
    * @return the action result
    */
-  def onAccessFailure(): Result
+  def onAccessFailure: Result
 
   /**
    * Gets the handler used for dealing with resources restricted to specific users/groups.
