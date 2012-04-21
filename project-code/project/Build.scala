@@ -11,5 +11,6 @@ object ApplicationBuild extends Build {
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
+      organization := "be.objectify"
     )
 }
