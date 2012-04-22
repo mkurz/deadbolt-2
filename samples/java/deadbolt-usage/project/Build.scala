@@ -13,7 +13,7 @@ object ApplicationBuild extends Build {
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
       // Change this to point to your local play repository
-      resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.com/releases/"))(Resolver.ivyStylePatterns)
+      resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.com/releases/"))(Resolver.ivyStylePatterns),
       resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.com/snapshots/"))(Resolver.ivyStylePatterns)
     )
 
