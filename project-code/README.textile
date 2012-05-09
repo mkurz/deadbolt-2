@@ -48,8 +48,7 @@ bc. object ApplicationBuild extends Build {
         )
 
         val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
-          // Change this to point to your local play repository
-          resolvers += "Objectify Play Repository" at "http://schaloner.github.com/releases/"
+          resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.com/releases/"))(Resolver.ivyStylePatterns)
         )
 
     }
