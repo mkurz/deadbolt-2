@@ -4,7 +4,7 @@ import PlayProject._
 
 object ApplicationBuild extends Build {
 
-    val appName         = "role-inheritence"
+    val appName         = "role-inheritance"
     val appVersion      = "1.0-SNAPSHOT"
 
     val appDependencies = Seq(
