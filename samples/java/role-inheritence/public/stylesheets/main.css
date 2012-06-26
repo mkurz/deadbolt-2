@@ -1,0 +1,6 @@
+#controlBar {
+    border-bottom: solid 1px #000000;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    text-align: right;
+}

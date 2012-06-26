@@ -1,0 +1,40 @@
+@(user: User, availableRoles: List[SecurityRole])(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Role inheritence with Deadbolt 2</title>
+        <link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/main.css")'>
+        <link rel="shortcut icon" type="image/png" href='@routes.Assets.at("images/favicon.png")'>
+        <script src='@routes.Assets.at("javascripts/jquery-1.7.1.min.js")' type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var roleSelector = $('#roleSelector');
+                roleSelector.change(function() {
+                    var newRole = roleSelector.val();
+                    if (newRole != 'ignore') {
+                        $.post('@routes.Application.changeRole()',
+                               {roleName: newRole},
+                               function(data) {
+                                   $('#messages').html("Current role: " + data);
+                               });
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="controlBar">
+            <select id="roleSelector">
+                <option value="ignore"></option>
+                @for(role <- availableRoles) {
+                <option value="@role.roleName" @if(user.roles.contains(role)){"selected"}>@role.roleName</option>
+                }
+            </select>
+            <span id="messages">Current role: @user.roles.get(0).roleName</span>
+        </div>
+
+        @content
+    </body>
+</html>
