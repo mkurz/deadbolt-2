@@ -129,6 +129,17 @@ bc. @Unrestricted
 bc. @RoleHolderPresent
 
 
+*Name* RoleHolderNotPresent
+*Used for* Marks the resource as restricted, but only to not-logged-in users
+*Parameters*
+* content - indicates the response format in case of access failure
+* handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+
+*Examples*
+
+bc. @RoleHolderNotPresent
+
+
 *Name* DeadboltPattern
 *Used for* Evaluating exact matches, regular expressions or custom values against user permissions
 *Parameters*
@@ -200,6 +211,19 @@ bc. @dynamic("bar", "hurdy:gurdy") {
 *Examples*
 
 bc. @roleHolderPresent() {
+  foo
+ }
+
+
+*Name* roleHolderNotPresent
+*Used for* ensuring the viewer is not logged in.  This is the view equivalent of @RoleHolderNotPresent
+*Parameters*
+* name - the resource name
+* meta - additional info passed into the DynamicResourceHandler at runtime
+
+*Examples*
+
+bc. @roleHolderNotPresent() {
   foo
  }
 

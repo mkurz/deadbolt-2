@@ -23,6 +23,10 @@ GET     /editPrinter                controllers.RegexPatternController.editPrint
 GET     /detonatePrinter            controllers.RegexPatternController.detonatePrinter()
 GET     /eqIndex                    controllers.EqualityPatternController.index()
 GET     /eqDetonatePrinter          controllers.EqualityPatternController.detonatePrinter()
+GET     /rhp_in                     controllers.RoleHolderController.roleHolderPresent()
+GET     /rhp_out                    controllers.RoleHolderController.roleHolderPresent_notLoggedIn()
+GET     /rhnp_out                   controllers.RoleHolderController.roleHolderNotPresent()
+GET     /rhnp_in                    controllers.RoleHolderController.roleHolderNotPresent_loggedIn()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

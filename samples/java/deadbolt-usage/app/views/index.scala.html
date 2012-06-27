@@ -124,6 +124,42 @@ expected result.
     </li>
 </ul>
 
+<h4>RoleHolderPresent</h4>
+<ul>
+    <li>
+        <a href="@routes.RoleHolderController.roleHolderPresent">Role holder is present</a>
+        <ul>
+            <li>Method-level restriction requiring a role holder to be present</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RoleHolderController.roleHolderPresent_notLoggedIn">Role holder is not present</a>
+        <ul>
+            <li>Method-level restriction requiring a role holder to be present</li>
+            <li>should NOT be visible</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>RoleHolderNotPresent</h4>
+<ul>
+    <li>
+        <a href="@routes.RoleHolderController.roleHolderNotPresent">Role holder is not present</a>
+        <ul>
+            <li>Method-level restriction requiring a role holder to not be present</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RoleHolderController.roleHolderNotPresent_loggedIn">Role holder is present</a>
+        <ul>
+            <li>Method-level restriction requiring a role holder to not be present</li>
+            <li>should NOT be visible</li>
+        </ul>
+    </li>
+</ul>
+
 <h4>DeadboltPattern - equality</h4>
 <ul>
     <li>

@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
-@With(RoleHolderPresentAction.class)
+@With(RoleHolderNotPresentAction.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Documented

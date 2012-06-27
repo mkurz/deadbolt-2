@@ -27,7 +27,7 @@ import play.mvc.Result;
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
-public class RoleHolderNotPresentAction extends AbstractDeadboltAction<RoleHolderPresent>
+public class RoleHolderNotPresentAction extends AbstractDeadboltAction<RoleHolderNotPresent>
 {
     /**
      * {@inheritDoc}
