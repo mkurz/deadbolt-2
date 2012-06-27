@@ -93,14 +93,19 @@ public class Deadbolt
     {
         RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getHandler(),
                                                            Http.Context.current());
-        boolean allowed = false;
+        return roleHolder != null;
+    }
 
-        if (roleHolder != null)
-        {
-            allowed = true;
-        }
-
-        return allowed;
+    /**
+     * Used for roleHolderNotPresent tags in the template.
+     *
+     * @return true if the view can be accessed, otherwise false
+     */
+    public static boolean viewRoleHolderNotPresent() throws Throwable
+    {
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getHandler(),
+                                                           Http.Context.current());
+        return roleHolder == null;
     }
 
     public static boolean viewPattern(String value,
