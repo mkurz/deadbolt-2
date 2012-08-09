@@ -38,7 +38,7 @@ bc. "be.objectify" %% "deadbolt-2" % "1.1.2"
 
 The Build.scala then looks like
 
-bc. object ApplicationBuild extends Build {
+bc.. object ApplicationBuild extends Build {
 
         val appName         = "deadbolt-usage"
         val appVersion      = "1.1.2"
