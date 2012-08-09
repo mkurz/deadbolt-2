@@ -50,8 +50,7 @@ bc.. object ApplicationBuild extends Build {
         val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
           resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.com/releases/"))(Resolver.ivyStylePatterns)
         )
-
-}
+    }
 
 h2. The Deadbolt plugin
 
