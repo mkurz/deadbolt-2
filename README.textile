@@ -51,7 +51,7 @@ bc. object ApplicationBuild extends Build {
           resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.com/releases/"))(Resolver.ivyStylePatterns)
         )
 
-    }
+}
 
 h2. The Deadbolt plugin
 
