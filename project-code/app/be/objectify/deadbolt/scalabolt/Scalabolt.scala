@@ -16,10 +16,10 @@ trait Scalabolt extends Results with BodyParsers
                    (action: Action[AnyContent]): Action[AnyContent] =
   {
 
-    val roleHolder = scalaboltHandler.getRoleHolder;
+    val roleHolder = scalaboltHandler.getRoleHolder
     if (roleHolder == null || !DeadboltAnalyzer.checkRole(roleHolder, roleNames))
     {
-      Action(scalaboltHandler.onAccessFailure);
+      Action(scalaboltHandler.onAccessFailure)
     }
     else
     {
@@ -56,7 +56,7 @@ trait Scalabolt extends Results with BodyParsers
       }
       else
       {
-        Action(scalaboltHandler.onAccessFailure);
+        Action(scalaboltHandler.onAccessFailure)
       }
     }
   }
@@ -72,7 +72,7 @@ trait Scalabolt extends Results with BodyParsers
     }
     else
     {
-      Action(scalaboltHandler.onAccessFailure);
+      Action(scalaboltHandler.onAccessFailure)
     }
   }
 }

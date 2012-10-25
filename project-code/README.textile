@@ -209,7 +209,7 @@ bc. @dynamic("bar", "hurdy:gurdy") {
 
 *Examples*
 
-bc. @roleHolderPresent() {
+bc. @roleHolderPresent {
   foo
  }
 
@@ -222,7 +222,7 @@ bc. @roleHolderPresent() {
 
 *Examples*
 
-bc. @roleHolderNotPresent() {
+bc. @roleHolderNotPresent {
   foo
  }
 

@@ -27,6 +27,7 @@ GET     /rhp_in                     controllers.RoleHolderController.roleHolderP
 GET     /rhp_out                    controllers.RoleHolderController.roleHolderPresent_notLoggedIn()
 GET     /rhnp_out                   controllers.RoleHolderController.roleHolderNotPresent()
 GET     /rhnp_in                    controllers.RoleHolderController.roleHolderNotPresent_loggedIn()
+GET     /bug                        controllers.EdgeCaseController.index()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -27,6 +27,7 @@ import play.Play;
 import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
+import play.mvc.Results;
 
 /**
  * Provides some convenience methods for concrete Deadbolt actions, such as getting the correct {@link DeadboltHandler},
@@ -111,8 +112,18 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
     {
         Logger.warn(String.format("Deadbolt: Access failure on [%s]",
                                   ctx.request().uri()));
-        return deadboltHandler.onAccessFailure(ctx,
-                                               content);
+
+        try
+        {
+            return deadboltHandler.onAccessFailure(ctx,
+                                                   content);
+        }
+        catch (Exception e)
+        {
+            Logger.warn("Deadbolt: Exception when invoking onAccessFailure",
+                        e);
+            return Results.internalServerError();
+        }
     }
 
     /**
