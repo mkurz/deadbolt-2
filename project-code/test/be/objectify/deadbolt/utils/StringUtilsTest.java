@@ -15,20 +15,35 @@
  */
 package be.objectify.deadbolt.utils;
 
-import java.util.Collection;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-public class CollectionUtils
+public class StringUtilsTest
 {
-    private CollectionUtils()
+    @Test
+    public void isEmpty_null()
     {
-        // no-op
+        Assert.assertTrue(StringUtils.isEmpty(null));
     }
 
-    public static boolean isEmpty(Collection c)
+    @Test
+    public void isEmpty_zeroLength()
     {
-        return c == null || c.isEmpty();
+        Assert.assertTrue(StringUtils.isEmpty(""));
+    }
+
+    @Test
+    public void isEmpty_spaces()
+    {
+        Assert.assertTrue(StringUtils.isEmpty("    "));
+    }
+
+    @Test
+    public void isEmpty_npc()
+    {
+        Assert.assertTrue(StringUtils.isEmpty("\t\n\r"));
     }
 }

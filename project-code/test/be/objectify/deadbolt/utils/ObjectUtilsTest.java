@@ -15,20 +15,41 @@
  */
 package be.objectify.deadbolt.utils;
 
-import java.util.Collection;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-public class CollectionUtils
+public class ObjectUtilsTest
 {
-    private CollectionUtils()
+    @Test
+    public void isTrue_null()
     {
-        // no-op
+        Assert.assertFalse(ObjectUtils.isTrue(null));
     }
 
-    public static boolean isEmpty(Collection c)
+    @Test
+    public void isTrue_objectTrue()
     {
-        return c == null || c.isEmpty();
+        Assert.assertTrue(ObjectUtils.isTrue(Boolean.TRUE));
+    }
+
+    @Test
+    public void isTrue_objectFalse()
+    {
+        Assert.assertFalse(ObjectUtils.isTrue(Boolean.FALSE));
+    }
+
+    @Test
+    public void isTrue_primitiveTrue()
+    {
+        Assert.assertTrue(ObjectUtils.isTrue(true));
+    }
+
+    @Test
+    public void isTrue_primitiveFalse()
+    {
+        Assert.assertFalse(ObjectUtils.isTrue(false));
     }
 }

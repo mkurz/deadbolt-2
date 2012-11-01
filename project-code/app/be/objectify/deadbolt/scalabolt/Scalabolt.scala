@@ -17,14 +17,8 @@ trait Scalabolt extends Results with BodyParsers
   {
 
     val roleHolder = scalaboltHandler.getRoleHolder
-    if (roleHolder == null || !DeadboltAnalyzer.checkRole(roleHolder, roleNames))
-    {
-      Action(scalaboltHandler.onAccessFailure)
-    }
-    else
-    {
-      action
-    }
+    if (roleHolder == null || !DeadboltAnalyzer.checkRole(roleHolder, roleNames)) Action(scalaboltHandler.onAccessFailure)
+    else action
   }
 
   def SBRestrictions[A](roleGroups: List[Array[String]],
@@ -42,37 +36,19 @@ trait Scalabolt extends Results with BodyParsers
   {
 
     val dynamicHandler: DynamicResourceHandler = scalaboltHandler.getDynamicResourceHandler
-    if (dynamicHandler == null)
-    {
-      throw new RuntimeException("A dynamic resource is specified but no dynamic resource handler is provided")
-    }
+    if (dynamicHandler == null) throw new RuntimeException("A dynamic resource is specified but no dynamic resource handler is provided")
     else
     {
-      if (dynamicHandler.isAllowed(name,
-                                   meta,
-                                   scalaboltHandler))
-      {
-        action
-      }
-      else
-      {
-        Action(scalaboltHandler.onAccessFailure)
-      }
+      if (dynamicHandler.isAllowed(name, meta, scalaboltHandler)) action
+      else Action(scalaboltHandler.onAccessFailure)
     }
   }
 
   def SBRoleHolderPresent[A](scalaboltHandler: ScalaboltHandler)
                             (action: Action[AnyContent]): Action[AnyContent] =
   {
-
     val roleHolder: RoleHolder = scalaboltHandler.getRoleHolder
-    if (roleHolder != null)
-    {
-      action
-    }
-    else
-    {
-      Action(scalaboltHandler.onAccessFailure)
-    }
+    if (roleHolder == null) Action(scalaboltHandler.onAccessFailure)
+    else action
   }
 }

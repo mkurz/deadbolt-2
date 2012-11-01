@@ -20,6 +20,11 @@ package be.objectify.deadbolt.utils;
  */
 public class ObjectUtils
 {
+    private ObjectUtils()
+    {
+        // no-op
+    }
+
     public static boolean isTrue(Boolean b)
     {
         return b != null && b;
