@@ -9,3 +9,7 @@ project-code/deadbolt-2.iml
 samples/java/deadbolt-usage/deadbolt-usage.iml
 *.iml
 samples/java/deadbolt-usage/conf/evolutions
+samples/java/deadbolt-usage/.settings
+samples/java/role-inheritance/.settings
+samples/java/role-inheritance/conf/evolutions
+project-code/.settings
