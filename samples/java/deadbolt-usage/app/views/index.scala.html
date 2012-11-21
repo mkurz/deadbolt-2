@@ -6,7 +6,7 @@
 
 <h3>Set-up</h3>
 <ul>
-    <li>The current user has the roles "foo" and "bar".</li>printers.edit
+    <li>The current user has the roles "foo" and "bar".</li>
     <li>The current user has the permission "".</li>
 </ul>
   For each example, the required roles will be stated, along with the
@@ -226,6 +226,24 @@ expected result.
 </div>
 
 <div class="tagSection">
+    Tag: restrictOr   Requires: foo and bar.  Expected result: whoops
+    <div class="box">
+        @restrictOr(la(as("foo", "hurdy"))) {
+        This content should be visible
+        }{Whoops}
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: restrict   Requires: Not foo.  Expected result: contents are not visible
+    <div class="box">
+        @restrict(la(as("!foo"))) {
+        This content should not be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
     Tag: restrict   Requires: foo or bar.  Expected result: contents are visible
     <div class="box">
         @restrict(la(as("foo"), as("bar"))) {
@@ -253,6 +271,15 @@ expected result.
 </div>
 
 <div class="tagSection">
+    Tag: dynamicOr   Requires: the system time in milliseconds to be exactly divisible by 2.  Expected result: depends on your luck!  Refresh the page a few times to see it change.
+    <div class="box">
+        @dynamicOr("pureLuck") {
+        Looks like you got lucky!
+        }{Guess you didn't get lucky!}
+    </div>
+</div>
+
+<div class="tagSection">
     Tag: deadboltPattern   Requires: The role holder to have a permission exactly equal to "printers.edit"  Expected result: contents are visible
     <div class="box">
         @deadboltPattern("printers.edit") {
@@ -262,10 +289,19 @@ expected result.
 </div>
 
 <div class="tagSection">
+    Tag: deadboltPatternOr   Requires: The role holder to have a permission exactly equal to "printers.edit"  Expected result: whoops
+    <div class="box">
+        @deadboltPatternOr("printers.edit") {
+        This content should be visible
+        }{Whoops}
+    </div>
+</div>
+
+<div class="tagSection">
     Tag: deadboltPattern   Requires: The role holder to have a permission exactly equal to "printers.print"  Expected result: contents are not visible
     <div class="box">
         @deadboltPattern("printers.print") {
-        This content should be visible
+        This content should not be visible
         }
     </div>
 </div>

@@ -25,6 +25,7 @@ trait Scalabolt extends Results with BodyParsers
                         scalaboltHandler: ScalaboltHandler)
                        (action: Action[AnyContent]): Action[AnyContent] =
   {
+    val foo = List[Array[String]](Array("a", "b"), Array("c", "d"))
     // todo implement
     action
   }

@@ -1,0 +1,7 @@
+@(roles: List[Array[String]], args: (Symbol,String)*)(body: => Html)(alternativeBody: => Html)
+
+@if(be.objectify.deadbolt.Deadbolt.viewRestrict(roles)) {
+@body
+} else {
+@alternativeBody
+}

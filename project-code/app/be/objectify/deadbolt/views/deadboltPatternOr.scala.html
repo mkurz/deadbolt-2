@@ -1,0 +1,7 @@
+@(value: String, patternType: be.objectify.deadbolt.PatternType = be.objectify.deadbolt.PatternType.EQUALITY)(body: => Html)(alternativeBody: => Html)
+
+@if(be.objectify.deadbolt.Deadbolt.viewPattern(value, patternType)) {
+@body
+} else {
+@alternativeBody
+}

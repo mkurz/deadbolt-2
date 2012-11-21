@@ -1,0 +1,7 @@
+@(name: String, meta: String = null)(body: => Html)(alternativeBody: => Html)
+
+@if(be.objectify.deadbolt.Deadbolt.viewDynamic(name, meta)) {
+@body
+} else {
+@alternativeBody
+}

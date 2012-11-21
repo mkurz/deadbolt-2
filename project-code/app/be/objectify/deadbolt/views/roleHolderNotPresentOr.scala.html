@@ -1,5 +1,7 @@
-@(body: => Html)
+@(body: => Html)(alternativeBody: => Html)
 
 @if(be.objectify.deadbolt.Deadbolt.viewRoleHolderNotPresent()) {
 @body
+} else {
+@alternativeBody
 }
