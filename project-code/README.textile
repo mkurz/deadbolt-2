@@ -70,7 +70,7 @@ because the user would not be present at the method point.
 One way around this is to apply Security.Authenticated on every method, which
 violates DRY and causes bloat.  A better way is to use the deferred value of each annotation, and then use @DeferredDeadbolt at the controller
 level to execute the method-level annotations at controller-annotation time.  Since annotations are processed in order of declaration, you can
-specific @DeferredDeadbolt after @Security.Authenticated and so achieve the desired effect.
+specify @DeferredDeadbolt after @Security.Authenticated and so achieve the desired effect.
 
 
 h2. Controller restrictions
