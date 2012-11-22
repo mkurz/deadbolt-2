@@ -111,7 +111,25 @@ expected result.
         <a href="@routes.RoleHolderPresentController.notLoggedIn">Not logged in</a>
         <ul>
             <li>restriction requiring a role holder to be present (e.g. someone is logged in)</li>
-            <li>a user is logged in, so this is NOT accessible</li>
+            <li>a user is not logged in, so this is NOT accessible</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>SBRoleHolderNotPresent</h4>
+<ul>
+    <li>
+        <a href="@routes.RoleHolderNotPresentController.loggedIn">Logged in</a>
+        <ul>
+            <li>restriction requiring a role holder to be present (e.g. someone is logged in)</li>
+            <li>a user is not logged in, so this is NOT accessible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RoleHolderNotPresentController.notLoggedIn">Not logged in</a>
+        <ul>
+            <li>restriction requiring a role holder to be present (e.g. someone is logged in)</li>
+            <li>a user is not logged in, so this is accessible</li>
         </ul>
     </li>
 </ul>

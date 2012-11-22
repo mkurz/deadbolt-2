@@ -21,7 +21,7 @@ object DynamicRestrictionsController extends Controller with Scalabolt
                    }
                  }
 
-  def noWayJose = SBDynamic("pureLuck", "", new MyScalaboltHandler(new MyAlternativeDynamicResourceHandler))
+  def noWayJose = SBDynamic("pureLuck", "", new MyScalaboltHandler(MyAlternativeDynamicResourceHandler))
                   {
                     Action
                     {

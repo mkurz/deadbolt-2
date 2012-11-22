@@ -15,8 +15,10 @@ GET     /restrictions4              controllers.RestrictionsController.restricti
 GET     /restrictions5              controllers.RestrictionsController.restrictionsFive()
 GET     /pureLuck                   controllers.DynamicRestrictionsController.pureLuck()
 GET     /noWayJose                  controllers.DynamicRestrictionsController.noWayJose()
-GET     /roleHolderPresent          controllers.RoleHolderPresentController.loggedIn()
-GET     /roleHolderNotPresent       controllers.RoleHolderPresentController.notLoggedIn()
+GET     /rhp_roleHolderPresent      controllers.RoleHolderPresentController.loggedIn()
+GET     /rhp_roleHolderNotPresent   controllers.RoleHolderPresentController.notLoggedIn()
+GET     /rhnp_roleHolderPresent     controllers.RoleHolderNotPresentController.loggedIn()
+GET     /rhnp_roleHolderNotPresent  controllers.RoleHolderNotPresentController.notLoggedIn()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -3,7 +3,7 @@ package security
 import be.objectify.deadbolt.models.RoleHolder
 import models.User
 import be.objectify.deadbolt.scalabolt.{DynamicResourceHandler, ScalaboltHandler}
-import play.api.mvc.{Result, Results}
+import play.api.mvc.{Request, Result, Results}
 
 /**
  *
@@ -11,24 +11,19 @@ import play.api.mvc.{Result, Results}
  */
 class MyScalaboltHandler(dynamicResourceHandler: DynamicResourceHandler = null) extends ScalaboltHandler
 {
-  override def getDynamicResourceHandler: DynamicResourceHandler =
+  override def getDynamicResourceHandler[A](request: Request[A]): DynamicResourceHandler =
   {
-    if (dynamicResourceHandler != null)
-    {
-      dynamicResourceHandler
-    }
-    else
-    {
-      new MyDynamicResourceHandler()
-    };
+    if (dynamicResourceHandler != null) dynamicResourceHandler
+    else new MyDynamicResourceHandler()
   }
 
-  override def getRoleHolder: RoleHolder =
+  override def getRoleHolder[A](request: Request[A]): RoleHolder =
   {
-    new User("steve");
+    // request.session.get...
+    new User("steve")
   }
 
-  def onAccessFailure: Result =
+  def onAccessFailure[A](request: Request[A]): Result =
   {
     Results.Forbidden(views.html.accessFailed())
   }

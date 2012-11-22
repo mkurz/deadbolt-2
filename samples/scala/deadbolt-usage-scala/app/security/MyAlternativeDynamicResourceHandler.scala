@@ -1,6 +1,7 @@
 package security
 
 import be.objectify.deadbolt.scalabolt.{DynamicResourceHandler, ScalaboltHandler}
+import play.api.mvc.Request
 
 
 /**
@@ -8,9 +9,14 @@ import be.objectify.deadbolt.scalabolt.{DynamicResourceHandler, ScalaboltHandler
  * @author Steve Chaloner (steve@objectify.be)
  */
 
-class MyAlternativeDynamicResourceHandler extends DynamicResourceHandler
+object MyAlternativeDynamicResourceHandler extends DynamicResourceHandler
 {
-  def isAllowed(name: String, meta: String, handler: ScalaboltHandler) = false
+  def isAllowed[A](name: String,
+                   meta: String,
+                   handler: ScalaboltHandler,
+                   request: Request[A]) = false
 
-  def checkPermission(permissionValue: String, deadboltHandler: ScalaboltHandler) = false
+  def checkPermission[A](permissionValue: String,
+                         deadboltHandler: ScalaboltHandler,
+                         request: Request[A]) = false
 }

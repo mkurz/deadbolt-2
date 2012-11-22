@@ -1,7 +1,7 @@
 package be.objectify.deadbolt.scalabolt
 
 import be.objectify.deadbolt.models.RoleHolder
-import play.api.mvc.{Session, Result}
+import play.api.mvc.{Request, Result}
 
 /**
  *
@@ -15,19 +15,19 @@ trait ScalaboltHandler
    *
    * @return the current role holder
    */
-  def getRoleHolder: RoleHolder
+  def getRoleHolder[A](request: Request[A]): RoleHolder
 
   /**
    * Invoked when an access failure is detected on <i>controllerClassName</i>.
    *
-   * @return the action result
+   * @return the action
    */
-  def onAccessFailure: Result
+  def onAccessFailure[A](request: Request[A]): Result
 
   /**
    * Gets the handler used for dealing with resources restricted to specific users/groups.
    *
    * @return the handler for restricted resources. May be null.
    */
-  def getDynamicResourceHandler: DynamicResourceHandler
+  def getDynamicResourceHandler[A](request: Request[A]): DynamicResourceHandler
 }

@@ -3,7 +3,7 @@ package security
 import be.objectify.deadbolt.models.RoleHolder
 import models.User
 import be.objectify.deadbolt.scalabolt.{DynamicResourceHandler, ScalaboltHandler}
-import play.api.mvc.{Result, Results}
+import play.api.mvc.{Request, Result, Results}
 
 /**
  *
@@ -11,5 +11,5 @@ import play.api.mvc.{Result, Results}
  */
 class MyUserlessScalaboltHandler(dynamicResourceHandler: DynamicResourceHandler = null) extends MyScalaboltHandler
 {
-  override def getRoleHolder: RoleHolder = null
+  override def getRoleHolder[A](request: Request[A]): RoleHolder = null
 }
