@@ -52,4 +52,11 @@ public @interface BeforeAccess
      * @return true if beforeRoleCheck should always be executed, otherwise false
      */
     boolean alwaysExecute() default true;
+
+    /**
+     * If true, the annotation will only be run if there is a {@link DeferredDeadbolt} annotation at the class level.
+     *
+     * @return true iff the associated action should be deferred until class-level annotations are applied.
+     */
+    boolean deferred() default false;
 }

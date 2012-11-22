@@ -214,6 +214,52 @@ expected result.
     </li>
 </ul>
 
+<h4>Deferred method-level annotations</h4>
+<ul>
+    <li>
+        <a href="@routes.DeferredController.deferredRestrict">Deferred restrict</a>
+        <ul>
+            <li>deferred method-level restriction requiring foo</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DeferredController.deferredRestrictions">Deferred restrictions</a>
+        <ul>
+            <li>deferred method-level restriction requiring foo and bar</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DeferredController.deferredPattern">Deferred pattern</a>
+        <ul>
+            <li>deferred method-level restriction that requires printers.detonate as a permission</li>
+            <li>should not be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DeferredController.deferredDynamic">Deferred dynamic</a>
+        <ul>
+            <li>deferred method-level restriction requiring the system time in milliseconds to be exactly divisible by 2</li>
+            <li>may be visible, depends on your luck</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DeferredController.deferredRoleHolderPresent">Deferred role holder present</a>
+        <ul>
+            <li>deferred method-level restriction requiring a role holder to be present</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DeferredController.deferredRoleHolderNotPresent">Deferred role holder not present</a>
+        <ul>
+            <li>deferred method-level restriction requiring a role holder to not be present</li>
+            <li>should be not visible</li>
+        </ul>
+    </li>
+</ul>
+
 <h3>Tag restrictions</h3>
 
 <div class="tagSection">

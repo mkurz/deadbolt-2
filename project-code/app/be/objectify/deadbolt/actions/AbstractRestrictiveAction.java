@@ -27,7 +27,7 @@ import play.mvc.Result;
 public abstract class AbstractRestrictiveAction<T> extends AbstractDeadboltAction<T>
 {
     @Override
-    public Result call(Http.Context ctx) throws Throwable
+    public Result execute(Http.Context ctx) throws Throwable
     {
         Result result;
         if (isActionAuthorised(ctx))

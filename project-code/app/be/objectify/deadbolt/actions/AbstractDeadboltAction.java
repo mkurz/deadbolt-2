@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Steve Chaloner
+ * Copyright 2010-2012 Steve Chaloner
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,13 @@
  */
 package be.objectify.deadbolt.actions;
 
-import be.objectify.deadbolt.Deadbolt;
 import be.objectify.deadbolt.DeadboltAnalyzer;
 import be.objectify.deadbolt.DeadboltHandler;
 import be.objectify.deadbolt.models.RoleHolder;
 import be.objectify.deadbolt.utils.PluginUtils;
+import be.objectify.deadbolt.utils.ReflectionUtils;
 import be.objectify.deadbolt.utils.RequestUtils;
-import play.Configuration;
 import play.Logger;
-import play.Play;
 import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -40,6 +38,9 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
     private static final String ACTION_AUTHORISED = "deadbolt.action-authorised";
 
     private static final String ACTION_UNAUTHORISED = "deadbolt.action-unauthorised";
+
+    private static final String ACTION_DEFERRED = "deadbolt.action-deferred";
+    private static final String IGNORE_DEFERRED_FLAG = "deadbolt.ignore-deferred-flag";
 
     /**
      * Gets the current {@link DeadboltHandler}.  This can come from one of two places:
@@ -73,6 +74,41 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
         }
         return deadboltHandler;
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public Result call(Http.Context ctx) throws Throwable
+    {
+        Result result;
+
+        Class<? extends Object> annClass = configuration.getClass();
+        if (isDeferred(ctx))
+        {
+            result = getDeferredAction(ctx).call(ctx);
+        }
+        else if (!ctx.args.containsKey(IGNORE_DEFERRED_FLAG)
+                && ReflectionUtils.hasMethod(annClass, "deferred") &&
+                (Boolean)annClass.getMethod("deferred").invoke(configuration))
+        {
+            defer(ctx,
+                  this);
+            result = delegate.call(ctx);
+        }
+        else
+        {
+            result = execute(ctx);
+        }
+        return result;
+    }
+
+    /**
+     * Execute the action.
+     *
+     * @param ctx the request context
+     * @return the result
+     * @throws Throwable if something bad happens
+     */
+    public abstract Result execute(Http.Context ctx) throws Throwable;
 
     /**
      * @param roleHolder
@@ -192,5 +228,55 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
     {
         Object o = ctx.args.get(ACTION_UNAUTHORISED);
         return o != null && (Boolean) o;
+    }
+
+    /**
+     * Defer execution until a later point.
+     *
+     * @param ctx the request context
+     * @param action the action to defer
+     */
+    protected void defer(Http.Context ctx,
+                         AbstractDeadboltAction action)
+    {
+        if (action != null)
+        {
+            Logger.info(String.format("Deferring action [%s]",
+                                      this.getClass().getName()));
+            ctx.args.put(ACTION_DEFERRED,
+                         action);
+        }
+    }
+
+    /**
+     * Check if there is a deferred action in the context.
+     *
+     * @param ctx the request context
+     * @return true iff there is a deferred action in the context
+     */
+    public boolean isDeferred(Http.Context ctx)
+    {
+        return ctx.args.containsKey(ACTION_DEFERRED);
+    }
+
+    /**
+     * Get the deferred action from the context.
+     *
+     * @param ctx the request context
+     * @return the deferred action, or null if it doesn't exist
+     */
+    public AbstractDeadboltAction getDeferredAction(Http.Context ctx)
+    {
+        AbstractDeadboltAction action = null;
+        Object o = ctx.args.get(ACTION_DEFERRED);
+        if (o != null)
+        {
+            action = (AbstractDeadboltAction)o;
+
+            ctx.args.remove(ACTION_DEFERRED);
+            ctx.args.put(IGNORE_DEFERRED_FLAG,
+                         true);
+        }
+        return action;
     }
 }

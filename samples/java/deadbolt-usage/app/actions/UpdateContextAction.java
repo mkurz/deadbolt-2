@@ -13,40 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.objectify.deadbolt.actions;
+package actions;
 
 import be.objectify.deadbolt.DeadboltHandler;
+import be.objectify.deadbolt.DynamicResourceHandler;
+import be.objectify.deadbolt.actions.AbstractRestrictiveAction;
+import be.objectify.deadbolt.actions.Dynamic;
+import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
 
 /**
- * Invokes beforeRoleCheck on the global or a specific {@link DeadboltHandler}.
- *
  * @author Steve Chaloner (steve@objectify.be)
  */
-public class BeforeAccessAction extends AbstractDeadboltAction<BeforeAccess>
+public class UpdateContextAction extends Action<UpdateContext>
 {
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Result execute(Http.Context ctx) throws Throwable
+    public Result call(Http.Context context) throws Throwable
     {
-        Result result;
-        if (isActionAuthorised(ctx) && !configuration.alwaysExecute())
-        {
-            result = delegate.call(ctx);
-        }
-        else
-        {
-            DeadboltHandler deadboltHandler = getDeadboltHandler(configuration.value());
-            result = deadboltHandler.beforeRoleCheck(ctx);
-
-            if (result == null)
-            {
-                result = delegate.call(ctx);
-            }
-        }
-        return result;
+        context.args.put("UpdateContext",
+                         configuration.value());
+        return delegate.call(context);
     }
 }

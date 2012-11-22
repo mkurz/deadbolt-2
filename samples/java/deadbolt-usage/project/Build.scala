@@ -5,10 +5,10 @@ import PlayProject._
 object ApplicationBuild extends Build {
 
     val appName         = "deadbolt-usage"
-    val appVersion      = "1.1.3-SNAPSHOT"
+    val appVersion      = "1.1.3"
 
     val appDependencies = Seq(
-      "be.objectify" %% "deadbolt-2" % "1.1.3-SNAPSHOT"
+      "be.objectify" %% "deadbolt-2" % "1.1.3"
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(

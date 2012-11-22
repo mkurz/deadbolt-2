@@ -44,7 +44,7 @@ bc.. object ApplicationBuild extends Build {
         val appVersion      = "1.1.2"
 
         val appDependencies = Seq(
-          "deadbolt-2" %% "deadbolt-2" % "1.1.2"
+          "be.objectify" %% "deadbolt-2" % "1.1.2"
         )
 
         val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
@@ -58,6 +58,19 @@ Deadbolt requires its plugin to be declared in the conf/play.plugins file.  If t
 just create it in the conf directory first, and then add
 
 bc. 10000:be.objectify.deadbolt.DeadboltPlugin
+
+
+h2. Deferring method-level annotation-driven actions
+
+Play 2 executes method-level annotations before controller-level annotations.  This can cause issues when, for example, you want
+a particular action to be applied for method and before the method annotations.  A good example is Security.Authenticated(Secured.class),
+which sets a user's user name for request().username().  Combining this with method-level annotations that require a user would fail,
+because the user would not be present at the method point.
+
+One way around this is to apply Security.Authenticated on every method, which
+violates DRY and causes bloat.  A better way is to use the deferred value of each annotation, and then use @DeferredDeadbolt at the controller
+level to execute the method-level annotations at controller-annotation time.  Since annotations are processed in order of declaration, you can
+specific @DeferredDeadbolt after @Security.Authenticated and so achieve the desired effect.
 
 
 h2. Controller restrictions
@@ -86,6 +99,7 @@ bc. @Dynamic(name="foo", meta="hurdy:gurdy", content="json", handler=my.special.
 * value - the ANDed role names
 * content - indicates the response format in case of access failure
 * handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+* deferred - defer the execution until a @DeferredDeadbolt annotation is hit.  See deferred annotations for further details.
 
 *Examples*
 
@@ -100,6 +114,7 @@ bc. @Restrict({"foo", "bar"}) // restricts access to RoleHolders with both the f
 * value - the restriction combinations
 * content - indicates the response format in case of access failure
 * handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+* deferred - defer the execution until a @DeferredDeadbolt annotation is hit.  See deferred annotations for further details.
 
 *Examples*
 
@@ -111,6 +126,7 @@ bc. @Restrictions({@And("foo"), @And("bar")}) // restricts access to RoleHolders
 *Parameters*
 * content - indicates the response format in case of access failure
 * handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+* deferred - defer the execution until a @DeferredDeadbolt annotation is hit.  See deferred annotations for further details.
 
 *Examples*
 
@@ -122,6 +138,7 @@ bc. @Unrestricted
 *Parameters*
 * content - indicates the response format in case of access failure
 * handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+* deferred - defer the execution until a @DeferredDeadbolt annotation is hit.  See deferred annotations for further details.
 
 *Examples*
 
@@ -133,6 +150,7 @@ bc. @RoleHolderPresent
 *Parameters*
 * content - indicates the response format in case of access failure
 * handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+* deferred - defer the execution until a @DeferredDeadbolt annotation is hit.  See deferred annotations for further details.
 
 *Examples*
 
@@ -146,16 +164,25 @@ bc. @RoleHolderNotPresent
 * patternType - indicates the type of pattern, either EQUALITY, REGEX or CUSTOM.  EQUALITY is the default value.
 * content - indicates the response format in case of access failure
 * handler - a specific DeadboltHandler to use for this restriction, which overrides the application-standard handler
+* deferred - defer the execution until a @DeferredDeadbolt annotation is hit.  See deferred annotations for further details.
 
 *Examples*
 bc. @DeadboltPattern("(.)*\\.edit")
+
+*Name* DeferredDeadbolt
+*Used for* If any method-level annotations are deferred, using this annotation on the controller will execute them once the controller annotations are executed.
+
+*Examples*
+bc. @DeferredDeadbolt
+
 
 Notes:
 * Regular expressions are cached for efficiency
 
 h2. View restrictions
 
-If you don't want to use the full namespace of the tags, you can import some or all of them in your template.
+If you don't want to use the full namespace of the tags, you can import some or all of them in your template. For each tag, there is a variant
+ending in Or (e.g. restrictOr, dynamicOr) that takes a second block of HTML that will be inserted into the document if the check fails.
 
 @import be.objectify.deadbolt.views.html._
 
@@ -171,6 +198,11 @@ bc. @restrict(la(as("foo"))) {
    foo
  }
 
+bc. @restrictOr(la(as("foo"))) {
+   foo
+ }{Failure content}
+
+
 Notes:
  As a convenience to create the lists and arrays, you can import the methods of TemplateUtils and use the following methods
   - la - create a list of arrays
@@ -180,6 +212,10 @@ Notes:
 bc. @deadbolt.restrict(la(as("foo"),as("bar"))) {
   foo
  }
+
+bc. @deadbolt.restrictOr(la(as("foo"),as("bar"))) {
+  foo
+ }{Failure content}
 
 You can import these methods into your templates with @import be.objectify.deadbolt.utils.TemplateUtils._
 
@@ -200,6 +236,10 @@ bc. @dynamic("bar", "hurdy:gurdy") {
   bar
  }
 
+bc. @dynamicOr("bar", "hurdy:gurdy") {
+  bar
+ }{Failure content}
+
 
 *Name* roleHolderPresent
 *Used for* ensuring the viewer is logged in.  This is the view equivalent of @RoleHolderPresent
@@ -209,9 +249,13 @@ bc. @dynamic("bar", "hurdy:gurdy") {
 
 *Examples*
 
-bc. @roleHolderPresent() {
+bc. @roleHolderPresent {
   foo
  }
+
+bc. @roleHolderPresentOr {
+  foo
+ }{Failure content}
 
 
 *Name* roleHolderNotPresent
@@ -222,9 +266,13 @@ bc. @roleHolderPresent() {
 
 *Examples*
 
-bc. @roleHolderNotPresent() {
+bc. @roleHolderNotPresent {
   foo
  }
+
+bc. @roleHolderNotPresentOr {
+  foo
+ }{Failure content}
 
 
 *Name* deadboltPattern
@@ -242,6 +290,10 @@ bc. @deadboltPattern("(.)*\\.edit") {
 bc. @deadboltPattern("(.)*\\.edit", PatternType.REGEX) {
   foo
  }
+
+bc. @deadboltPatternOr("(.)*\\.edit", PatternType.REGEX) {
+  foo
+ }{Failure content}
 
 
 *Note* There is no tag equivalent of @Unrestricted

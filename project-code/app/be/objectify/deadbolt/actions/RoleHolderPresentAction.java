@@ -32,7 +32,7 @@ public class RoleHolderPresentAction extends AbstractDeadboltAction<RoleHolderPr
      * {@inheritDoc}
      */
     @Override
-    public Result call(Http.Context ctx) throws Throwable
+    public Result execute(Http.Context ctx) throws Throwable
     {
         Result result;
         if (isActionUnauthorised(ctx))

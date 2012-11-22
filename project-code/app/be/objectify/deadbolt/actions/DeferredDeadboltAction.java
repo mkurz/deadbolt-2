@@ -15,37 +15,32 @@
  */
 package be.objectify.deadbolt.actions;
 
-import be.objectify.deadbolt.DeadboltHandler;
+import play.Logger;
 import play.mvc.Http;
 import play.mvc.Result;
 
 /**
- * Invokes beforeRoleCheck on the global or a specific {@link DeadboltHandler}.
+ * Executes a deferred method-level annotation.  Ideally, the associated annotation would be placed
+ * above any other class-level Deadbolt annotations in order to still have things fire in the correct order.
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
-public class BeforeAccessAction extends AbstractDeadboltAction<BeforeAccess>
+public class DeferredDeadboltAction extends AbstractDeadboltAction<DeferredDeadbolt>
 {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Result execute(Http.Context ctx) throws Throwable
     {
+        AbstractDeadboltAction deferredAction = getDeferredAction(ctx);
         Result result;
-        if (isActionAuthorised(ctx) && !configuration.alwaysExecute())
+        if (deferredAction == null)
         {
             result = delegate.call(ctx);
         }
         else
         {
-            DeadboltHandler deadboltHandler = getDeadboltHandler(configuration.value());
-            result = deadboltHandler.beforeRoleCheck(ctx);
-
-            if (result == null)
-            {
-                result = delegate.call(ctx);
-            }
+            Logger.info(String.format("Executing deferred action [%s]",
+                                      deferredAction.getClass().getName()));
+            result = deferredAction.call(ctx);
         }
         return result;
     }

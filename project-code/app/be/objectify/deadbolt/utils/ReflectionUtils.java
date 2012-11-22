@@ -13,35 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package controllers;
-
-import be.objectify.deadbolt.actions.Dynamic;
-import be.objectify.deadbolt.actions.RoleHolderPresent;
-import play.mvc.Controller;
-import play.mvc.Result;
-import security.MyAlternativeDeadboltHandler;
-import views.html.accessOk;
+package be.objectify.deadbolt.utils;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-@RoleHolderPresent
-public class DynamicRestrictionsController extends Controller
+public class ReflectionUtils
 {
-    public static Result index()
+    private ReflectionUtils()
     {
-        return ok(accessOk.render());
+        // no-op
     }
 
-    @Dynamic("pureLuck")
-    public static Result pureLuck()
+    public static boolean hasMethod(Class clazz,
+                                    String name,
+                                    Class<?>... parameterTypes)
     {
-        return ok(accessOk.render());
-    }
+        boolean found = false;
 
-    @Dynamic(value = "pureLuck", handler = MyAlternativeDeadboltHandler.class)
-    public static Result noWayJose()
-    {
-        return ok(accessOk.render());
+        try
+        {
+            clazz.getMethod(name,
+                            parameterTypes);
+            found = true;
+        }
+        catch (NoSuchMethodException e)
+        {
+            // no logging needed, since a) this is possible, and b) the use of reflection should never be admitted to
+        }
+
+        return found;
     }
 }
