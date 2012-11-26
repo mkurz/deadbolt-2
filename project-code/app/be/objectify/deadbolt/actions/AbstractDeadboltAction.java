@@ -70,7 +70,7 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
         }
         else
         {
-            deadboltHandler = PluginUtils.getHandler();
+            deadboltHandler = PluginUtils.getDeadboltHandler();
         }
         return deadboltHandler;
     }

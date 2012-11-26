@@ -15,9 +15,14 @@
  */
 package be.objectify.deadbolt;
 
+import be.objectify.deadbolt.scalabolt.ScalaboltHandler;
+import be.objectify.deadbolt.scalabolt.ScalaboltHandlerAccessor;
 import play.Application;
 import play.Configuration;
+import play.Logger;
 import play.Plugin;
+
+import java.util.Set;
 
 /**
  * A play plugin that provides authorization mechanism for defining access rights
@@ -27,11 +32,13 @@ public class DeadboltPlugin extends Plugin
 {
 
     public static final String DEADBOLT_HANDLER_KEY = "deadbolt.handler";
+    public static final String SCALABOLT_HANDLER_KEY = "scalabolt.handler.accessor";
 
     public static final String CACHE_USER = "deadbolt.cache-user";
 
     private boolean cacheUserPerRequestEnabled = false;
     private DeadboltHandler deadboltHandler;
+    private ScalaboltHandlerAccessor scalaboltHandlerAccessor;
 
     private final Application application;
 
@@ -47,29 +54,51 @@ public class DeadboltPlugin extends Plugin
     public void onStart()
     {
         Configuration configuration = application.configuration();
-        if (!configuration.keys().contains(DEADBOLT_HANDLER_KEY))
+        Set<String> configurationKeys = configuration.keys();
+
+        if (!configurationKeys.contains(DEADBOLT_HANDLER_KEY)
+            && !configurationKeys.contains(SCALABOLT_HANDLER_KEY))
         {
-            throw configuration.reportError(DEADBOLT_HANDLER_KEY,
-                                            "A Deadbolt handler must be defined",
-                                            null);
+            Logger.warn("No handlers declared for Deadbolt or Scalabolt.  This can cause problems when using view templates.");
         }
 
-        String deadboltHandlerName = null;
-        try
+        if (configurationKeys.contains(DEADBOLT_HANDLER_KEY))
         {
-            deadboltHandlerName = configuration.getString(DEADBOLT_HANDLER_KEY);
-            deadboltHandler = (DeadboltHandler) Class.forName(deadboltHandlerName,
-                                                              true,
-                                                              application.classloader()).newInstance();
-        }
-        catch (Exception e)
-        {
-            throw configuration.reportError(DEADBOLT_HANDLER_KEY,
-                                            "Error creating Deadbolt handler: " + deadboltHandlerName,
-                                            e);
+            String deadboltHandlerName = null;
+            try
+            {
+                deadboltHandlerName = configuration.getString(DEADBOLT_HANDLER_KEY);
+                deadboltHandler = (DeadboltHandler) Class.forName(deadboltHandlerName,
+                        true,
+                        application.classloader()).newInstance();
+            }
+            catch (Exception e)
+            {
+                throw configuration.reportError(DEADBOLT_HANDLER_KEY,
+                        "Error creating Deadbolt handler: " + deadboltHandlerName,
+                        e);
+            }
         }
 
-        if (configuration.keys().contains(CACHE_USER))
+        if (configurationKeys.contains(SCALABOLT_HANDLER_KEY))
+        {
+            String scalaboltHandlerName = null;
+            try
+            {
+                scalaboltHandlerName = configuration.getString(SCALABOLT_HANDLER_KEY);
+                scalaboltHandlerAccessor = (ScalaboltHandlerAccessor) Class.forName(scalaboltHandlerName,
+                        true,
+                        application.classloader()).newInstance();
+            }
+            catch (Exception e)
+            {
+                throw configuration.reportError(SCALABOLT_HANDLER_KEY,
+                        "Error creating Scalabolt handler accessor: " + scalaboltHandlerName,
+                        e);
+            }
+        }
+
+        if (configurationKeys.contains(CACHE_USER))
         {
             cacheUserPerRequestEnabled = configuration.getBoolean(CACHE_USER);
         }
@@ -88,11 +117,20 @@ public class DeadboltPlugin extends Plugin
     /**
      * Getter for the registered Deadbolt Handler
      *
-     * @return DeadboltHandler registered Deadbolt handler
+     * @return the registered Deadbolt handler, or null if it's not defined
      */
     public DeadboltHandler getDeadboltHandler()
     {
         return deadboltHandler;
     }
 
+    /**
+     * Getter for the registered Scalabolt Handler
+     *
+     * @return the registered Scalabolt handler, or null if it's not defined
+     */
+    public ScalaboltHandler getScalaboltHandler()
+    {
+        return scalaboltHandlerAccessor == null ? null : scalaboltHandlerAccessor.getInstance();
+    }
 }

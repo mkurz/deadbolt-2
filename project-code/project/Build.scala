@@ -1,6 +1,6 @@
 import sbt._
 import Keys._
-import PlayProject._
+import play.Project._
 
 object ApplicationBuild extends Build {
 
@@ -10,7 +10,7 @@ object ApplicationBuild extends Build {
     val appDependencies = Seq(
     )
 
-    val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
+    val main = PlayProject(appName, appVersion, appDependencies).settings(
       organization := "be.objectify"
     )
 }

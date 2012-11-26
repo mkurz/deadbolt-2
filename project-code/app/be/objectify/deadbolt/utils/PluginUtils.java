@@ -18,7 +18,7 @@ package be.objectify.deadbolt.utils;
 import static play.api.Play.unsafeApplication;
 import static play.libs.Scala.orNull;
 
-import play.Logger;
+import be.objectify.deadbolt.scalabolt.ScalaboltHandler;
 import be.objectify.deadbolt.DeadboltHandler;
 import be.objectify.deadbolt.DeadboltPlugin;
 
@@ -37,12 +37,18 @@ public class PluginUtils
     public static boolean isUserCacheEnabled() throws Exception
     {
         DeadboltPlugin p = getPlugin();
-        return (p != null ? p.isCacheUserPerRequestEnabled() : false);
+        return p != null && p.isCacheUserPerRequestEnabled();
     }
 
-    public static DeadboltHandler getHandler() throws Exception
+    public static DeadboltHandler getDeadboltHandler() throws Exception
     {
         DeadboltPlugin p = getPlugin();
-        return (p != null ? p.getDeadboltHandler() : null);
+        return p != null ? p.getDeadboltHandler() : null;
+    }
+
+    public static ScalaboltHandler getScalaboltHandler() throws Exception
+    {
+        DeadboltPlugin p = getPlugin();
+        return p != null ? p.getScalaboltHandler() : null;
     }
 }

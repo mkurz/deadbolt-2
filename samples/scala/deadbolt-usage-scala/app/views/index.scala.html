@@ -133,4 +133,16 @@ expected result.
         </ul>
     </li>
 </ul>
+
+
+<h3>Tag restrictions</h3>
+
+<div class="tagSection">
+    Tag: restrict   Requires: foo and bar.  Expected result: contents are visible
+    <div class="box">
+        @restrict(la(as("foo", "bar"))) {
+        This content should be visible
+        }
+    </div>
+</div>
 }

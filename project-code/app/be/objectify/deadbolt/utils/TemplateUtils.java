@@ -19,9 +19,7 @@ import be.objectify.deadbolt.models.RoleHolder;
 import play.mvc.Http;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Convenience methods for templates.
@@ -59,6 +57,6 @@ public class TemplateUtils
      */
     public static RoleHolder roleHolder() throws Throwable
     {
-        return RequestUtils.getRoleHolder(PluginUtils.getHandler(), Http.Context.current());
+        return RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(), Http.Context.current());
     }
 }

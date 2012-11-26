@@ -42,7 +42,7 @@ public class Deadbolt
     public static boolean viewRestrict(List<String[]> roles) throws Throwable
     {
         boolean roleOk = false;
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getHandler(),
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
                                                            Http.Context.current());
         for (int i = 0; !roleOk && i < roles.size(); i++)
         {
@@ -64,7 +64,7 @@ public class Deadbolt
                                       String meta) throws Throwable
     {
         Http.Context context = Http.Context.current();
-        DynamicResourceHandler resourceHandler = PluginUtils.getHandler().getDynamicResourceHandler(context);
+        DynamicResourceHandler resourceHandler = PluginUtils.getDeadboltHandler().getDynamicResourceHandler(context);
         boolean allowed = false;
         if (resourceHandler == null)
         {
@@ -74,7 +74,7 @@ public class Deadbolt
         {
             if (resourceHandler.isAllowed(name,
                                           meta,
-                                          PluginUtils.getHandler(),
+                                          PluginUtils.getDeadboltHandler(),
                                           context))
             {
                 allowed = true;
@@ -91,7 +91,7 @@ public class Deadbolt
      */
     public static boolean viewRoleHolderPresent() throws Throwable
     {
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getHandler(),
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
                                                            Http.Context.current());
         return roleHolder != null;
     }
@@ -103,7 +103,7 @@ public class Deadbolt
      */
     public static boolean viewRoleHolderNotPresent() throws Throwable
     {
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getHandler(),
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
                                                            Http.Context.current());
         return roleHolder == null;
     }
@@ -114,7 +114,7 @@ public class Deadbolt
         boolean allowed = false;
 
         Http.Context context = Http.Context.current();
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getHandler(),
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
                                                            context);
         switch (patternType)
         {
@@ -128,7 +128,7 @@ public class Deadbolt
                 break;
             case CUSTOM:
                 allowed = DeadboltAnalyzer.checkCustomPattern(roleHolder,
-                                                              PluginUtils.getHandler(),
+                                                              PluginUtils.getDeadboltHandler(),
                                                               context,
                                                               value);
                 break;
