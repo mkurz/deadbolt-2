@@ -8,6 +8,7 @@ object ApplicationBuild extends Build {
     val appVersion      = "1.1.4-SNAPSHOT"
 
     val appDependencies = Seq(
+      javaCore
     )
 
     val main = play.Project(appName, appVersion, appDependencies).settings(

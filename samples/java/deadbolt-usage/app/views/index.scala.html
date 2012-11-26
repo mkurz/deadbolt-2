@@ -265,7 +265,7 @@ expected result.
 <div class="tagSection">
     Tag: restrict   Requires: foo and bar.  Expected result: contents are visible
     <div class="box">
-        @restrict(List(as("foo", "bar"))) {
+        @restrict(la(as("foo", "bar"))) {
         This content should be visible
         }
     </div>
@@ -274,7 +274,7 @@ expected result.
 <div class="tagSection">
     Tag: restrictOr   Requires: foo and bar.  Expected result: whoops
     <div class="box">
-        @restrictOr(List(as("foo", "hurdy"))) {
+        @restrictOr(la(as("foo", "hurdy"))) {
         This content should be visible
         }{Whoops}
     </div>
@@ -283,7 +283,7 @@ expected result.
 <div class="tagSection">
     Tag: restrict   Requires: Not foo.  Expected result: contents are not visible
     <div class="box">
-        @restrict(List(as("!foo"))) {
+        @restrict(la(as("!foo"))) {
         This content should not be visible
         }
     </div>
@@ -292,7 +292,7 @@ expected result.
 <div class="tagSection">
     Tag: restrict   Requires: foo or bar.  Expected result: contents are visible
     <div class="box">
-        @restrict(List(as("foo"), as("bar"))) {
+        @restrict(la(as("foo"), as("bar"))) {
         This content should be visible
         }
     </div>
@@ -301,7 +301,7 @@ expected result.
 <div class="tagSection">
     Tag: restrict   Requires: foo but not bar.  Expected result: contents are not visible
     <div class="box">
-        @restrict(List(as("foo", "!bar"))) {
+        @restrict(la(as("foo", "!bar"))) {
         This content should be visible
         }
     </div>
