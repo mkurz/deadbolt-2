@@ -24,31 +24,31 @@ import be.objectify.deadbolt.DeadboltPlugin;
 
 public class PluginUtils
 {
-    public static DeadboltPlugin getPlugin() throws Exception
+    public static DeadboltPlugin getDeadboltPlugin() throws Exception
     {
         DeadboltPlugin plugin = orNull(unsafeApplication().plugin(DeadboltPlugin.class));
         if (plugin == null)
         {
-            throw new Exception("The Deadbolt plugin was not registered,  or is disabled.  Please check your conf/play.plugins file.");
+            throw new Exception("The Deadbolt Java plugin was not registered,  or is disabled.  Please check your conf/play.plugins file.");
         }
         return plugin;
     }
 
     public static boolean isUserCacheEnabled() throws Exception
     {
-        DeadboltPlugin p = getPlugin();
+        DeadboltPlugin p = getDeadboltPlugin();
         return p != null && p.isCacheUserPerRequestEnabled();
     }
 
     public static DeadboltHandler getDeadboltHandler() throws Exception
     {
-        DeadboltPlugin p = getPlugin();
+        DeadboltPlugin p = getDeadboltPlugin();
         return p != null ? p.getDeadboltHandler() : null;
     }
 
     public static ScalaboltHandler getScalaboltHandler() throws Exception
     {
-        DeadboltPlugin p = getPlugin();
-        return p != null ? p.getScalaboltHandler() : null;
+        DeadboltPlugin p = getDeadboltPlugin();
+        return null;//p != null ? p.getScalaboltHandler() : null;
     }
 }

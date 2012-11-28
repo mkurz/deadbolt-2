@@ -19,6 +19,7 @@ import play.Logger;
 import play.mvc.Http;
 import be.objectify.deadbolt.DeadboltHandler;
 import be.objectify.deadbolt.DeadboltPlugin;
+import be.objectify.deadbolt.PluginConfigKeys;
 import be.objectify.deadbolt.models.RoleHolder;
 
 /**
@@ -34,7 +35,7 @@ public class RequestUtils
     public static final RoleHolder getRoleHolder(DeadboltHandler deadboltHandler,
                                                  Http.Context ctx)
     {
-        Object cachedUser = ctx.args.get(DeadboltPlugin.CACHE_USER);
+        Object cachedUser = ctx.args.get(PluginConfigKeys.CACHE_DEADBOLT_USER);
         RoleHolder roleHolder = null;
         try
         {
@@ -47,7 +48,7 @@ public class RequestUtils
                 else
                 {
                     roleHolder = deadboltHandler.getRoleHolder(ctx);
-                    ctx.args.put(DeadboltPlugin.CACHE_USER,
+                    ctx.args.put(PluginConfigKeys.CACHE_DEADBOLT_USER,
                                  roleHolder);
                 }
             }
