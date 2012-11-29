@@ -41,9 +41,15 @@ public class Deadbolt
      */
     public static boolean viewRestrict(List<String[]> roles) throws Throwable
     {
+        return viewRestrict(roles,
+                            RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
+                                                       Http.Context.current()));
+    }
+
+    public static boolean viewRestrict(List<String[]> roles,
+                                       RoleHolder roleHolder) throws Throwable
+    {
         boolean roleOk = false;
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
-                                                           Http.Context.current());
         for (int i = 0; !roleOk && i < roles.size(); i++)
         {
             roleOk = DeadboltAnalyzer.checkRole(roleHolder,
@@ -91,8 +97,12 @@ public class Deadbolt
      */
     public static boolean viewRoleHolderPresent() throws Throwable
     {
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
-                                                           Http.Context.current());
+        return viewRoleHolderPresent(RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
+                                                                Http.Context.current()));
+    }
+
+    public static boolean viewRoleHolderPresent(RoleHolder roleHolder) throws Throwable
+    {
         return roleHolder != null;
     }
 
@@ -103,8 +113,12 @@ public class Deadbolt
      */
     public static boolean viewRoleHolderNotPresent() throws Throwable
     {
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
-                                                           Http.Context.current());
+        return viewRoleHolderNotPresent(RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
+                                                                   Http.Context.current()));
+    }
+
+    public static boolean viewRoleHolderNotPresent(RoleHolder roleHolder) throws Throwable
+    {
         return roleHolder == null;
     }
 

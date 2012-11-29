@@ -19,7 +19,7 @@ class MyScalaboltHandler(dynamicResourceHandler: DynamicResourceHandler = null) 
 
   override def getRoleHolder[A](request: Request[A]): RoleHolder =
   {
-    // request.session.get...
+    request.
     new User("steve")
   }
 

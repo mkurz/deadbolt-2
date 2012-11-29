@@ -32,6 +32,21 @@ public class RequestUtils
         // no-op
     }
 
+    public static boolean isContextPresent()
+    {
+        boolean isPresent = false;
+        try
+        {
+            Http.Context context = Http.Context.current();
+            isPresent = context != null;
+        }
+        catch (Exception e)
+        {
+            // no context present
+        }
+        return isPresent;
+    }
+
     public static final RoleHolder getRoleHolder(DeadboltHandler deadboltHandler,
                                                  Http.Context ctx)
     {

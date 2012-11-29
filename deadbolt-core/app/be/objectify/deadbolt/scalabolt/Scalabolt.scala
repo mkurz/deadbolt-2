@@ -20,7 +20,7 @@ trait Scalabolt extends Results with BodyParsers
    */
   def SBRestrict[A](roleNames: Array[String],
                     scalaboltHandler: ScalaboltHandler)(action: Action[A]): Action[A] = {
-    Action(action.parser) { request =>
+    Action(action.parser) { implicit request =>
       val roleHolder = scalaboltHandler.getRoleHolder(request)
       if (roleHolder == null || !DeadboltAnalyzer.checkRole(roleHolder, roleNames)) scalaboltHandler.onAccessFailure(request)
       else action(request)
@@ -38,7 +38,7 @@ trait Scalabolt extends Results with BodyParsers
   def SBRestrictions[A](roleGroups: List[Array[String]],
                         scalaboltHandler: ScalaboltHandler)
                        (action: Action[A]): Action[A] = {
-    Action(action.parser) { request =>
+    Action(action.parser) { implicit request =>
       // todo implement
       action(request)
     }
@@ -57,7 +57,7 @@ trait Scalabolt extends Results with BodyParsers
                    meta: String = "",
                    scalaboltHandler: ScalaboltHandler)
                   (action: Action[A]): Action[A] = {
-    Action(action.parser) { request =>
+    Action(action.parser) { implicit request =>
       val dynamicHandler: DynamicResourceHandler = scalaboltHandler.getDynamicResourceHandler(request)
       if (dynamicHandler == null) throw new RuntimeException("A dynamic resource is specified but no dynamic resource handler is provided")
       else
@@ -77,7 +77,7 @@ trait Scalabolt extends Results with BodyParsers
    * @return
    */
   def SBRoleHolderPresent[A](scalaboltHandler: ScalaboltHandler)(action: Action[A]): Action[A] = {
-    Action(action.parser) { request =>
+    Action(action.parser) { implicit request =>
       val roleHolder = scalaboltHandler.getRoleHolder(request)
       if (roleHolder == null) scalaboltHandler.onAccessFailure(request)
       else action(request)
@@ -93,7 +93,7 @@ trait Scalabolt extends Results with BodyParsers
    * @return
    */
   def SBRoleHolderNotPresent[A](scalaboltHandler: ScalaboltHandler)(action: Action[A]): Action[A] = {
-    Action(action.parser) { request =>
+    Action(action.parser) { implicit request =>
       val roleHolder = scalaboltHandler.getRoleHolder(request)
       if (roleHolder != null) scalaboltHandler.onAccessFailure(request)
       else action(request)

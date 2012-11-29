@@ -22,11 +22,7 @@ public class PluginConfigKeys
 {
     public static final String DEADBOLT_JAVA_HANDLER_KEY = "deadbolt.java.handler";
 
-    public static final String DEADBOLT_SCALA_HANDLER_ACCESSOR_KEY = "deadbolt.scala.handler-accessor";
-
     public static final String CACHE_DEADBOLT_USER = "deadbolt.cache-user";
-
-    public static final String DEADBOLT_PREFER_HANDLER = "deadbolt.prefer";
 
     private PluginConfigKeys()
     {
