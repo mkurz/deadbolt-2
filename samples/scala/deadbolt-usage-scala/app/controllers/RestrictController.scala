@@ -1,24 +1,22 @@
 package controllers
 
-import be.objectify.deadbolt.actions.Restrict
 import views.html.accessOk
 import play.api.mvc.{Action, Controller}
-import be.objectify.deadbolt.scalabolt.Scalabolt
-import security.MyScalaboltHandler
+import security.MyDeadboltHandler
+import be.objectify.deadbolt.scala.DeadboltActions
 
 /**
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
-@Restrict(Array("foo", "bar"))
-object RestrictController extends Controller with Scalabolt
+object RestrictController extends Controller with DeadboltActions
 {
   def index = Action
               {
                 Ok(accessOk())
               }
 
-  def restrictOne = SBRestrict(Array("foo"), new MyScalaboltHandler)
+  def restrictOne = SBRestrict(Array("foo"), new MyDeadboltHandler)
                     {
                       Action
                       {
@@ -26,7 +24,7 @@ object RestrictController extends Controller with Scalabolt
                       }
                     }
 
-  def restrictTwo = SBRestrict(Array("foo", "bar"), new MyScalaboltHandler)
+  def restrictTwo = SBRestrict(Array("foo", "bar"), new MyDeadboltHandler)
                     {
                       Action
                       {
@@ -34,7 +32,7 @@ object RestrictController extends Controller with Scalabolt
                       }
                     }
 
-  def restrictThree = SBRestrict(Array("foo", "!bar"), new MyScalaboltHandler)
+  def restrictThree = SBRestrict(Array("foo", "!bar"), new MyDeadboltHandler)
                       {
                         Action
                         {
@@ -42,7 +40,7 @@ object RestrictController extends Controller with Scalabolt
                         }
                       }
 
-  def restrictFour = SBRestrict(Array("hurdy"), new MyScalaboltHandler)
+  def restrictFour = SBRestrict(Array("hurdy"), new MyDeadboltHandler)
                      {
                        Action
                        {

@@ -1,7 +1,7 @@
 package security
 
 import java.lang.System
-import be.objectify.deadbolt.scalabolt.{DynamicResourceHandler, ScalaboltHandler}
+import be.objectify.deadbolt.scala.{DynamicResourceHandler, DeadboltHandler}
 import collection.immutable.Map
 import play.api.mvc.Request
 
@@ -11,7 +11,7 @@ import play.api.mvc.Request
  */
 class MyDynamicResourceHandler extends DynamicResourceHandler
 {
-  def isAllowed[A](name: String, meta: String, handler: ScalaboltHandler, request: Request[A]) =
+  def isAllowed[A](name: String, meta: String, handler: DeadboltHandler, request: Request[A]) =
   {
     MyDynamicResourceHandler.handlers(name).isAllowed(name,
                                                       meta,
@@ -19,7 +19,7 @@ class MyDynamicResourceHandler extends DynamicResourceHandler
                                                       request)
   }
 
-  def checkPermission[A](permissionValue: String, deadboltHandler: ScalaboltHandler, request: Request[A]) =
+  def checkPermission[A](permissionValue: String, deadboltHandler: DeadboltHandler, request: Request[A]) =
   {
     // todo implement this when demonstrating permissions
     false
@@ -28,15 +28,16 @@ class MyDynamicResourceHandler extends DynamicResourceHandler
 
 object MyDynamicResourceHandler
 {
-  val handlers: Map[String, DynamicResourceHandler] = Map(
-                                                           "pureLuck" -> new DynamicResourceHandler()
-                                                           {
-                                                             def isAllowed[A](name: String, meta: String, deadboltHandler: ScalaboltHandler, request: Request[A]) =
-                                                             {
-                                                               System.currentTimeMillis() % 2 == 0
-                                                             }
+  val handlers: Map[String, DynamicResourceHandler] =
+    Map(
+         "pureLuck" -> new DynamicResourceHandler()
+         {
+           def isAllowed[A](name: String, meta: String, deadboltHandler: DeadboltHandler, request: Request[A]) =
+           {
+             System.currentTimeMillis() % 2 == 0
+           }
 
-                                                             def checkPermission[A](permissionValue: String, deadboltHandler: ScalaboltHandler, request: Request[A]) = false
-                                                           }
-                                                         )
+           def checkPermission[A](permissionValue: String, deadboltHandler: DeadboltHandler, request: Request[A]) = false
+         }
+       )
 }

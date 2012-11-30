@@ -1,7 +1,7 @@
 package models
 
-import be.objectify.deadbolt.models.RoleHolder
 import play.libs.Scala
+import be.objectify.deadbolt.core.models.RoleHolder
 
 /**
  *

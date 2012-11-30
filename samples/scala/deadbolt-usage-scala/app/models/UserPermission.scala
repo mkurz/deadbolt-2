@@ -1,6 +1,6 @@
 package models
 
-import be.objectify.deadbolt.models.Permission
+import be.objectify.deadbolt.core.models.Permission
 
 /**
  *

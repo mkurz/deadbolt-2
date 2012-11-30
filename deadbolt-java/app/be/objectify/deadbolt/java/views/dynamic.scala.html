@@ -1,0 +1,5 @@
+@(name: String, meta: String = null)(body: => Html)
+
+@if(be.objectify.deadbolt.java.DeadboltViewSupport.viewDynamic(name, meta)) {
+@body
+}

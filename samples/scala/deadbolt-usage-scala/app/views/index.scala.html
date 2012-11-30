@@ -1,5 +1,7 @@
-@import be.objectify.deadbolt.views.html._
-@import be.objectify.deadbolt.utils.TemplateUtils._
+@(handler: be.objectify.deadbolt.scala.DeadboltHandler)(implicit request: Request[Any])
+
+@import be.objectify.deadbolt.scala.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._
 
 @main("Deadbolt Scala usage examples") {
 
@@ -140,8 +142,16 @@ expected result.
 <div class="tagSection">
     Tag: restrict   Requires: foo and bar.  Expected result: contents are visible
     <div class="box">
-        @restrict(la(as("foo", "bar"))) {
+        @restrict(handler, List(as("foo", "bar")))(request) {
         This content should be visible
+        }
+    </div>
+</div>
+<div class="tagSection">
+    Tag: restrict   Requires: foo, bar, and hurdy. Expected result: contents are NOT visible
+    <div class="box">
+        @restrict(handler, List(as("foo", "bar", "hurdy")))(request) {
+        This content should NOT be visible
         }
     </div>
 </div>

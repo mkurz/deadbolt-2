@@ -1,0 +1,7 @@
+@(body: => Html)(alternativeBody: => Html)
+
+@if(be.objectify.deadbolt.java.DeadboltViewSupport.viewRoleHolderPresent()) {
+@body
+} else {
+@alternativeBody
+}

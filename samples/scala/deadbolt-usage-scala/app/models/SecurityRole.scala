@@ -1,6 +1,6 @@
 package models
 
-import be.objectify.deadbolt.models.Role
+import be.objectify.deadbolt.core.models.Role
 
 /**
  *

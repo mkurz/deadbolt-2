@@ -2,17 +2,17 @@ package controllers
 
 import views.html.accessOk
 import play.api.mvc.{Action, Controller}
-import be.objectify.deadbolt.scalabolt.Scalabolt
-import security.{MyUserlessScalaboltHandler, MyScalaboltHandler}
+import security.{MyUserlessDeadboltHandler, MyDeadboltHandler}
+import be.objectify.deadbolt.scala.DeadboltActions
 
 /**
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
-object RoleHolderNotPresentController extends Controller with Scalabolt
+object RoleHolderNotPresentController extends Controller with DeadboltActions
 {
 
-  def loggedIn = SBRoleHolderNotPresent(new MyScalaboltHandler)
+  def loggedIn = SBRoleHolderNotPresent(new MyDeadboltHandler)
                  {
                    Action
                    {
@@ -20,7 +20,7 @@ object RoleHolderNotPresentController extends Controller with Scalabolt
                    }
                  }
 
-  def notLoggedIn = SBRoleHolderNotPresent(new MyUserlessScalaboltHandler)
+  def notLoggedIn = SBRoleHolderNotPresent(new MyUserlessDeadboltHandler)
                     {
                       Action
                       {

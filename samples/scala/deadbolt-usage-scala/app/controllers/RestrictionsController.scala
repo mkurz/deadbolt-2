@@ -2,17 +2,17 @@ package controllers
 
 import views.html.accessOk
 import play.api.mvc.{Action, Controller}
-import be.objectify.deadbolt.scalabolt.Scalabolt
-import security.MyScalaboltHandler
+import security.MyDeadboltHandler
+import be.objectify.deadbolt.scala.DeadboltActions
 
 
 /**
  *
  * @author Steve Chaloner (steve@objectify.be)
  */
-object RestrictionsController extends Controller with Scalabolt
+object RestrictionsController extends Controller with DeadboltActions
 {
-  def restrictionsOne = SBRestrictions(List(Array("foo", "bar")), new MyScalaboltHandler)
+  def restrictionsOne = SBRestrictions(List(Array("foo", "bar")), new MyDeadboltHandler)
                         {
                           Action
                           {
@@ -20,7 +20,7 @@ object RestrictionsController extends Controller with Scalabolt
                           }
                         }
 
-  def restrictionsTwo = SBRestrictions(List(Array("foo"), Array("bar")), new MyScalaboltHandler)
+  def restrictionsTwo = SBRestrictions(List(Array("foo"), Array("bar")), new MyDeadboltHandler)
                         {
                           Action
                           {
@@ -28,7 +28,7 @@ object RestrictionsController extends Controller with Scalabolt
                           }
                         }
 
-  def restrictionsThree = SBRestrictions(List(Array("hurdy", "gurdy"), Array("foo")), new MyScalaboltHandler)
+  def restrictionsThree = SBRestrictions(List(Array("hurdy", "gurdy"), Array("foo")), new MyDeadboltHandler)
                           {
                             Action
                             {
@@ -36,7 +36,7 @@ object RestrictionsController extends Controller with Scalabolt
                             }
                           }
 
-  def restrictionsFour = SBRestrictions(List(Array("foo"), Array("!bar")), new MyScalaboltHandler)
+  def restrictionsFour = SBRestrictions(List(Array("foo"), Array("!bar")), new MyDeadboltHandler)
                          {
                            Action
                            {
@@ -44,7 +44,7 @@ object RestrictionsController extends Controller with Scalabolt
                            }
                          }
 
-  def restrictionsFive = SBRestrictions(List(Array("hurdy", "foo")), new MyScalaboltHandler)
+  def restrictionsFive = SBRestrictions(List(Array("hurdy", "foo")), new MyDeadboltHandler)
                          {
                            Action
                            {
