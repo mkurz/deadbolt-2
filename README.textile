@@ -4,7 +4,7 @@ Deadbolt is an authorisation mechanism for defining access rights to certain con
 
 Note that Deadbolt doesn't provide authentication!  You can use the existing authentication features of Play 2, or third-party modules such as SecureSocial alongside Deadbolt to provide authentication, and in cases where authentication is handled outside your app you can just hook up the authorisation mechanism to whatever auth system is used.
 
-h1.30 November 2012 - Important!  Deadbolt 2 is currently undergoing a redesign to ensure it offers full support for both Java and Scala.  For the next few days, changes in the API,including package names and method signatures are likely.
+h1. 30 November 2012 - Important!  Deadbolt 2 is currently undergoing a redesign to ensure it offers full support for both Java and Scala.  For the next few days, changes in the API,including package names and method signatures are likely.
 
 
 h2. Configuration
