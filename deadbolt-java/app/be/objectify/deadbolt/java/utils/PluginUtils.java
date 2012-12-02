@@ -18,7 +18,7 @@ package be.objectify.deadbolt.java.utils;
 import static play.api.Play.unsafeApplication;
 import static play.libs.Scala.orNull;
 
-import be.objectify.deadbolt.core.DeadboltHandler;
+import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.java.DeadboltPlugin;
 
 public class PluginUtils

@@ -15,10 +15,6 @@
  */
 package actions;
 
-import be.objectify.deadbolt.DeadboltHandler;
-import be.objectify.deadbolt.DynamicResourceHandler;
-import be.objectify.deadbolt.actions.AbstractRestrictiveAction;
-import be.objectify.deadbolt.actions.Dynamic;
 import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;

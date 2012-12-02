@@ -1,6 +1,6 @@
-@import be.objectify.deadbolt.PatternType
-@import be.objectify.deadbolt.views.html._
-@import be.objectify.deadbolt.utils.TemplateUtils._
+@import be.objectify.deadbolt.core.PatternType
+@import be.objectify.deadbolt.java.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._
 
 @main("Deadbolt usage examples") {
 
@@ -119,6 +119,20 @@ expected result.
         <a href="@routes.DynamicRestrictionsController.noWayJose">No way, Jose</a>
         <ul>
             <li>method-level restriction using the same resource name as "pure luck" above, but specifying a different handler</li>
+            <li>should NOT be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href='@routes.DynamicRestrictionsController.viewProfile("steve")'>View profile for current user</a>
+        <ul>
+            <li>method-level restriction that uses request information to determine access</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href='@routes.DynamicRestrictionsController.viewProfile("greet")'>View profile for another user</a>
+        <ul>
+            <li>method-level restriction that uses request information to determine access</li>
             <li>should NOT be visible</li>
         </ul>
     </li>

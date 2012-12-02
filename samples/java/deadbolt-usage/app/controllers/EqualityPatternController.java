@@ -15,7 +15,7 @@
  */
 package controllers;
 
-import be.objectify.deadbolt.actions.DeadboltPattern;
+import be.objectify.deadbolt.java.actions.DeadboltPattern;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.accessOk;

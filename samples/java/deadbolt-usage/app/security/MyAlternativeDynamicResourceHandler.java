@@ -15,13 +15,9 @@
  */
 package security;
 
-import be.objectify.deadbolt.DeadboltHandler;
-import be.objectify.deadbolt.DynamicResourceHandler;
-import play.Logger;
+import be.objectify.deadbolt.java.DeadboltHandler;
+import be.objectify.deadbolt.java.DynamicResourceHandler;
 import play.mvc.Http;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)

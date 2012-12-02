@@ -15,8 +15,8 @@
  */
 package security;
 
-import be.objectify.deadbolt.DeadboltHandler;
-import be.objectify.deadbolt.DynamicResourceHandler;
+import be.objectify.deadbolt.java.DeadboltHandler;
+import be.objectify.deadbolt.java.DynamicResourceHandler;
 import play.mvc.Http;
 
 /**

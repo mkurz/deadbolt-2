@@ -15,8 +15,8 @@
  */
 package models;
 
-import be.objectify.deadbolt.models.Permission;
-import be.objectify.deadbolt.models.Role;
+import be.objectify.deadbolt.core.models.Permission;
+import be.objectify.deadbolt.core.models.Role;
 import play.db.ebean.Model;
 
 import javax.persistence.CascadeType;

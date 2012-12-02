@@ -15,8 +15,8 @@
  */
 package controllers;
 
-import be.objectify.deadbolt.actions.Dynamic;
-import be.objectify.deadbolt.actions.RoleHolderPresent;
+import be.objectify.deadbolt.java.actions.Dynamic;
+import be.objectify.deadbolt.java.actions.RoleHolderPresent;
 import play.mvc.Controller;
 import play.mvc.Result;
 import security.MyAlternativeDeadboltHandler;
@@ -41,6 +41,12 @@ public class DynamicRestrictionsController extends Controller
 
     @Dynamic(value = "pureLuck", handler = MyAlternativeDeadboltHandler.class)
     public static Result noWayJose()
+    {
+        return ok(accessOk.render());
+    }
+
+    @Dynamic(value = "viewProfile")
+    public static Result viewProfile(String userName)
     {
         return ok(accessOk.render());
     }

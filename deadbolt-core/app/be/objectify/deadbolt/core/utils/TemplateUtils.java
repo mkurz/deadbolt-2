@@ -15,6 +15,9 @@
  */
 package be.objectify.deadbolt.core.utils;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Convenience methods for templates.
  *
@@ -31,5 +34,16 @@ public class TemplateUtils
     public static String[] as(String... args)
     {
         return args;
+    }
+
+    /**
+     * Converts the argument array into a List of String arrays.  Convenience method for templates.
+     *
+     * @param args the arguments
+     * @return
+     */
+    public static List<String[]> la(String[]... args)
+    {
+        return Arrays.asList(args);
     }
 }

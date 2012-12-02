@@ -15,8 +15,8 @@
  */
 package be.objectify.deadbolt.java.actions;
 
-import be.objectify.deadbolt.core.DeadboltHandler;
-import be.objectify.deadbolt.core.DynamicResourceHandler;
+import be.objectify.deadbolt.java.DeadboltHandler;
+import be.objectify.deadbolt.java.DynamicResourceHandler;
 import play.mvc.Http;
 import play.mvc.Result;
 

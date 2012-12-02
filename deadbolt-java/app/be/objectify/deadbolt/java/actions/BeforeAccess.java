@@ -15,7 +15,7 @@
  */
 package be.objectify.deadbolt.java.actions;
 
-import be.objectify.deadbolt.core.DeadboltHandler;
+import be.objectify.deadbolt.java.DeadboltHandler;
 import play.mvc.With;
 
 import java.lang.annotation.Documented;
@@ -26,7 +26,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Invokes beforeRoleCheck on the global or a specified {@link be.objectify.deadbolt.core.DeadboltHandler}.  This is an easy way to programmatically
+ * Invokes beforeRoleCheck on the global or a specified {@link be.objectify.deadbolt.java.DeadboltHandler}.  This is an easy way to programmatically
  * apply authentication without requiring a role.
  *
  * @author Steve Chaloner (steve@objectify.be)
@@ -39,7 +39,7 @@ import java.lang.annotation.Target;
 public @interface BeforeAccess
 {
     /**
-     * Use a specific {@link be.objectify.deadbolt.core.DeadboltHandler} for this restriction in place of the global one.
+     * Use a specific {@link be.objectify.deadbolt.java.DeadboltHandler} for this restriction in place of the global one.
      *
      * @return the class of the DeadboltHandler you want to use
      */

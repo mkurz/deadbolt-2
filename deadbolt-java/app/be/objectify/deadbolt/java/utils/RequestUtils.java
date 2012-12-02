@@ -15,11 +15,11 @@
  */
 package be.objectify.deadbolt.java.utils;
 
-import be.objectify.deadbolt.core.DeadboltHandler;
-import play.Logger;
-import play.mvc.Http;
+import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.core.PluginConfigKeys;
 import be.objectify.deadbolt.core.models.RoleHolder;
+import play.Logger;
+import play.mvc.Http;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
@@ -31,8 +31,8 @@ public class RequestUtils
         // no-op
     }
 
-    public static final RoleHolder getRoleHolder(DeadboltHandler deadboltHandler,
-                                                 Http.Context ctx)
+    public static RoleHolder getRoleHolder(DeadboltHandler deadboltHandler,
+                                           Http.Context ctx)
     {
         Object cachedUser = ctx.args.get(PluginConfigKeys.CACHE_DEADBOLT_USER);
         RoleHolder roleHolder = null;

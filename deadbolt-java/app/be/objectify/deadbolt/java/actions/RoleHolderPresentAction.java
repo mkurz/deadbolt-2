@@ -15,14 +15,14 @@
  */
 package be.objectify.deadbolt.java.actions;
 
-import be.objectify.deadbolt.core.DeadboltHandler;
+import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.core.models.RoleHolder;
 import play.mvc.Http;
 import play.mvc.Result;
 
 /**
  * Implements the {@link RoleHolderPresent} functionality, i.e. a {@link RoleHolder} must be provided by the
- * {@link be.objectify.deadbolt.core.DeadboltHandler} to have access to the resource, but no role checks are performed.
+ * {@link be.objectify.deadbolt.java.DeadboltHandler} to have access to the resource, but no role checks are performed.
  *
  * @author Steve Chaloner (steve@objectify.be)
  */

@@ -15,9 +15,9 @@
  */
 package models;
 
-import be.objectify.deadbolt.models.Permission;
-import be.objectify.deadbolt.models.Role;
-import be.objectify.deadbolt.models.RoleHolder;
+import be.objectify.deadbolt.core.models.Permission;
+import be.objectify.deadbolt.core.models.Role;
+import be.objectify.deadbolt.core.models.RoleHolder;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
@@ -32,8 +32,6 @@ import java.util.List;
 public class User extends Model implements RoleHolder
 {
     @Id
-    public Long id;
-    
     public String userName;
 
     @ManyToMany
@@ -42,8 +40,8 @@ public class User extends Model implements RoleHolder
     @ManyToMany
     public List<UserPermission> permissions;
 
-    public static final Finder<Long, User> find = new Finder<Long, User>(Long.class,
-                                                                         User.class);
+    public static final Finder<String, User> find = new Finder<String, User>(String.class,
+                                                                             User.class);
 
     public List<? extends Role> getRoles()
     {

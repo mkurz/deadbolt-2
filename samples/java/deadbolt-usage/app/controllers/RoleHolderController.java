@@ -15,9 +15,8 @@
  */
 package controllers;
 
-import be.objectify.deadbolt.actions.Restrict;
-import be.objectify.deadbolt.actions.RoleHolderNotPresent;
-import be.objectify.deadbolt.actions.RoleHolderPresent;
+import be.objectify.deadbolt.java.actions.RoleHolderNotPresent;
+import be.objectify.deadbolt.java.actions.RoleHolderPresent;
 import play.mvc.Controller;
 import play.mvc.Result;
 import security.NoUserDeadboltHandler;

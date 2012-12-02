@@ -15,10 +15,10 @@
  */
 package be.objectify.deadbolt.java.actions;
 
-import be.objectify.deadbolt.core.DeadboltHandler;
-import be.objectify.deadbolt.core.DynamicResourceHandler;
+import be.objectify.deadbolt.java.DeadboltHandler;
+import be.objectify.deadbolt.java.DynamicResourceHandler;
 import be.objectify.deadbolt.java.DeadboltViewSupport;
-import be.objectify.deadbolt.core.DeadboltAnalyzer;
+import be.objectify.deadbolt.java.JavaDeadboltAnalyzer;
 import play.mvc.Http;
 import play.mvc.Result;
 
@@ -93,9 +93,9 @@ public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPat
 
         final String patternValue = configuration.value();
 
-        if (DeadboltAnalyzer.checkPatternEquality(getRoleHolder(ctx,
-                                                                deadboltHandler),
-                                                  patternValue))
+        if (JavaDeadboltAnalyzer.checkPatternEquality(getRoleHolder(ctx,
+                                                                    deadboltHandler),
+                                                      patternValue))
         {
             markActionAsAuthorised(ctx);
             result = delegate.call(ctx);
@@ -127,9 +127,9 @@ public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPat
         final String patternValue = configuration.value();
         Pattern pattern = DeadboltViewSupport.getPattern(patternValue);
 
-        if (DeadboltAnalyzer.checkRegexPattern(getRoleHolder(ctx,
-                                                             deadboltHandler),
-                                               pattern))
+        if (JavaDeadboltAnalyzer.checkRegexPattern(getRoleHolder(ctx,
+                                                                 deadboltHandler),
+                                                   pattern))
         {
             markActionAsAuthorised(ctx);
             result = delegate.call(ctx);

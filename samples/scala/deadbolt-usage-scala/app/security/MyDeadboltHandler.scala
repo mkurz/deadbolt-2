@@ -1,9 +1,9 @@
 package security
 
-import models.User
 import be.objectify.deadbolt.scala.{DynamicResourceHandler, DeadboltHandler}
 import play.api.mvc.{Request, Result, Results}
 import be.objectify.deadbolt.core.models.RoleHolder
+import models.User
 
 /**
  *

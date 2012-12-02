@@ -16,14 +16,14 @@
 package controllers;
 
 import actions.UpdateContext;
-import be.objectify.deadbolt.actions.And;
-import be.objectify.deadbolt.actions.DeadboltPattern;
-import be.objectify.deadbolt.actions.DeferredDeadbolt;
-import be.objectify.deadbolt.actions.Dynamic;
-import be.objectify.deadbolt.actions.Restrict;
-import be.objectify.deadbolt.actions.Restrictions;
-import be.objectify.deadbolt.actions.RoleHolderNotPresent;
-import be.objectify.deadbolt.actions.RoleHolderPresent;
+import be.objectify.deadbolt.java.actions.And;
+import be.objectify.deadbolt.java.actions.DeadboltPattern;
+import be.objectify.deadbolt.java.actions.DeferredDeadbolt;
+import be.objectify.deadbolt.java.actions.Dynamic;
+import be.objectify.deadbolt.java.actions.Restrict;
+import be.objectify.deadbolt.java.actions.Restrictions;
+import be.objectify.deadbolt.java.actions.RoleHolderNotPresent;
+import be.objectify.deadbolt.java.actions.RoleHolderPresent;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.accessOk;

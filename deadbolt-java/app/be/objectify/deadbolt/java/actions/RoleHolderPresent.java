@@ -15,7 +15,7 @@
  */
 package be.objectify.deadbolt.java.actions;
 
-import be.objectify.deadbolt.core.DeadboltHandler;
+import be.objectify.deadbolt.java.DeadboltHandler;
 import play.mvc.With;
 
 import java.lang.annotation.Documented;
@@ -40,14 +40,14 @@ public @interface RoleHolderPresent
 {
     /**
      * Indicates the expected response type.  Useful when working with non-HTML responses.  This is free text, which you
-     * can use in {@link be.objectify.deadbolt.core.DeadboltHandler#onAccessFailure} to decide on how to handle the response.
+     * can use in {@link be.objectify.deadbolt.java.DeadboltHandler#onAccessFailure} to decide on how to handle the response.
      *
      * @return a content indicator
      */
     String content() default "";
 
     /**
-     * Use a specific {@link be.objectify.deadbolt.core.DeadboltHandler} for this restriction in place of the global one.
+     * Use a specific {@link be.objectify.deadbolt.java.DeadboltHandler} for this restriction in place of the global one.
      *
      * @return the class of the DeadboltHandler you want to use
      */

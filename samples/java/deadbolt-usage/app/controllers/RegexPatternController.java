@@ -15,10 +15,8 @@
  */
 package controllers;
 
-import be.objectify.deadbolt.PatternType;
-import be.objectify.deadbolt.actions.DeadboltPattern;
-import be.objectify.deadbolt.actions.Dynamic;
-import be.objectify.deadbolt.actions.RoleHolderPresent;
+import be.objectify.deadbolt.core.PatternType;
+import be.objectify.deadbolt.java.actions.DeadboltPattern;
 import play.mvc.Controller;
 import play.mvc.Result;
 import security.MyAlternativeDeadboltHandler;

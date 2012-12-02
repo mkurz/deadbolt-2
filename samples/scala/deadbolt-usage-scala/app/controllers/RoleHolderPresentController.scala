@@ -2,6 +2,7 @@ package controllers
 
 import views.html.accessOk
 import play.api.mvc.{Action, Controller}
+import security.MyUserlessDeadboltHandler
 import security.{MyUserlessDeadboltHandler, MyDeadboltHandler}
 import be.objectify.deadbolt.scala.DeadboltActions
 

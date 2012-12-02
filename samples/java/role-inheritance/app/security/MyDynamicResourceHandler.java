@@ -15,10 +15,10 @@
  */
 package security;
 
-import be.objectify.deadbolt.DeadboltHandler;
-import be.objectify.deadbolt.DynamicResourceHandler;
-import be.objectify.deadbolt.models.Permission;
-import be.objectify.deadbolt.models.RoleHolder;
+import be.objectify.deadbolt.java.DeadboltHandler;
+import be.objectify.deadbolt.java.DynamicResourceHandler;
+import be.objectify.deadbolt.core.models.Permission;
+import be.objectify.deadbolt.core.models.RoleHolder;
 import models.InheritableRole;
 import models.InheritableRoleHolder;
 import models.SecurityRole;

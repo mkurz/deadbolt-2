@@ -15,8 +15,6 @@
  */
 package be.objectify.deadbolt.java;
 
-import be.objectify.deadbolt.core.DeadboltAnalyzer;
-import be.objectify.deadbolt.core.DynamicResourceHandler;
 import be.objectify.deadbolt.core.PatternType;
 import be.objectify.deadbolt.core.models.RoleHolder;
 import be.objectify.deadbolt.java.utils.PluginUtils;
@@ -49,7 +47,7 @@ public class DeadboltViewSupport
                                                            Http.Context.current());
         for (int i = 0; !roleOk && i < roles.size(); i++)
         {
-            roleOk = DeadboltAnalyzer.checkRole(roleHolder,
+            roleOk = JavaDeadboltAnalyzer.checkRole(roleHolder,
                                                 roles.get(i));
         }
 
@@ -122,18 +120,18 @@ public class DeadboltViewSupport
         switch (patternType)
         {
             case EQUALITY:
-                allowed = DeadboltAnalyzer.checkPatternEquality(roleHolder,
-                                                                value);
+                allowed = JavaDeadboltAnalyzer.checkPatternEquality(roleHolder,
+                                                                    value);
                 break;
             case REGEX:
-                allowed = DeadboltAnalyzer.checkRegexPattern(roleHolder,
-                                                             getPattern(value));
+                allowed = JavaDeadboltAnalyzer.checkRegexPattern(roleHolder,
+                                                                 getPattern(value));
                 break;
             case CUSTOM:
-                allowed = DeadboltAnalyzer.checkCustomPattern(roleHolder,
-                                                              PluginUtils.getDeadboltHandler(),
-                                                              context,
-                                                              value);
+                allowed = JavaDeadboltAnalyzer.checkCustomPattern(roleHolder,
+                                                                  PluginUtils.getDeadboltHandler(),
+                                                                  context,
+                                                                  value);
                 break;
             default:
                 Logger.error("Unknown pattern type: " + patternType);

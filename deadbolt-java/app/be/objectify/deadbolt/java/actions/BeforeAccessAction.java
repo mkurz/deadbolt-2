@@ -15,12 +15,12 @@
  */
 package be.objectify.deadbolt.java.actions;
 
-import be.objectify.deadbolt.core.DeadboltHandler;
+import be.objectify.deadbolt.java.DeadboltHandler;
 import play.mvc.Http;
 import play.mvc.Result;
 
 /**
- * Invokes beforeRoleCheck on the global or a specific {@link be.objectify.deadbolt.core.DeadboltHandler}.
+ * Invokes beforeRoleCheck on the global or a specific {@link be.objectify.deadbolt.java.DeadboltHandler}.
  *
  * @author Steve Chaloner (steve@objectify.be)
  */

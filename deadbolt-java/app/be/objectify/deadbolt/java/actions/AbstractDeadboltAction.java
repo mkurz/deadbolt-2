@@ -15,8 +15,8 @@
  */
 package be.objectify.deadbolt.java.actions;
 
-import be.objectify.deadbolt.core.DeadboltAnalyzer;
-import be.objectify.deadbolt.core.DeadboltHandler;
+import be.objectify.deadbolt.java.JavaDeadboltAnalyzer;
+import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.core.models.RoleHolder;
 import be.objectify.deadbolt.java.utils.PluginUtils;
 import be.objectify.deadbolt.java.utils.ReflectionUtils;
@@ -81,7 +81,7 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
     {
         Result result;
 
-        Class<? extends Object> annClass = configuration.getClass();
+        Class annClass = configuration.getClass();
         if (isDeferred(ctx))
         {
             result = getDeferredAction(ctx).call(ctx);
@@ -118,8 +118,8 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
     protected boolean checkRole(RoleHolder roleHolder,
                                 String[] roleNames)
     {
-        return DeadboltAnalyzer.checkRole(roleHolder,
-                                          roleNames);
+        return JavaDeadboltAnalyzer.checkRole(roleHolder,
+                                              roleNames);
     }
 
     /**
@@ -130,8 +130,8 @@ public abstract class AbstractDeadboltAction<T> extends Action<T>
     protected boolean hasAllRoles(RoleHolder roleHolder,
                                   String[] roleNames)
     {
-        return DeadboltAnalyzer.hasAllRoles(roleHolder,
-                                            roleNames);
+        return JavaDeadboltAnalyzer.hasAllRoles(roleHolder,
+                                                roleNames);
     }
 
     /**

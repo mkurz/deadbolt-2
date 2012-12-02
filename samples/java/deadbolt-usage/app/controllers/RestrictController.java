@@ -15,9 +15,7 @@
  */
 package controllers;
 
-import be.objectify.deadbolt.actions.And;
-import be.objectify.deadbolt.actions.Restrict;
-import be.objectify.deadbolt.actions.Restrictions;
+import be.objectify.deadbolt.java.actions.Restrict;
 import play.mvc.Controller;
 import play.mvc.Result;
 

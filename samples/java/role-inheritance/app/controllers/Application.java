@@ -1,6 +1,6 @@
 package controllers;
 
-import be.objectify.deadbolt.actions.Dynamic;
+import be.objectify.deadbolt.java.actions.Dynamic;
 import com.avaje.ebean.Ebean;
 import models.SecurityRole;
 import models.User;

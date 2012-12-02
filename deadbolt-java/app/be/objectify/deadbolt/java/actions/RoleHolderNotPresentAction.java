@@ -15,14 +15,14 @@
  */
 package be.objectify.deadbolt.java.actions;
 
-import be.objectify.deadbolt.core.DeadboltHandler;
+import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.core.models.RoleHolder;
 import play.mvc.Http;
 import play.mvc.Result;
 
 /**
  * Implements the {@link RoleHolderNotPresent} functionality, i.e. the
- * {@link be.objectify.deadbolt.core.models.RoleHolder} provided by the {@link be.objectify.deadbolt.core.DeadboltHandler}
+ * {@link be.objectify.deadbolt.core.models.RoleHolder} provided by the {@link be.objectify.deadbolt.java.DeadboltHandler}
  * must be null to have access to the resource.
  *
  * @author Steve Chaloner (steve@objectify.be)

@@ -18,6 +18,7 @@ GET     /restrictions5                  controllers.RestrictionsController.restr
 GET     /index                          controllers.DynamicRestrictionsController.index()
 GET     /pureLuck                       controllers.DynamicRestrictionsController.pureLuck()
 GET     /noWayJose                      controllers.DynamicRestrictionsController.noWayJose()
+GET     /viewProfile                    controllers.DynamicRestrictionsController.viewProfile(userName: String)
 GET     /regexIndex                     controllers.RegexPatternController.index()
 GET     /editPrinter                    controllers.RegexPatternController.editPrinter()
 GET     /detonatePrinter                controllers.RegexPatternController.detonatePrinter()

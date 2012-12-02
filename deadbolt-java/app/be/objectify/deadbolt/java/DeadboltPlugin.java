@@ -15,7 +15,6 @@
  */
 package be.objectify.deadbolt.java;
 
-import be.objectify.deadbolt.core.DeadboltHandler;
 import be.objectify.deadbolt.core.PluginConfigKeys;
 import play.Application;
 import play.Configuration;

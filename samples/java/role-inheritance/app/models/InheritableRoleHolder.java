@@ -15,7 +15,7 @@
  */
 package models;
 
-import be.objectify.deadbolt.models.RoleHolder;
+import be.objectify.deadbolt.core.models.RoleHolder;
 
 import java.util.List;
 

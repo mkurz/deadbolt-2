@@ -18,7 +18,6 @@ package be.objectify.deadbolt.core;
 import be.objectify.deadbolt.core.models.Permission;
 import be.objectify.deadbolt.core.models.Role;
 import be.objectify.deadbolt.core.models.RoleHolder;
-import play.mvc.Http;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -51,6 +50,51 @@ public class DeadboltAnalyzer
         return roleOk;
     }
 
+
+    /**
+     * Gets the role name of each role held.
+     *
+     * @param roleHolder the role holder
+     * @return a non-null list containing all role names
+     */
+    public static List<String> getRoleNames(RoleHolder roleHolder)
+    {
+        List<String> roleNames = new ArrayList<String>();
+
+        if (roleHolder != null)
+        {
+            List<? extends Role> roles = roleHolder.getRoles();
+            if (roles != null)
+            {
+                for (Role role : roles)
+                {
+                    roleNames.add(role.getRoleName());
+                }
+            }
+        }
+
+        return roleNames;
+    }
+
+    /**
+     * Check if the role holder has the given role.
+     *
+     * @param roleHolder the role holder
+     * @param roleName the name of the role
+     * @return true iff the role holder has the role represented by the role name
+     */
+    public static boolean hasRole(RoleHolder roleHolder,
+                                  String roleName)
+    {
+        return getRoleNames(roleHolder).contains(roleName);
+    }
+
+    /**
+     *
+     * @param roleHolder
+     * @param roleNames
+     * @return
+     */
     public static boolean hasAllRoles(RoleHolder roleHolder,
                                       String[] roleNames)
     {
@@ -61,14 +105,7 @@ public class DeadboltAnalyzer
 
             if (roles != null)
             {
-                List<String> heldRoles = new ArrayList<String>();
-                for (Role role : roles)
-                {
-                    if (role != null)
-                    {
-                        heldRoles.add(role.getRoleName());
-                    }
-                }
+                List<String> heldRoles = getRoleNames(roleHolder);
 
                 boolean roleCheckResult = true;
                 for (int i = 0; roleCheckResult && i < roleNames.length; i++)
@@ -93,6 +130,12 @@ public class DeadboltAnalyzer
         return hasRole;
     }
 
+    /**
+     *
+     * @param roleHolder
+     * @param pattern
+     * @return
+     */
     public static boolean checkRegexPattern(RoleHolder roleHolder,
                                             Pattern pattern)
     {
@@ -113,6 +156,12 @@ public class DeadboltAnalyzer
         return roleOk;
     }
 
+    /**
+     *
+     * @param roleHolder
+     * @param patternValue
+     * @return
+     */
     public static boolean checkPatternEquality(RoleHolder roleHolder,
                                                String patternValue)
     {
@@ -131,27 +180,5 @@ public class DeadboltAnalyzer
         }
 
         return roleOk;
-    }
-
-    public static boolean checkCustomPattern(RoleHolder roleHolder,
-                                             DeadboltHandler handler,
-                                             Http.Context context,
-                                             String value)
-    {
-        boolean patternOk = false;
-
-        DynamicResourceHandler dynamicResourceHandler = handler.getDynamicResourceHandler(context);
-        if (dynamicResourceHandler == null)
-        {
-            throw new RuntimeException("A custom permission type is specified but no dynamic resource handler is provided");
-        }
-        else
-        {
-            patternOk = dynamicResourceHandler.checkPermission(value,
-                                                               handler,
-                                                               context);
-        }
-
-        return patternOk;
     }
 }

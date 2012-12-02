@@ -5,12 +5,12 @@ import play.Project._
 object ApplicationBuild extends Build {
 
     val appName         = "role-inheritance"
-    val appVersion      = "1.1.4-SNAPSHOT"
+    val appVersion      = "2.0-SNAPSHOT"
 
     val appDependencies = Seq(
       javaCore,
       javaEbean,
-      "be.objectify" %% "deadbolt-2" % "1.1.4-SNAPSHOT"
+      "be.objectify" %% "deadbolt-java" % "2.0-SNAPSHOT"
     )
 
     val main = play.Project(appName, appVersion, appDependencies).settings(

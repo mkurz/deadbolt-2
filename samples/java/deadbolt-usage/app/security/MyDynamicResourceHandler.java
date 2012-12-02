@@ -15,10 +15,12 @@
  */
 package security;
 
-import be.objectify.deadbolt.DeadboltHandler;
-import be.objectify.deadbolt.DynamicResourceHandler;
-import be.objectify.deadbolt.models.Permission;
-import be.objectify.deadbolt.models.RoleHolder;
+import be.objectify.deadbolt.core.DeadboltAnalyzer;
+import be.objectify.deadbolt.java.DeadboltHandler;
+import be.objectify.deadbolt.java.DynamicResourceHandler;
+import be.objectify.deadbolt.core.models.Permission;
+import be.objectify.deadbolt.core.models.RoleHolder;
+import models.User;
 import play.Logger;
 import play.mvc.Http;
 
@@ -41,10 +43,38 @@ public class MyDynamicResourceHandler implements DynamicResourceHandler
                      {
                          public boolean isAllowed(String name, 
                                                   String meta, 
-                                                  DeadboltHandler deadboltHandler, 
+                                                  DeadboltHandler deadboltHandler,
                                                   Http.Context context)
                          {
                              return System.currentTimeMillis() % 2 == 0;
+                         }
+                     });
+        HANDLERS.put("viewProfile",
+                     new AbstractDynamicResourceHandler()
+                     {
+                         public boolean isAllowed(String name,
+                                                  String meta,
+                                                  DeadboltHandler deadboltHandler,
+                                                  Http.Context context)
+                         {
+                             RoleHolder roleHolder = deadboltHandler.getRoleHolder(context);
+                             boolean allowed = false;
+                             if (DeadboltAnalyzer.hasRole(roleHolder, "admin"))
+                             {
+                                 allowed = true;
+                             }
+                             else
+                             {
+                                 // a call to view profile is probably a get request, so
+                                 // the query string is used to provide info
+                                 Map<String, String[]> queryStrings = context.request().queryString();
+                                 String[] requestedNames = queryStrings.get("userName");
+                                 allowed = requestedNames != null
+                                           && requestedNames.length == 1
+                                           && ((User)roleHolder).userName.equals(requestedNames[0]);
+                             }
+
+                             return allowed;
                          }
                      });
     }

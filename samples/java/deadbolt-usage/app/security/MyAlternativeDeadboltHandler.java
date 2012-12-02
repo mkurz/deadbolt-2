@@ -15,9 +15,9 @@
  */
 package security;
 
-import be.objectify.deadbolt.AbstractDeadboltHandler;
-import be.objectify.deadbolt.DynamicResourceHandler;
-import be.objectify.deadbolt.models.RoleHolder;
+import be.objectify.deadbolt.java.AbstractDeadboltHandler;
+import be.objectify.deadbolt.java.DynamicResourceHandler;
+import be.objectify.deadbolt.core.models.RoleHolder;
 import models.User;
 import play.mvc.Http;
 import play.mvc.Result;
