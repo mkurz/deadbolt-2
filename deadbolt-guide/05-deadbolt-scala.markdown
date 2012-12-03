@@ -1,4 +1,2 @@
-<chapter id="introduction"
-         version="5.0">
-    <title>Deadbolt 2 for Scala</title>
-</chapter>
+# Using Deadbolt 2 with Play 2 Scala projects #
+Coming soon
