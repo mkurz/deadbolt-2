@@ -1,0 +1,9 @@
+@(handler: be.objectify.deadbolt.scala.DeadboltHandler, roles: List[Array[String]], args: (Symbol,String)*)(request: Request[Any])(body: => Html)(alternativeBody: => Html)
+
+@import scala.collection.JavaConversions._
+
+@if(be.objectify.deadbolt.scala.DeadboltViewSupport.viewRestrict(roles, handler, request)) {
+@body
+} else {
+@alternativeBody
+}
