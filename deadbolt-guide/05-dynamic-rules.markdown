@@ -1,6 +1,17 @@
 # A deeper look at dynamic rules #
 
-The `@Dynamic` annotation and `@dynamic` template tag allow you to specify arbitrary rules to control access.  This could be as simple "allow access if today is Tuesday, allow access" or "allow access if a user has a date of birth defined", or something more complex such as "allow access if the user is a beta tester AND the controller/action/template area is available for beta testing".  Blacklisting is also possible, for example "deny access only if user registered within the last 30 days".
+The `@Dynamic` annotation and `@dynamic` template tag allow you to specify arbitrary rules to control access.  For example:
+
+* Simple (contrived) examples
+    * Allow access if today is Tuesday
+    * Allow access if a user has a date of birth defined
+
+* Some more complex examples
+    * Allow access if the user is a beta tester AND the controller/action/template area is available for beta testing
+    * Allow a maximum of 300 requests per hour per API key
+
+* Blacklisting
+    * Deny access only if user registered within the last 30 days
 
 ## Using sessions and requests in your rules ##
 
@@ -107,7 +118,16 @@ It has been stated on the Play! Framework group (<https://groups.google.com/d/ms
 
 ## Strategies for using dynamic resource handlers ##
 To the best of my knowledge, there are three ways in which to use dynamic resource handlers in Deadbolt 2:
-* Have a single `DynamicResourceHandler` that deals with all dynamic security.  This can easily get very large, very quickly and so it's not a good idea.
-* Have multiple `DynamicResourceHandlers` and use specific ones in specific places, e.g. `@Dynamic("viewProfile", ViewProfileHandler.class)`.
-* Have a single `DynamicResourceHandler` that maps the name given in the annotation and creates a new handler (e.g. ViewProfileHandler) to deal with the request.  
 
+1. Use a single `DynamicResourceHandler` that deals with all dynamic security
+2. Use multiple `DynamicResourceHandlers` and use specific ones in specific places
+3. Use a single `DynamicResourceHandler` that maps the name given in the annotation and creates a new, specific handler to deal with the request.
+
+### 1. Use a single, potentially huge DRH ###
+A friend of mine, sitting in a second-year university course discussion on object-oriented design, witnessed a student put up his hand and say, "I don't get it.  Why don't we just put everything in one big class?".  If you would ask a similar question, this is the approach for you.  For the rest of us, I think we can all appreciate that any DRH dealing with more than a couple of separate dynamic restrictions would get very large, very quickly.
+
+### 2. Use multiple DRHs that are specified as needed ###
+// todo
+
+### 3. Use a single DRH façade that dispatches to other DRHs###
+// todo
