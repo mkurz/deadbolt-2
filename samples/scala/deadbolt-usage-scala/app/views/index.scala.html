@@ -139,20 +139,110 @@ expected result.
 
 <h3>Tag restrictions</h3>
 
+<h4>restrict</h4>
 <div class="tagSection">
-    Tag: restrict   Requires: foo and bar.  Expected result: contents are visible
+    Requires: foo and bar.  Expected result: contents are visible
     <div class="box">
-        @restrict(handler, List(as("foo", "bar")))(request) {
+        @restrict(handler, List(as("foo", "bar"))) {
         This content should be visible
         }
     </div>
 </div>
 <div class="tagSection">
-    Tag: restrict   Requires: foo, bar, and hurdy. Expected result: contents are NOT visible
+    Requires: foo, bar, and hurdy. Expected result: contents are NOT visible
     <div class="box">
-        @restrict(handler, List(as("foo", "bar", "hurdy")))(request) {
+        @restrict(handler, List(as("foo", "bar", "hurdy"))) {
         This content should NOT be visible
         }
     </div>
 </div>
-}
+
+<h4>restrictOr</h4>
+<div class="tagSection">
+    Requires: foo and bar.  Expected result: the original contents are displayed
+    <div class="box">
+        @restrictOr(handler, List(as("foo", "bar"))) {
+        This content should be visible
+        }{This will not be visible}
+    </div>
+</div>
+<div class="tagSection">
+    Requires: foo, bar, and hurdy. Expected result: Whoops
+    <div class="box">
+        @restrictOr(handler, List(as("foo", "bar", "hurdy"))) {
+        This content should NOT be visible
+        }{Whoops}
+    </div>
+</div>
+
+<h4>roleHolderPresent</h4>
+<div class="tagSection">
+    Requires: a role holder to be present.  Expected result: A role holder is present, so the contents are visible
+    <div class="box">
+        @roleHolderPresent(handler) {
+        This content should be visible
+        }
+    </div>
+</div>
+<div class="tagSection">
+    Requires: a role holder to be present.  Expected result: A role holder is NOT present, so the contents are NOT visible
+    <div class="box">
+        @roleHolderPresent(new security.MyUserlessDeadboltHandler) {
+        This content should NOT be visible
+        }
+    </div>
+</div>
+
+<h4>roleHolderPresentOr</h4>
+<div class="tagSection">
+    Requires: a role holder to be present.  Expected result: A role holder is present, so the original contents are displayed
+    <div class="box">
+        @roleHolderPresentOr(handler) {
+        This content should be visible
+        }{Whoops}
+    </div>
+</div>
+<div class="tagSection">
+    Requires: a role holder to be present.  Expected result: A role holder is NOT present, so...whoops
+    <div class="box">
+        @roleHolderPresentOr(new security.MyUserlessDeadboltHandler) {
+        This content should NOT be visible
+        }{Whoops}
+    </div>
+</div>
+
+<h4>roleHolderNotPresent</h4>
+<div class="tagSection">
+    Requires: a role holder to NOT be present.  Expected result: A role holder is present, so the contents are NOT visible
+    <div class="box">
+        @roleHolderNotPresent(handler) {
+        This content should NOT be visible
+        }
+    </div>
+</div>
+<div class="tagSection">
+    Requires: a role holder to NOT be present.  Expected result: A role holder is NOT present, so the contents are visible
+    <div class="box">
+        @roleHolderNotPresent(new security.MyUserlessDeadboltHandler) {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<h4>roleHolderNotPresentOr</h4>
+<div class="tagSection">
+    Requires: a role holder to NOT be present.  Expected result: A role holder is present, so...whoops
+    <div class="box">
+        @roleHolderNotPresentOr(handler) {
+        This content should NOT be visible
+        }{Whoops}
+    </div>
+</div>
+<div class="tagSection">
+    Requires: a role holder to NOT be present.  Expected result: A role holder is NOT present, so the original contents are displayed
+    <div class="box">
+        @roleHolderNotPresentOr(new security.MyUserlessDeadboltHandler) {
+        This content should be visible
+        }{Whoops}
+    </div>
+</div>}

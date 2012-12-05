@@ -1,4 +1,4 @@
-@(handler: be.objectify.deadbolt.scala.DeadboltHandler, args: (Symbol,String)*)(body: => Html)(request: Request[Any])(alternativeBody: => Html)
+@(handler: be.objectify.deadbolt.scala.DeadboltHandler)(body: => Html)(alternativeBody: => Html)(implicit request: Request[Any])
 
 @import scala.collection.JavaConversions._
 
