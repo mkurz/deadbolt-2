@@ -13,9 +13,9 @@ trait DeadboltHandler
   /**
    * Gets the current role holder e.g. the current user.
    *
-   * @return the current role holder
+   * @return an option containing the current role holder
    */
-  def getRoleHolder[A](request: Request[A]): RoleHolder
+  def getRoleHolder[A](request: Request[A]): Option[RoleHolder]
 
   /**
    * Invoked when an access failure is detected on <i>controllerClassName</i>.
@@ -27,7 +27,7 @@ trait DeadboltHandler
   /**
    * Gets the handler used for dealing with resources restricted to specific users/groups.
    *
-   * @return the handler for restricted resources. May be null.
+   * @return an option containing the handler for restricted resources
    */
-  def getDynamicResourceHandler[A](request: Request[A]): DynamicResourceHandler
+  def getDynamicResourceHandler[A](request: Request[A]): Option[DynamicResourceHandler]
 }

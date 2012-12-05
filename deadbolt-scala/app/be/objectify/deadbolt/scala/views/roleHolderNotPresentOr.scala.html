@@ -1,0 +1,9 @@
+@(handler: be.objectify.deadbolt.scala.DeadboltHandler, args: (Symbol,String)*)(request: Request[Any])(body: => Html)(alternativeBody: => Html)
+
+@import scala.collection.JavaConversions._
+
+@if(!handler.getRoleHolder(request).isDefined) {
+@body
+} else {
+@alternativeBody	
+}

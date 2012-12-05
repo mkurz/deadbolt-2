@@ -1,8 +1,12 @@
 package be.objectify.deadbolt.scala
 
 import be.objectify.deadbolt.core.models.RoleHolder
-import be.objectify.deadbolt.core.DeadboltAnalyzer
+import be.objectify.deadbolt.core.{PatternType, DeadboltAnalyzer}
 import play.api.mvc.Request
+import java.util.regex.Pattern
+import play.cache.Cache
+import java.util.concurrent.Callable
+import play.api.Logger
 
 /**
  *
@@ -20,15 +24,16 @@ object DeadboltViewSupport {
    */
   def viewRestrict(roles: List[Array[String]],
                    deadboltHandler: DeadboltHandler,
-                   request: Request[Any]): Boolean =
-  {
+                   request: Request[Any]): Boolean = {
     def check(roleHolder: RoleHolder, current: Array[String], remaining: List[Array[String]]): Boolean = {
       if (DeadboltAnalyzer.checkRole(roleHolder, current)) true
       else if (remaining.isEmpty) false
       else check(roleHolder, remaining.head, remaining.tail)
     }
 
-    if (roles.headOption.isDefined) check(deadboltHandler.getRoleHolder(request), roles.head, roles.tail)
+    val roleHolder = deadboltHandler.getRoleHolder(request)
+    if (!roleHolder.isDefined) false
+    else if (roles.headOption.isDefined) check(roleHolder.get, roles.head, roles.tail)
     else false
   }
 
@@ -42,17 +47,39 @@ object DeadboltViewSupport {
   def viewDynamic(name: String,
                   meta: String,
                   deadboltHandler: DeadboltHandler,
-                  request: Request[Any]): Boolean =
-  {
-    val resourceHandler: DynamicResourceHandler = deadboltHandler.getDynamicResourceHandler(request)
-    if (resourceHandler == null)
-    {
-      throw new RuntimeException("A dynamic resource is specified but no dynamic resource handler is provided")
-    }
-    else
-    {
-      if (resourceHandler.isAllowed(name, meta, deadboltHandler, request)) true
-      else false
+                  request: Request[Any]): Boolean = {
+    val resourceHandler = deadboltHandler.getDynamicResourceHandler(request)
+    if (resourceHandler.isDefined) resourceHandler.get.isAllowed(name, meta, deadboltHandler, request)
+    else throw new RuntimeException("A dynamic resource is specified but no dynamic resource handler is provided")
+  }
+
+  /**
+   *
+   * @param value
+   * @param patternType
+   * @param deadboltHandler
+   * @param request
+   * @return
+   */
+  def viewPattern(value: String,
+                  patternType: PatternType,
+                  deadboltHandler: DeadboltHandler,
+                  request: Request[Any]): Boolean = {
+    def getPattern(patternValue: String): Pattern =
+      Cache.getOrElse("Deadbolt." + patternValue,
+                      new Callable[Pattern]{
+                        def call() = Pattern.compile(patternValue)
+                      },
+                      0)
+
+    val roleHolder = deadboltHandler.getRoleHolder(request).get
+    patternType match {
+      case PatternType.EQUALITY => DeadboltAnalyzer.checkPatternEquality(roleHolder, value)
+      case PatternType.REGEX => DeadboltAnalyzer.checkRegexPattern(roleHolder, getPattern(value))
+      case PatternType.CUSTOM => {
+        Logger.error("Not yet supported")
+        false
+      }
     }
   }
 }

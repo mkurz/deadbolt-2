@@ -10,5 +10,5 @@ import be.objectify.deadbolt.core.models.RoleHolder
  */
 class MyUserlessDeadboltHandler(dynamicResourceHandler: DynamicResourceHandler = null) extends MyDeadboltHandler
 {
-  override def getRoleHolder[A](request: Request[A]): RoleHolder = null
+  override def getRoleHolder[A](request: Request[A]): Option[RoleHolder] = None
 }

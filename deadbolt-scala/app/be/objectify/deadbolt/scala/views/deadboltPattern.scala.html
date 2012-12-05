@@ -1,0 +1,7 @@
+@(handler: be.objectify.deadbolt.scala.DeadboltHandler, value: String, patternType: be.objectify.deadbolt.core.PatternType = be.objectify.deadbolt.core.PatternType.EQUALITY)(request: Request[Any])(body: => Html)
+
+@import scala.collection.JavaConversions._
+
+@if(be.objectify.deadbolt.scala.DeadboltViewSupport.viewPattern(value, patternType, handler, request)) {
+@body
+}
