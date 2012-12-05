@@ -10,12 +10,19 @@ import be.objectify.deadbolt.core.models.RoleHolder
 
 trait DeadboltHandler
 {
+
+  /**
+   * Invoked immediately before controller or view restrictions are checked. This forms the integration with any
+   * authentication actions that may need to occur.
+   */
+  def beforeRoleCheck[A](request:Request[A]) : Result
+
   /**
    * Gets the current role holder e.g. the current user.
    *
    * @return the current role holder
    */
-  def getRoleHolder[A](request: Request[A]): RoleHolder
+  def getRoleHolder[A](request: Request[A]): Option[RoleHolder]
 
   /**
    * Invoked when an access failure is detected on <i>controllerClassName</i>.
@@ -29,5 +36,5 @@ trait DeadboltHandler
    *
    * @return the handler for restricted resources. May be null.
    */
-  def getDynamicResourceHandler[A](request: Request[A]): DynamicResourceHandler
+  def getDynamicResourceHandler[A](request: Request[A]): Option[DynamicResourceHandler]
 }

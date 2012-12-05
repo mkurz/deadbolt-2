@@ -28,8 +28,13 @@ object DeadboltViewSupport {
       else check(roleHolder, remaining.head, remaining.tail)
     }
 
-    if (roles.headOption.isDefined) check(deadboltHandler.getRoleHolder(request), roles.head, roles.tail)
-    else false
+    deadboltHandler.getRoleHolder(request) match {
+      case Some(roleHolder) => {
+        if (roles.headOption.isDefined) check(roleHolder, roles.head, roles.tail)
+        else false
+      }
+      case None => false
+    }
   }
 
 }

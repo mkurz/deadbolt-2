@@ -21,9 +21,10 @@ trait DeadboltActions extends Results with BodyParsers
   def SBRestrict[A](roleNames: Array[String],
                     scalaboltHandler: DeadboltHandler)(action: Action[A]): Action[A] = {
     Action(action.parser) { implicit request =>
-      val roleHolder = scalaboltHandler.getRoleHolder(request)
-      if (roleHolder == null || !DeadboltAnalyzer.checkRole(roleHolder, roleNames)) scalaboltHandler.onAccessFailure(request)
-      else action(request)
+      scalaboltHandler.getRoleHolder(request) match {
+        case Some(roleHolder) if DeadboltAnalyzer.checkRole(roleHolder, roleNames) => action(request)
+        case _ => scalaboltHandler.onAccessFailure(request)
+      }
     }
   }
 
@@ -58,12 +59,13 @@ trait DeadboltActions extends Results with BodyParsers
                    scalaboltHandler: DeadboltHandler)
                   (action: Action[A]): Action[A] = {
     Action(action.parser) { implicit request =>
-      val dynamicHandler: DynamicResourceHandler = scalaboltHandler.getDynamicResourceHandler(request)
-      if (dynamicHandler == null) throw new RuntimeException("A dynamic resource is specified but no dynamic resource handler is provided")
-      else
-      {
-        if (dynamicHandler.isAllowed(name, meta, scalaboltHandler, request)) action(request)
-        else scalaboltHandler.onAccessFailure(request)
+      scalaboltHandler.getDynamicResourceHandler(request) match {
+        case Some(dynamicHandler) => {
+          if (dynamicHandler.isAllowed(name, meta, scalaboltHandler, request)) action(request)
+          else scalaboltHandler.onAccessFailure(request)
+        }
+        case None =>
+          throw new RuntimeException("A dynamic resource is specified but no dynamic resource handler is provided")
       }
     }
   }
@@ -78,9 +80,10 @@ trait DeadboltActions extends Results with BodyParsers
    */
   def SBRoleHolderPresent[A](scalaboltHandler: DeadboltHandler)(action: Action[A]): Action[A] = {
     Action(action.parser) { implicit request =>
-      val roleHolder = scalaboltHandler.getRoleHolder(request)
-      if (roleHolder == null) scalaboltHandler.onAccessFailure(request)
-      else action(request)
+      scalaboltHandler.getRoleHolder(request) match {
+        case Some(handler) => action(request)
+        case None => scalaboltHandler.onAccessFailure(request)
+      }
     }
   }
 
@@ -94,9 +97,10 @@ trait DeadboltActions extends Results with BodyParsers
    */
   def SBRoleHolderNotPresent[A](scalaboltHandler: DeadboltHandler)(action: Action[A]): Action[A] = {
     Action(action.parser) { implicit request =>
-      val roleHolder = scalaboltHandler.getRoleHolder(request)
-      if (roleHolder != null) scalaboltHandler.onAccessFailure(request)
-      else action(request)
+      scalaboltHandler.getRoleHolder(request) match {
+        case Some(roleHolder) => scalaboltHandler.onAccessFailure(request)
+        case None => action(request)
+      }
     }
   }
 }
