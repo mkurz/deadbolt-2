@@ -13,7 +13,7 @@ import play.api.Logger
  * @author Steve Chaloner (steve@objectify.be)
  */
 
-object DeadboltViewSupport {
+object  DeadboltViewSupport {
   /**
    * Used for restrict tags in the template.
    *
@@ -31,10 +31,13 @@ object DeadboltViewSupport {
       else check(roleHolder, remaining.head, remaining.tail)
     }
 
-    val roleHolder = deadboltHandler.getRoleHolder(request)
-    if (!roleHolder.isDefined) false
-    else if (roles.headOption.isDefined) check(roleHolder.get, roles.head, roles.tail)
-    else false
+    deadboltHandler.getRoleHolder(request) match {
+      case Some(roleHolder) => {
+        if (roles.headOption.isDefined) check(roleHolder, roles.head, roles.tail)
+        else false
+      }
+      case None => false
+    }
   }
 
   /**

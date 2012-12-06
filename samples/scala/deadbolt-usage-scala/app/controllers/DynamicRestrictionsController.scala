@@ -11,7 +11,7 @@ import be.objectify.deadbolt.scala.DeadboltActions
  */
 object DynamicRestrictionsController extends Controller with DeadboltActions
 {
-  def pureLuck = SBDynamic("pureLuck", "", new MyDeadboltHandler)
+  def pureLuck = Dynamic("pureLuck", "", new MyDeadboltHandler)
                  {
                    Action
                    {
@@ -19,7 +19,7 @@ object DynamicRestrictionsController extends Controller with DeadboltActions
                    }
                  }
 
-  def noWayJose = SBDynamic("pureLuck", "", new MyDeadboltHandler(MyAlternativeDynamicResourceHandler))
+  def noWayJose = Dynamic("pureLuck", "", new MyDeadboltHandler(MyAlternativeDynamicResourceHandler))
                   {
                     Action
                     {

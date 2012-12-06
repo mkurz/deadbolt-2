@@ -12,7 +12,7 @@ import be.objectify.deadbolt.scala.DeadboltActions
  */
 object RestrictionsController extends Controller with DeadboltActions
 {
-  def restrictionsOne = SBRestrictions(List(Array("foo", "bar")), new MyDeadboltHandler)
+  def restrictionsOne = Restrictions(List(Array("foo", "bar")), new MyDeadboltHandler)
                         {
                           Action
                           {
@@ -20,7 +20,7 @@ object RestrictionsController extends Controller with DeadboltActions
                           }
                         }
 
-  def restrictionsTwo = SBRestrictions(List(Array("foo"), Array("bar")), new MyDeadboltHandler)
+  def restrictionsTwo = Restrictions(List(Array("foo"), Array("bar")), new MyDeadboltHandler)
                         {
                           Action
                           {
@@ -28,7 +28,7 @@ object RestrictionsController extends Controller with DeadboltActions
                           }
                         }
 
-  def restrictionsThree = SBRestrictions(List(Array("hurdy", "gurdy"), Array("foo")), new MyDeadboltHandler)
+  def restrictionsThree = Restrictions(List(Array("hurdy", "gurdy"), Array("foo")), new MyDeadboltHandler)
                           {
                             Action
                             {
@@ -36,7 +36,7 @@ object RestrictionsController extends Controller with DeadboltActions
                             }
                           }
 
-  def restrictionsFour = SBRestrictions(List(Array("foo"), Array("!bar")), new MyDeadboltHandler)
+  def restrictionsFour = Restrictions(List(Array("foo"), Array("!bar")), new MyDeadboltHandler)
                          {
                            Action
                            {
@@ -44,7 +44,7 @@ object RestrictionsController extends Controller with DeadboltActions
                            }
                          }
 
-  def restrictionsFive = SBRestrictions(List(Array("hurdy", "foo")), new MyDeadboltHandler)
+  def restrictionsFive = Restrictions(List(Array("hurdy", "foo")), new MyDeadboltHandler)
                          {
                            Action
                            {
