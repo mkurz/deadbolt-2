@@ -1,5 +1,5 @@
-@(body: => Html)
+@(handler: be.objectify.deadbolt.java.DeadboltHandler = null)(body: => Html)
 
-@if(be.objectify.deadbolt.java.DeadboltViewSupport.viewRoleHolderNotPresent()) {
+@if(be.objectify.deadbolt.java.DeadboltViewSupport.viewRoleHolderNotPresent(handler)) {
 @body
 }

@@ -1,0 +1,110 @@
+@import be.objectify.deadbolt.java.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._
+
+<div class="row-fluid" id="template-restrict">
+    <div class="span10">
+        <h3 class="subsection">restrict</h3>
+
+        <p>restrict uses an ANDed set of roles within an array to determine if a part of a template is rendered.  For example, a user with the roles "foo" and "bar"
+            could see a restrict-protected area of template that required any of the following:</p>
+        <ul>
+            <li>foo</li>
+            <li>bar</li>
+            <li>foo AND bar</li>
+        </ul>
+
+        <p>However, a restrict that required "foo", "bar" and "hurdy" would not render the protected area.</p>
+        <p>Giving multiple arrays in the list gives the equivalent of the Restrictions controller action.
+        <p>As a convenience for creating Array[String] instances, you can use the TemplateUtils#as(String...) method.</p>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span3 columnHeader">Unprotected content</div>
+    <div class="span5 columnHeader">Specification</div>
+    <div class="span2 columnHeader">Result</div>
+</div>
+
+<div class="row-fluid">
+    <div class="span3">
+        <pre>This content should be visible</pre>
+    </div>
+    <div class="span5">
+        <pre>
+@@restrict(la(as("foo", "bar"))) {
+  This content should be visible
+}</pre>
+    </div>
+    <div class="span2">
+        @restrict(la(as("foo", "bar"))) {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span3">
+        <pre>This content should NOT be visible</pre>
+    </div>
+    <div class="span5">
+        <pre>
+@@restrict(la(as("foo", "bar", "hurdy"))) {
+  This content should NOT be visible
+}</pre>
+    </div>
+    <div class="span2">
+        @restrict(la(as("foo", "bar", "hurdy"))) {
+        This content should NOT be visible
+        }
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span3">
+        <pre>This content should be visible</pre>
+    </div>
+    <div class="span5">
+        <pre>
+@@restrict(List(as("hurdy"), as("foo", "bar"))) {
+  This content should be visible
+}</pre>
+    </div>
+    <div class="span2">
+        @restrict(la(as("hurdy"), as("foo", "bar"))) {
+            This content should be visible
+        }
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span3">
+        <pre>This content should be visible</pre>
+    </div>
+    <div class="span5">
+        <pre>
+@@restrictOr(la(as("foo", "bar"))) {
+  This content should be visible
+}{Sorry, you're not allowed to see this}</pre>
+    </div>
+    <div class="span2">
+        @restrictOr(la(as("foo", "bar"))) {
+        This content should be visible
+        }{Sorry, you're not allowed to see this}
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span3">
+        <pre>This content should NOT be visible</pre>
+    </div>
+    <div class="span5">
+        <pre>
+@@restrictOr(la(as("foo", "bar", "hurdy"))) {
+  This content should NOT be visible
+}{Sorry, you're not allowed to see this}</pre>
+    </div>
+    <div class="span2">
+        @restrictOr(la(as("foo", "bar", "hurdy"))) {
+        This content should NOT be visible
+        }{Sorry, you're not allowed to see this}
+    </div>
+</div>

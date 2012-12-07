@@ -1,0 +1,218 @@
+@import be.objectify.deadbolt.core.PatternType
+@import be.objectify.deadbolt.java.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._
+
+@main("Deadbolt usage examples") {
+
+<h3>Controller restrictions</h3>
+
+<h4>DeadboltPattern - equality</h4>
+<ul>
+    <li>
+        <a href="@routes.EqualityPatternController.index">Index</a>
+        <ul>
+            <li>controller-level restriction that requires printers.edit as a permission</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.EqualityPatternController.detonatePrinter">Detonate printer</a>
+        <ul>
+            <li>controller-level restriction that requires printers.detonate as a permission</li>
+            <li>should not be visible</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>DeadboltPattern - regex</h4>
+<ul>
+    <li>
+        <a href="@routes.RegexPatternController.index">Index</a>
+        <ul>
+            <li>controller-level restriction that requires any permission to be present</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RegexPatternController.editPrinter">Edit printer</a>
+        <ul>
+            <li>method-level restriction requiring *.edit as a permission (regex: "(.)*\.edit")</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.RegexPatternController.detonatePrinter">Detontate printer</a>
+        <ul>
+            <li>method-level restriction requiring *.detonate as a permission (regex: "(.)*\.detonate")</li>
+            <li>should NOT be visible</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>Edge cases</h4>
+<ul>
+    <li>
+        <a href="@routes.EdgeCaseController.index">Index</a>
+        <ul>
+            <li>The DeadboltHandler#onAccessFailure call throws an exception</li>
+            <li>should cause a 500 server error</li>
+        </ul>
+    </li>
+</ul>
+
+<h4>Deferred method-level annotations</h4>
+<ul>
+    <li>
+        <a href="@routes.DeferredController.deferredRestrict">Deferred restrict</a>
+        <ul>
+            <li>deferred method-level restriction requiring foo</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DeferredController.deferredRestrictions">Deferred restrictions</a>
+        <ul>
+            <li>deferred method-level restriction requiring foo and bar</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DeferredController.deferredPattern">Deferred pattern</a>
+        <ul>
+            <li>deferred method-level restriction that requires printers.detonate as a permission</li>
+            <li>should not be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DeferredController.deferredDynamic">Deferred dynamic</a>
+        <ul>
+            <li>deferred method-level restriction requiring the system time in milliseconds to be exactly divisible by 2</li>
+            <li>may be visible, depends on your luck</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DeferredController.deferredRoleHolderPresent">Deferred role holder present</a>
+        <ul>
+            <li>deferred method-level restriction requiring a role holder to be present</li>
+            <li>should be visible</li>
+        </ul>
+    </li>
+    <li>
+        <a href="@routes.DeferredController.deferredRoleHolderNotPresent">Deferred role holder not present</a>
+        <ul>
+            <li>deferred method-level restriction requiring a role holder to not be present</li>
+            <li>should be not visible</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>Tag restrictions</h3>
+
+<div class="tagSection">
+    Tag: restrict   Requires: foo and bar.  Expected result: contents are visible
+    <div class="box">
+        @restrict(la(as("foo", "bar"))) {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: restrictOr   Requires: foo and bar.  Expected result: whoops
+    <div class="box">
+        @restrictOr(la(as("foo", "hurdy"))) {
+        This content should be visible
+        }{Whoops}
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: restrict   Requires: Not foo.  Expected result: contents are not visible
+    <div class="box">
+        @restrict(la(as("!foo"))) {
+        This content should not be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: restrict   Requires: foo or bar.  Expected result: contents are visible
+    <div class="box">
+        @restrict(la(as("foo"), as("bar"))) {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: restrict   Requires: foo but not bar.  Expected result: contents are not visible
+    <div class="box">
+        @restrict(la(as("foo", "!bar"))) {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: dynamic   Requires: the system time in milliseconds to be exactly divisible by 2.  Expected result: depends on your luck!  Refresh the page a few times to see it change.
+    <div class="box">
+        @dynamic("pureLuck") {
+        Looks like you got lucky!
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: dynamicOr   Requires: the system time in milliseconds to be exactly divisible by 2.  Expected result: depends on your luck!  Refresh the page a few times to see it change.
+    <div class="box">
+        @dynamicOr("pureLuck") {
+        Looks like you got lucky!
+        }{Guess you didn't get lucky!}
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: pattern   Requires: The role holder to have a permission exactly equal to "printers.edit"  Expected result: contents are visible
+    <div class="box">
+        @pattern("printers.edit") {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: patternOr   Requires: The role holder to have a permission exactly equal to "printers.foo"  Expected result: whoops
+    <div class="box">
+        @patternOr("printers.foo") {
+        This content should be visible
+        }{Whoops}
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: pattern   Requires: The role holder to have a permission exactly equal to "printers.print"  Expected result: contents are not visible
+    <div class="box">
+        @pattern("printers.print") {
+        This content should not be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: pattern   Requires: The role holder to have a permission equivalent to *.edit (regex: "(.)*\.edit")  Expected result: contents are visible
+    <div class="box">
+        @pattern("(.)*\\.edit", PatternType.REGEX) {
+        This content should be visible
+        }
+    </div>
+</div>
+
+<div class="tagSection">
+    Tag: pattern   Requires: The role holder to have a permission equivalent to *.detonate (regex: "(.)*\.detonate")  Expected result: contents are not visible
+    <div class="box">
+        @pattern("(.)*\\.detonate", PatternType.REGEX) {
+        This content should not be visible
+        }
+    </div>
+</div>
+}

@@ -40,10 +40,12 @@ public class DeadboltViewSupport
      * @param roles a list of String arrays.  Within an array, the roles are ANDed.  The arrays in the list are OR'd.
      * @return true if the view can be accessed, otherwise false
      */
-    public static boolean viewRestrict(List<String[]> roles) throws Throwable
+    public static boolean viewRestrict(List<String[]> roles,
+                                       DeadboltHandler handler) throws Throwable
     {
         boolean roleOk = false;
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
+        DeadboltHandler deadboltHandler = handler == null ? PluginUtils.getDeadboltHandler() : handler;
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(deadboltHandler,
                                                            Http.Context.current());
         for (int i = 0; !roleOk && i < roles.size(); i++)
         {
@@ -62,10 +64,12 @@ public class DeadboltViewSupport
      * @return true if the view can be accessed, otherwise false
      */
     public static boolean viewDynamic(String name,
-                                      String meta) throws Throwable
+                                      String meta,
+                                      DeadboltHandler handler) throws Throwable
     {
         Http.Context context = Http.Context.current();
-        DynamicResourceHandler resourceHandler = PluginUtils.getDeadboltHandler().getDynamicResourceHandler(context);
+        DeadboltHandler deadboltHandler = handler == null ? PluginUtils.getDeadboltHandler() : handler;
+        DynamicResourceHandler resourceHandler = deadboltHandler.getDynamicResourceHandler(context);
         boolean allowed = false;
         if (resourceHandler == null)
         {
@@ -75,7 +79,7 @@ public class DeadboltViewSupport
         {
             if (resourceHandler.isAllowed(name,
                                           meta,
-                                          PluginUtils.getDeadboltHandler(),
+                                          deadboltHandler,
                                           context))
             {
                 allowed = true;
@@ -90,9 +94,10 @@ public class DeadboltViewSupport
      *
      * @return true if the view can be accessed, otherwise false
      */
-    public static boolean viewRoleHolderPresent() throws Throwable
+    public static boolean viewRoleHolderPresent(DeadboltHandler handler) throws Throwable
     {
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
+        DeadboltHandler deadboltHandler = handler == null ? PluginUtils.getDeadboltHandler() : handler;
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(deadboltHandler,
                                                            Http.Context.current());
         return roleHolder != null;
     }
@@ -102,20 +107,23 @@ public class DeadboltViewSupport
      *
      * @return true if the view can be accessed, otherwise false
      */
-    public static boolean viewRoleHolderNotPresent() throws Throwable
+    public static boolean viewRoleHolderNotPresent(DeadboltHandler handler) throws Throwable
     {
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
+        DeadboltHandler deadboltHandler = handler == null ? PluginUtils.getDeadboltHandler() : handler;
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(deadboltHandler,
                                                            Http.Context.current());
         return roleHolder == null;
     }
 
     public static boolean viewPattern(String value,
-                                      PatternType patternType) throws Exception
+                                      PatternType patternType,
+                                      DeadboltHandler handler) throws Exception
     {
         boolean allowed = false;
 
         Http.Context context = Http.Context.current();
-        RoleHolder roleHolder = RequestUtils.getRoleHolder(PluginUtils.getDeadboltHandler(),
+        DeadboltHandler deadboltHandler = handler == null ? PluginUtils.getDeadboltHandler() : handler;
+        RoleHolder roleHolder = RequestUtils.getRoleHolder(deadboltHandler,
                                                            context);
         switch (patternType)
         {
@@ -129,7 +137,7 @@ public class DeadboltViewSupport
                 break;
             case CUSTOM:
                 allowed = JavaDeadboltAnalyzer.checkCustomPattern(roleHolder,
-                                                                  PluginUtils.getDeadboltHandler(),
+                                                                  deadboltHandler,
                                                                   context,
                                                                   value);
                 break;

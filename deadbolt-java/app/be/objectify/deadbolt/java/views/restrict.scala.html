@@ -1,7 +1,7 @@
-@(roles: List[Array[String]], args: (Symbol,String)*)(body: => Html)
+@(roles: List[Array[String]], handler: be.objectify.deadbolt.java.DeadboltHandler = null)(body: => Html)
 
 @import scala.collection.JavaConversions._
 
-@if(be.objectify.deadbolt.java.DeadboltViewSupport.viewRestrict(roles)) {
+@if(be.objectify.deadbolt.java.DeadboltViewSupport.viewRestrict(roles, handler)) {
 @body
 }

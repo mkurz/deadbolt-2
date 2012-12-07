@@ -24,22 +24,22 @@ import views.html.accessOk;
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-@Pattern(value = ".*", patternType = PatternType.REGEX)
-public class RegexPatternController extends Controller
+public class PatternController extends Controller
 {
-    public static Result index()
-    {
-        return ok(accessOk.render());
-    }
-
-    @Pattern(value = "(.)*\\.edit", patternType = PatternType.REGEX)
+    @Pattern("printers.edit")
     public static Result editPrinter()
     {
         return ok(accessOk.render());
     }
 
-    @Pattern(value = "(.)*\\.detonate", patternType = PatternType.REGEX)
+    @Pattern("printers.detonate")
     public static Result detonatePrinter()
+    {
+        return ok(accessOk.render());
+    }
+
+    @Pattern(value = "(.)*\\.edit", patternType = PatternType.REGEX)
+    public static Result editPrinterRegex()
     {
         return ok(accessOk.render());
     }

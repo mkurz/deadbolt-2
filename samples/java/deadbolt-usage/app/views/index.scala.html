@@ -1,386 +1,151 @@
-@import be.objectify.deadbolt.core.PatternType
-@import be.objectify.deadbolt.java.views.html._
-@import be.objectify.deadbolt.core.utils.TemplateUtils._
+@(roleHolder: be.objectify.deadbolt.core.models.RoleHolder)
 
-@main("Deadbolt usage examples") {
+<!DOCTYPE html>
 
-<h3>Set-up</h3>
-<ul>
-    <li>The current user has the roles "foo" and "bar".</li>
-    <li>The current user has the permission "".</li>
-</ul>
-  For each example, the required roles will be stated, along with the
-expected result.
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Deadbolt 2 Java examples</title>
+    <link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/main.css")'>
+    <link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
+    <link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/bootstrap-responsive.min.css")'>
+    <link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/font-awesome.css")'>
+    <link rel="shortcut icon" type="image/png" href='@routes.Assets.at("images/favicon.png")'>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Deadbolt 2 Java examples</a>
 
-<h3>Controller restrictions</h3>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="#">Deadbolt 2 Java examples</a>
 
-<h4>Restrict</h4>
-<ul>
-    <li>
-        <a href="@routes.RestrictController.index">Index</a>
-        <ul>
-            <li>controller-level restriction requiring foo and bar</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictController.restrictOne">Restrict One</a>
-        <ul>
-            <li>method-level restriction requiring foo</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictController.restrictTwo">Restrict Two</a>
-        <ul>
-            <li>method-level restriction requiring foo and bar</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictController.restrictThree">Restrict Three</a>
-        <ul>
-            <li>method-level restriction requiring foo but not bar</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictController.restrictFour">Restrict Four</a>
-        <ul>
-            <li>method-level restriction requiring hurdy</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-</ul>
-
-<h4>Restrictions</h4>
-<ul>
-    <li>
-        <a href="@routes.RestrictionsController.index">Index</a>
-        <ul>
-            <li>controller-level restriction requiring foo or bar</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictionsController.restrictionsOne">Restrictions One</a>
-        <ul>
-            <li>method-level restriction requiring foo and bar</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictionsController.restrictionsTwo">Restrictions Two</a>
-        <ul>
-            <li>method-level restriction requiring foo or bar</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictionsController.restrictionsThree">Restrictions Three</a>
-        <ul>
-            <li>method-level restriction requiring hurdy AND gurdy, or foo</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictionsController.restrictionsFour">Restrictions Four</a>
-        <ul>
-            <li>method-level restriction requiring foo OR NOT bar</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictionsController.restrictionsFive">Restrictions Five</a>
-        <ul>
-            <li>method-level restriction requiring hurdy and NOT foo</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-</ul>
-
-<h4>Dynamic</h4>
-<ul>
-    <li>
-        <a href="@routes.DynamicRestrictionsController.index">Index</a>
-        <ul>
-            <li>controller-level restriction requiring a role holder to be present</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.DynamicRestrictionsController.pureLuck">Pure luck</a>
-        <ul>
-            <li>method-level restriction requiring the system time in milliseconds to be exactly divisible by 2</li>
-            <li>may be visible, depends on your luck</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.DynamicRestrictionsController.noWayJose">No way, Jose</a>
-        <ul>
-            <li>method-level restriction using the same resource name as "pure luck" above, but specifying a different handler</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href='@routes.DynamicRestrictionsController.viewProfile("steve")'>View profile for current user</a>
-        <ul>
-            <li>method-level restriction that uses request information to determine access</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href='@routes.DynamicRestrictionsController.viewProfile("greet")'>View profile for another user</a>
-        <ul>
-            <li>method-level restriction that uses request information to determine access</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-</ul>
-
-<h4>RoleHolderPresent</h4>
-<ul>
-    <li>
-        <a href="@routes.RoleHolderController.roleHolderPresent">Role holder is present</a>
-        <ul>
-            <li>Method-level restriction requiring a role holder to be present</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RoleHolderController.roleHolderPresent_notLoggedIn">Role holder is not present</a>
-        <ul>
-            <li>Method-level restriction requiring a role holder to be present</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-</ul>
-
-<h4>RoleHolderNotPresent</h4>
-<ul>
-    <li>
-        <a href="@routes.RoleHolderController.roleHolderNotPresent">Role holder is not present</a>
-        <ul>
-            <li>Method-level restriction requiring a role holder to not be present</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RoleHolderController.roleHolderNotPresent_loggedIn">Role holder is present</a>
-        <ul>
-            <li>Method-level restriction requiring a role holder to not be present</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-</ul>
-
-<h4>DeadboltPattern - equality</h4>
-<ul>
-    <li>
-        <a href="@routes.EqualityPatternController.index">Index</a>
-        <ul>
-            <li>controller-level restriction that requires printers.edit as a permission</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.EqualityPatternController.detonatePrinter">Detonate printer</a>
-        <ul>
-            <li>controller-level restriction that requires printers.detonate as a permission</li>
-            <li>should not be visible</li>
-        </ul>
-    </li>
-</ul>
-
-<h4>DeadboltPattern - regex</h4>
-<ul>
-    <li>
-        <a href="@routes.RegexPatternController.index">Index</a>
-        <ul>
-            <li>controller-level restriction that requires any permission to be present</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RegexPatternController.editPrinter">Edit printer</a>
-        <ul>
-            <li>method-level restriction requiring *.edit as a permission (regex: "(.)*\.edit")</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RegexPatternController.detonatePrinter">Detontate printer</a>
-        <ul>
-            <li>method-level restriction requiring *.detonate as a permission (regex: "(.)*\.detonate")</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-</ul>
-
-<h4>Edge cases</h4>
-<ul>
-    <li>
-        <a href="@routes.EdgeCaseController.index">Index</a>
-        <ul>
-            <li>The DeadboltHandler#onAccessFailure call throws an exception</li>
-            <li>should cause a 500 server error</li>
-        </ul>
-    </li>
-</ul>
-
-<h4>Deferred method-level annotations</h4>
-<ul>
-    <li>
-        <a href="@routes.DeferredController.deferredRestrict">Deferred restrict</a>
-        <ul>
-            <li>deferred method-level restriction requiring foo</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.DeferredController.deferredRestrictions">Deferred restrictions</a>
-        <ul>
-            <li>deferred method-level restriction requiring foo and bar</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.DeferredController.deferredPattern">Deferred pattern</a>
-        <ul>
-            <li>deferred method-level restriction that requires printers.detonate as a permission</li>
-            <li>should not be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.DeferredController.deferredDynamic">Deferred dynamic</a>
-        <ul>
-            <li>deferred method-level restriction requiring the system time in milliseconds to be exactly divisible by 2</li>
-            <li>may be visible, depends on your luck</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.DeferredController.deferredRoleHolderPresent">Deferred role holder present</a>
-        <ul>
-            <li>deferred method-level restriction requiring a role holder to be present</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.DeferredController.deferredRoleHolderNotPresent">Deferred role holder not present</a>
-        <ul>
-            <li>deferred method-level restriction requiring a role holder to not be present</li>
-            <li>should be not visible</li>
-        </ul>
-    </li>
-</ul>
-
-<h3>Tag restrictions</h3>
-
-<div class="tagSection">
-    Tag: restrict   Requires: foo and bar.  Expected result: contents are visible
-    <div class="box">
-        @restrict(la(as("foo", "bar"))) {
-        This content should be visible
-        }
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <ul class="nav">
+                                    <li><a href="http://www.objectify.be" target="_blank"><i class="icon-globe"></i>
+                                        Objectify</a></li>
+                                    <li><a href="https://twitter.com/steve_objectify" target="_blank"><i
+                                            class="icon-twitter"></i> Twitter</a></li>
+                                    <li><a href="https://www.github.com/schaloner" target="_blank"><i
+                                            class="icon-github"></i> GitHub</a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="tagSection">
-    Tag: restrictOr   Requires: foo and bar.  Expected result: whoops
-    <div class="box">
-        @restrictOr(la(as("foo", "hurdy"))) {
-        This content should be visible
-        }{Whoops}
-    </div>
-</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span2">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">General</li>
+                    <li><a href="#config">Configuration</a></li>
+                    <li class="nav-header">Controllers</li>
+                    <li><a href="#controller-RoleHolderPresent">RoleHolderPresent</a></li>
+                    <li><a href="#controller-RoleHolderNotPresent">RoleHolderNotPresent</a></li>
+                    <li><a href="#controller-Restrict">Restrict</a></li>
+                    <li><a href="#controller-Restrictions">Restrictions</a></li>
+                    <li><a href="#controller-Dynamic">Dynamic</a></li>
+                    <li><a href="#controller-Pattern">Pattern</a></li>
+                    <li class="nav-header">Templates</li>
+                    <li><a href="#template-roleHolderPresent">@@roleHolderPresent</a></li>
+                    <li><a href="#template-roleHolderNotPresent">@@roleHolderNotPresent</a></li>
+                    <li><a href="#template-restrict">@@restrict</a></li>
+                    <li><a href="#template-restrictions">@@restrictions</a></li>
+                    <li><a href="#template-dynamic">@@dynamic</a></li>
+                    <li><a href="#template-pattern">@@pattern</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span10">
+            <div class="hero-unit">
+                <h1>Deadbolt 2 Java</h1>
 
-<div class="tagSection">
-    Tag: restrict   Requires: Not foo.  Expected result: contents are not visible
-    <div class="box">
-        @restrict(la(as("!foo"))) {
-        This content should not be visible
-        }
-    </div>
-</div>
+                <p>This is a collection of examples using Deadbolt 2 at both the controller and template level to
+                    implement authorisation in your Play 2 application.</p>
+            </div>
+            <div class="row-fluid" id="config">
+                <div class="span10">
+                    <h2>Configuration</h2>
 
-<div class="tagSection">
-    Tag: restrict   Requires: foo or bar.  Expected result: contents are visible
-    <div class="box">
-        @restrict(la(as("foo"), as("bar"))) {
-        This content should be visible
-        }
-    </div>
-</div>
+                    <p>For the purposes of these examples, except where stated otherwise, the user has the following roles:</p>
+                    <ul>
+                        @for(role <- roleHolder.getRoles()){
+                        <li>@role.getRoleName</li>
+                        }
+                    </ul>
 
-<div class="tagSection">
-    Tag: restrict   Requires: foo but not bar.  Expected result: contents are not visible
-    <div class="box">
-        @restrict(la(as("foo", "!bar"))) {
-        This content should be visible
-        }
-    </div>
-</div>
+                    <p>The user also has the following permissions:</p>
+                    <ul>
+                        @for(permission <- roleHolder.getPermissions()){
+                        <li>@permission.getValue</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span10">
+                    <h2>Controller authorisation</h2>
 
-<div class="tagSection">
-    Tag: dynamic   Requires: the system time in milliseconds to be exactly divisible by 2.  Expected result: depends on your luck!  Refresh the page a few times to see it change.
-    <div class="box">
-        @dynamic("pureLuck") {
-        Looks like you got lucky!
-        }
-    </div>
-</div>
+                    <p>Protecting your controllers against unauthorised use is a key element of good application security.  Here, you'll find examples of each of the
+                        controller-level authorisations provided by Deadbolt 2.</p>
+                    <p>For each example, the action is shown on the left, and the result is loaded into an iframe on the right.</p>
+                </div>
+            </div>
 
-<div class="tagSection">
-    Tag: dynamicOr   Requires: the system time in milliseconds to be exactly divisible by 2.  Expected result: depends on your luck!  Refresh the page a few times to see it change.
-    <div class="box">
-        @dynamicOr("pureLuck") {
-        Looks like you got lucky!
-        }{Guess you didn't get lucky!}
-    </div>
-</div>
+            @examples.controllers.RoleHolderPresent()
+            @examples.controllers.RoleHolderNotPresent()
+            @examples.controllers.Restrict()
+            @examples.controllers.Restrictions()
+            @examples.controllers.Dynamic()
+            @examples.controllers.Pattern()
 
-<div class="tagSection">
-    Tag: pattern   Requires: The role holder to have a permission exactly equal to "printers.edit"  Expected result: contents are visible
-    <div class="box">
-        @pattern("printers.edit") {
-        This content should be visible
-        }
-    </div>
-</div>
+            <div class="row-fluid">
+                <div class="span10">
+                    <h2>Template authorisation</h2>
 
-<div class="tagSection">
-    Tag: patternOr   Requires: The role holder to have a permission exactly equal to "printers.foo"  Expected result: whoops
-    <div class="box">
-        @patternOr("printers.foo") {
-        This content should be visible
-        }{Whoops}
-    </div>
-</div>
+                    <p>Deadbolt tags does not offer any real protected against misuse on your server side, but it does allow you to customise your UI according to the
+                       privileges of the current user.</p>
+                    <p>Each tag has an "Or" variant, e.g. restrictOr, that allows you to pass in a alternative body for when authorisation fails.</p>
+                    <p>For each example, the unprotected content is on the left, the Deadbolt tag is in the center and the result of the authorisation is on the right.</p>
+                </div>
+            </div>
 
-<div class="tagSection">
-    Tag: pattern   Requires: The role holder to have a permission exactly equal to "printers.print"  Expected result: contents are not visible
-    <div class="box">
-        @pattern("printers.print") {
-        This content should not be visible
-        }
-    </div>
-</div>
+            @examples.templates.RoleHolderPresent()
+            @examples.templates.RoleHolderNotPresent()
+            @examples.templates.Restrict()
+            @examples.templates.Dynamic()
+            @examples.templates.Pattern()
 
-<div class="tagSection">
-    Tag: pattern   Requires: The role holder to have a permission equivalent to *.edit (regex: "(.)*\.edit")  Expected result: contents are visible
-    <div class="box">
-        @pattern("(.)*\\.edit", PatternType.REGEX) {
-        This content should be visible
-        }
+        </div>
     </div>
-</div>
 
-<div class="tagSection">
-    Tag: pattern   Requires: The role holder to have a permission equivalent to *.detonate (regex: "(.)*\.detonate")  Expected result: contents are not visible
-    <div class="box">
-        @pattern("(.)*\\.detonate", PatternType.REGEX) {
-        This content should not be visible
-        }
-    </div>
+    <hr>
+
+    <footer>
+        <p>&copy; Steve Chaloner &amp; Objectify 2012</p>
+    </footer>
+
 </div>
-}
+<!--/.fluid-container-->
+<script src='@routes.Assets.at("javascripts/jquery-1.7.1.min.js")' type="text/javascript"></script>
+</body>
+</html>

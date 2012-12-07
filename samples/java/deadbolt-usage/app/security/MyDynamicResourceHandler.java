@@ -58,7 +58,7 @@ public class MyDynamicResourceHandler implements DynamicResourceHandler
                                                   Http.Context context)
                          {
                              RoleHolder roleHolder = deadboltHandler.getRoleHolder(context);
-                             boolean allowed = false;
+                             boolean allowed;
                              if (DeadboltAnalyzer.hasRole(roleHolder, "admin"))
                              {
                                  allowed = true;

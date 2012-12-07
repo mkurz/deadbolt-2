@@ -1,0 +1,80 @@
+<div class="row-fluid" id="controller-Restrict">
+    <div class="span10">
+        <h3 class="subsection">Restrict</h3>
+
+        <p>Restrict uses an ANDed set of roles to determine access to an action.  For example, a user with the roles "foo" and "bar" could access a Restrict-protected action
+            that specified any of the following:</p>
+        <ul>
+            <li>foo</li>
+            <li>bar</li>
+            <li>foo AND bar</li>
+        </ul>
+
+        <p>However, a Restrict that required "foo", "bar" and "hurdy" would deny access to the user.</p>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span5 columnHeader">Specification</div>
+    <div class="span5 columnHeader">Result</div>
+</div>
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+@@Restrict({"foo", "bar"})
+public class RestrictController extends Controller</pre>
+    </div>
+    <div class="span5">
+        <iframe src="@routes.RestrictController.index"></iframe>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+@@Restrict({"foo", "bar"})
+public static Result restrictTwo() {
+    return ok(accessOk.render());
+}</pre>
+    </div>
+    <div class="span5">
+        <iframe src="@routes.RestrictController.restrictOne"></iframe>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+@@Restrict({"foo", "bar"})
+public static Result restrictTwo() {
+    return ok(accessOk.render());
+}</pre>
+    </div>
+    <div class="span5">
+        <iframe src="@routes.RestrictController.restrictTwo"></iframe>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+@@Restrict({"foo", "!bar"})
+public static Result restrictThree() {
+    return ok(accessOk.render());
+}</pre>
+    </div>
+    <div class="span5">
+        <iframe src="@routes.RestrictController.restrictThree"></iframe>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+@@Restrict({"hurdy"})
+public static Result restrictFour() {
+    return ok(accessOk.render());
+}</pre>
+    </div>
+    <div class="span5">
+        <iframe src="@routes.RestrictController.restrictFour"></iframe>
+    </div>
+</div>

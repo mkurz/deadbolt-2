@@ -40,7 +40,7 @@ public class TemplateUtils
      * Converts the argument array into a List of String arrays.  Convenience method for templates.
      *
      * @param args the arguments
-     * @return
+     * @return a non-null list containing the arguments
      */
     public static List<String[]> la(String[]... args)
     {

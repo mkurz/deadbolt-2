@@ -1,0 +1,130 @@
+<div class="row-fluid" id="controller-Dynamic">
+    <div class="span10">
+        <h3 class="subsection">Dynamic</h3>
+
+        <p>Dynamic is the most powerful constraint in Deadbolt.  It enforces arbitrary rules.  See the documentation for a full overview.</p>
+        <p>In these examples, the action is shown on the left, the rule specified in the relevant DynamicResourceHandler is in the center and
+            the result is in an iframe on the right.</p>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span4 columnHeader">Specification</div>
+    <div class="span4 columnHeader">Rule</div>
+    <div class="span2 columnHeader">Result</div>
+</div>
+
+<div class="row-fluid">
+    <div class="span4">
+        <pre>
+@@Dynamic("pureLuck")
+public static Result pureLuck() {
+    return ok(accessOk.render());
+}</pre>
+    </div>
+    <div class="span4">
+        <pre>
+public boolean isAllowed(String name,
+                         String meta,
+                         DeadboltHandler deadboltHandler,
+                         Http.Context context) {
+    return System.currentTimeMillis() % 2 == 0;
+}</pre>
+    </div>
+    <div class="span2">
+        <iframe src="@routes.DynamicRestrictionsController.pureLuck"></iframe>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span4">
+        <pre>
+@@Dynamic(value = "pureLuck", handler = MyAlternativeDeadboltHandler.class)
+public static Result noWayJose() {
+    return ok(accessOk.render());
+}</pre>
+    </div>
+    <div class="span4">
+        <pre>
+public boolean checkPermission(String permissionValue,
+                               DeadboltHandler deadboltHandler,
+                               Http.Context ctx) {
+    // Computer says no
+    return false;
+}</pre>
+    </div>
+    <div class="span2">
+        <iframe src="@routes.DynamicRestrictionsController.noWayJose"></iframe>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span4">
+        <pre>
+@@Dynamic(value = "pureLuck", handler = MyAlternativeDeadboltHandler.class)
+public static Result noWayJose() {
+    return ok(accessOk.render());
+}</pre>
+    </div>
+    <div class="span4">
+        <pre>
+public boolean isAllowed(String name,
+                         String meta,
+                         DeadboltHandler deadboltHandler,
+                         Http.Context context) {
+    RoleHolder roleHolder = deadboltHandler.getRoleHolder(context);
+    boolean allowed;
+    if (DeadboltAnalyzer.hasRole(roleHolder, "admin")) {
+        allowed = true;
+    } else {
+        // a call to view profile is probably a get request, so
+        // the query string is used to provide info
+        // See the Deadbolt documentation on why this is harder to do with path parameters
+        Map<String, String[]> queryStrings = context.request().queryString();
+        String[] requestedNames = queryStrings.get("userName");
+        allowed = requestedNames != null
+                  && requestedNames.length == 1
+                  && ((User)roleHolder).userName.equals(requestedNames[0]);
+    }
+    return allowed;
+}</pre>
+    </div>
+    <div class="span2">
+        <iframe src="@routes.DynamicRestrictionsController.viewProfile("steve")"></iframe>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span4">
+        <pre>
+@@Dynamic(value = "viewProfile")
+public static Result viewProfile(String userName) {
+    return ok(accessOk.render());
+}</pre>
+    </div>
+    <div class="span4">
+        <pre>
+public boolean isAllowed(String name,
+                         String meta,
+                         DeadboltHandler deadboltHandler,
+                         Http.Context context) {
+    RoleHolder roleHolder = deadboltHandler.getRoleHolder(context);
+    boolean allowed;
+    if (DeadboltAnalyzer.hasRole(roleHolder, "admin")) {
+        allowed = true;
+    } else {
+        // a call to view profile is probably a get request, so
+        // the query string is used to provide info
+        // See the Deadbolt documentation on why this is harder to do with path parameters
+        Map<String, String[]> queryStrings = context.request().queryString();
+        String[] requestedNames = queryStrings.get("userName");
+        allowed = requestedNames != null
+                  && requestedNames.length == 1
+                  && ((User)roleHolder).userName.equals(requestedNames[0]);
+    }
+    return allowed;
+}</pre>
+    </div>
+    <div class="span2">
+        <iframe src="@routes.DynamicRestrictionsController.viewProfile("greet")"></iframe>
+    </div>
+</div>

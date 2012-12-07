@@ -1,5 +1,6 @@
 package controllers;
 
+import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -9,6 +10,6 @@ public class Application extends Controller
 {
     public static Result index()
     {
-        return ok(index.render());
+        return ok(index.render(User.findByUserName("steve")));
     }
 }

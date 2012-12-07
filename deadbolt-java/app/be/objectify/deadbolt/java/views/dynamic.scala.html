@@ -1,5 +1,5 @@
-@(name: String, meta: String = null)(body: => Html)
+@(name: String, meta: String = null, handler: be.objectify.deadbolt.java.DeadboltHandler = null)(body: => Html)
 
-@if(be.objectify.deadbolt.java.DeadboltViewSupport.viewDynamic(name, meta)) {
+@if(be.objectify.deadbolt.java.DeadboltViewSupport.viewDynamic(name, meta, handler)) {
 @body
 }
