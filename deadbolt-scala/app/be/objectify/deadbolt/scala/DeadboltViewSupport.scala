@@ -80,8 +80,14 @@ object  DeadboltViewSupport {
       case PatternType.EQUALITY => DeadboltAnalyzer.checkPatternEquality(roleHolder, value)
       case PatternType.REGEX => DeadboltAnalyzer.checkRegexPattern(roleHolder, getPattern(value))
       case PatternType.CUSTOM => {
-        Logger.error("Not yet supported")
-        false
+        deadboltHandler.getDynamicResourceHandler(request) match {
+            case Some(dynamicHandler) => {
+              if (dynamicHandler.checkPermission(value, deadboltHandler, request)) true
+              else false
+            }
+            case None =>
+              throw new RuntimeException("A custom pattern is specified but no dynamic resource handler is provided")
+          }
       }
     }
   }

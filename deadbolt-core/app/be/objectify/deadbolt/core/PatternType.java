@@ -31,7 +31,7 @@ public enum PatternType
     REGEX,
 
     /**
-     * Perform some custom matching on the pattern.  Note this isn't implemented yet!
+     * Perform some custom matching on the pattern.
      */
     CUSTOM
 }

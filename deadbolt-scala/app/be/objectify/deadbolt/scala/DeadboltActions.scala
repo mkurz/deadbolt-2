@@ -123,8 +123,14 @@ trait DeadboltActions extends Results with BodyParsers
           else deadboltHandler.onAccessFailure(request)
         }
         case PatternType.CUSTOM => {
-          Logger.error("Custom patterns are not yet supported")
-          deadboltHandler.onAccessFailure(request)
+          deadboltHandler.getDynamicResourceHandler(request) match {
+            case Some(dynamicHandler) => {
+              if (dynamicHandler.checkPermission(value, deadboltHandler, request)) action(request)
+              else deadboltHandler.onAccessFailure(request)
+            }
+            case None =>
+              throw new RuntimeException("A custom pattern is specified but no dynamic resource handler is provided")
+          }   
         }
       }
     }
