@@ -16,16 +16,15 @@
 package controllers;
 
 import be.objectify.deadbolt.core.PatternType;
-import be.objectify.deadbolt.java.actions.DeadboltPattern;
+import be.objectify.deadbolt.java.actions.Pattern;
 import play.mvc.Controller;
 import play.mvc.Result;
-import security.MyAlternativeDeadboltHandler;
 import views.html.accessOk;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-@DeadboltPattern(value = ".*", patternType = PatternType.REGEX)
+@Pattern(value = ".*", patternType = PatternType.REGEX)
 public class RegexPatternController extends Controller
 {
     public static Result index()
@@ -33,13 +32,13 @@ public class RegexPatternController extends Controller
         return ok(accessOk.render());
     }
 
-    @DeadboltPattern(value = "(.)*\\.edit", patternType = PatternType.REGEX)
+    @Pattern(value = "(.)*\\.edit", patternType = PatternType.REGEX)
     public static Result editPrinter()
     {
         return ok(accessOk.render());
     }
 
-    @DeadboltPattern(value = "(.)*\\.detonate", patternType = PatternType.REGEX)
+    @Pattern(value = "(.)*\\.detonate", patternType = PatternType.REGEX)
     public static Result detonatePrinter()
     {
         return ok(accessOk.render());

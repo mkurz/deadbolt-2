@@ -1,0 +1,37 @@
+<div class="row-fluid" id="controller-RoleHolderPresent">
+    <div class="span10">
+        <h3 class="subsection">RoleHolderPresent</h3>
+
+        <p>This is one of the simplest constraints in Deadbolt.  It simply requires that a user be present (i.e. logged in).</p>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span5 columnHeader">Specification</div>
+    <div class="span5 columnHeader">Result</div>
+</div>
+<div class="row-fluid">
+    <div class="span5">
+                    <pre>
+RoleHolderPresent(new MyDeadboltHandler) {
+  Action {
+    Ok(accessOk())
+  }
+}</pre>
+    </div>
+    <div class="span5">
+        <iframe src="@routes.RoleHolderPresentController.loggedIn"></iframe>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span5">
+                    <pre>
+RoleHolderPresent(new MyUserlessDeadboltHandler) {
+  Action {
+    Ok(accessOk())
+  }
+}</pre>
+    </div>
+    <div class="span5">
+        <iframe src="@routes.RoleHolderPresentController.notLoggedIn"></iframe>
+    </div>
+</div>

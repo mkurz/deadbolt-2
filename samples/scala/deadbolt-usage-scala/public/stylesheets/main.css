@@ -1,16 +1,22 @@
-* {
-    font-family: sans-serif;
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.sidebar-nav {
+    padding: 9px 0;
 }
 
-div.box {
-    border: 1px solid #000000;
-    padding: 3px;
-    margin: 2px;
+h3.subsection {
+    padding-left: 7px;
+    margin-top: 7px;
+    background-color: #8fd2ff;
 }
 
-div.tagSection {
-    padding-top: 7px;
-    padding-bottom: 4px;
-    margin: 3px;
-    border: 1px solid #999999;
+iframe {
+    height: 50px;
+    width: 150px;
+}
+
+div.columnHeader {
+	font-weight: bold;
 }

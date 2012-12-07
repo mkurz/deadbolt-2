@@ -9,8 +9,7 @@ import be.objectify.deadbolt.scala.{DeadboltHandler, DynamicResourceHandler}
  * @author Steve Chaloner (steve@objectify.be)
  */
 
-object MyAlternativeDynamicResourceHandler extends DynamicResourceHandler
-{
+object MyAlternativeDynamicResourceHandler extends DynamicResourceHandler {
   def isAllowed[A](name: String,
                    meta: String,
                    handler: DeadboltHandler,

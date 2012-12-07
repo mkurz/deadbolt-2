@@ -17,7 +17,7 @@ package controllers;
 
 import actions.UpdateContext;
 import be.objectify.deadbolt.java.actions.And;
-import be.objectify.deadbolt.java.actions.DeadboltPattern;
+import be.objectify.deadbolt.java.actions.Pattern;
 import be.objectify.deadbolt.java.actions.DeferredDeadbolt;
 import be.objectify.deadbolt.java.actions.Dynamic;
 import be.objectify.deadbolt.java.actions.Restrict;
@@ -47,7 +47,7 @@ public class DeferredController extends Controller
         return ok(accessOk.render());
     }
 
-    @DeadboltPattern(value = "printers.detonate", deferred=true)
+    @Pattern(value = "printers.detonate", deferred=true)
     public static Result deferredPattern()
     {
         return ok(accessOk.render());

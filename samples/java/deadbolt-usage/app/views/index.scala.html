@@ -340,45 +340,45 @@ expected result.
 </div>
 
 <div class="tagSection">
-    Tag: deadboltPattern   Requires: The role holder to have a permission exactly equal to "printers.edit"  Expected result: contents are visible
+    Tag: pattern   Requires: The role holder to have a permission exactly equal to "printers.edit"  Expected result: contents are visible
     <div class="box">
-        @deadboltPattern("printers.edit") {
+        @pattern("printers.edit") {
         This content should be visible
         }
     </div>
 </div>
 
 <div class="tagSection">
-    Tag: deadboltPatternOr   Requires: The role holder to have a permission exactly equal to "printers.foo"  Expected result: whoops
+    Tag: patternOr   Requires: The role holder to have a permission exactly equal to "printers.foo"  Expected result: whoops
     <div class="box">
-        @deadboltPatternOr("printers.foo") {
+        @patternOr("printers.foo") {
         This content should be visible
         }{Whoops}
     </div>
 </div>
 
 <div class="tagSection">
-    Tag: deadboltPattern   Requires: The role holder to have a permission exactly equal to "printers.print"  Expected result: contents are not visible
+    Tag: pattern   Requires: The role holder to have a permission exactly equal to "printers.print"  Expected result: contents are not visible
     <div class="box">
-        @deadboltPattern("printers.print") {
+        @pattern("printers.print") {
         This content should not be visible
         }
     </div>
 </div>
 
 <div class="tagSection">
-    Tag: deadboltPattern   Requires: The role holder to have a permission equivalent to *.edit (regex: "(.)*\.edit")  Expected result: contents are visible
+    Tag: pattern   Requires: The role holder to have a permission equivalent to *.edit (regex: "(.)*\.edit")  Expected result: contents are visible
     <div class="box">
-        @deadboltPattern("(.)*\\.edit", PatternType.REGEX) {
+        @pattern("(.)*\\.edit", PatternType.REGEX) {
         This content should be visible
         }
     </div>
 </div>
 
 <div class="tagSection">
-    Tag: deadboltPattern   Requires: The role holder to have a permission equivalent to *.detonate (regex: "(.)*\.detonate")  Expected result: contents are not visible
+    Tag: pattern   Requires: The role holder to have a permission equivalent to *.detonate (regex: "(.)*\.detonate")  Expected result: contents are not visible
     <div class="box">
-        @deadboltPattern("(.)*\\.detonate", PatternType.REGEX) {
+        @pattern("(.)*\\.detonate", PatternType.REGEX) {
         This content should not be visible
         }
     </div>

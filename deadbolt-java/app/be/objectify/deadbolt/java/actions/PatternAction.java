@@ -22,12 +22,10 @@ import be.objectify.deadbolt.java.JavaDeadboltAnalyzer;
 import play.mvc.Http;
 import play.mvc.Result;
 
-import java.util.regex.Pattern;
-
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPattern>
+public class PatternAction extends AbstractRestrictiveAction<Pattern>
 {
     @Override
     public Result applyRestriction(Http.Context ctx,
@@ -125,7 +123,7 @@ public class DeadboltPatternAction extends AbstractRestrictiveAction<DeadboltPat
         Result result;
 
         final String patternValue = configuration.value();
-        Pattern pattern = DeadboltViewSupport.getPattern(patternValue);
+        java.util.regex.Pattern pattern = DeadboltViewSupport.getPattern(patternValue);
 
         if (JavaDeadboltAnalyzer.checkRegexPattern(getRoleHolder(ctx,
                                                                  deadboltHandler),

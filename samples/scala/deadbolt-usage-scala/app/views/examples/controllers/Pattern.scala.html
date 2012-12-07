@@ -1,0 +1,59 @@
+<div class="row-fluid" id="controller-Pattern">
+    <div class="span10">
+        <h3 class="subsection">Pattern</h3>
+
+        <p>Pattern allows you to use regular expressions to determine access.</p>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span5 columnHeader">Specification</div>
+    <div class="span5 columnHeader">Result</div>
+</div>
+
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+Pattern("printers.edit",
+        PatternType.EQUALITY,
+        new MyDeadboltHandler) {
+  Action {
+    Ok(accessOk())
+  }
+}</pre>
+    </div>
+    <div class="span2">
+        <iframe src="@routes.PatternController.printersEdit"></iframe>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+Pattern("printers.foo",
+        PatternType.EQUALITY,
+        new MyDeadboltHandler) {
+  Action {
+    Ok(accessOk())
+  }
+}</pre>
+    </div>
+    <div class="span2">
+        <iframe src="@routes.PatternController.printersFoo"></iframe>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+Pattern("(.)*\\.edit",
+        PatternType.REGEX,
+        new MyDeadboltHandler) {
+  Action {
+    Ok(accessOk())
+  }
+}</pre>
+    </div>
+    <div class="span2">
+        <iframe src="@routes.PatternController.printersRegex"></iframe>
+    </div>
+</div>

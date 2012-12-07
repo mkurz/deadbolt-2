@@ -11,20 +11,17 @@ import models.User
  */
 class MyDeadboltHandler(dynamicResourceHandler: DynamicResourceHandler = null) extends DeadboltHandler
 {
-  override def getDynamicResourceHandler[A](request: Request[A]): Option[DynamicResourceHandler] =
-  {
+  override def getDynamicResourceHandler[A](request: Request[A]): Option[DynamicResourceHandler] = {
     if (dynamicResourceHandler != null) Some(dynamicResourceHandler)
     else Some(new MyDynamicResourceHandler())
   }
 
-  override def getRoleHolder[A](request: Request[A]): Option[RoleHolder] =
-  {
+  override def getRoleHolder[A](request: Request[A]): Option[RoleHolder] = {
     // e.g. request.session.get("user")
     Some(new User("steve"))
   }
 
-  def onAccessFailure[A](request: Request[A]): Result =
-  {
+  def onAccessFailure[A](request: Request[A]): Result = {
     Results.Forbidden(views.html.accessFailed())
   }
 }

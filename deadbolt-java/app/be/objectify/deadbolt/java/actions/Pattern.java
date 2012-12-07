@@ -29,12 +29,12 @@ import java.lang.annotation.Target;
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-@With(DeadboltPatternAction.class)
+@With(PatternAction.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Inherited
 @Documented
-public @interface DeadboltPattern
+public @interface Pattern
 {
     /**
      * The pattern.

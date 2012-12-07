@@ -1,248 +1,152 @@
 @(handler: be.objectify.deadbolt.scala.DeadboltHandler)(implicit request: Request[Any])
 
-@import be.objectify.deadbolt.scala.views.html._
-@import be.objectify.deadbolt.core.utils.TemplateUtils._
+<!DOCTYPE html>
 
-@main("Deadbolt Scala usage examples") {
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Deadbolt 2 Scala examples</title>
+    <link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/main.css")'>
+    <link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
+    <link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/bootstrap-responsive.min.css")'>
+    <link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/font-awesome.css")'>
+    <link rel="shortcut icon" type="image/png" href='@routes.Assets.at("images/favicon.png")'>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Deadbolt 2 Scala examples</a>
 
-<h3>Set-up</h3>
-The current user has the roles "foo" and "bar".  For each example, the required roles will be stated, along with the
-expected result.
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="#">Deadbolt 2 Scala examples</a>
 
-<h3>Controller restrictions</h3>
-
-<h4>SBRestrict</h4>
-<ul>
-    <li>
-        <a href="@routes.RestrictController.restrictOne">Restrict One</a>
-        <ul>
-            <li>restriction requiring foo</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictController.restrictTwo">Restrict Two</a>
-        <ul>
-            <li>restriction requiring foo and bar</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictController.restrictThree">Restrict Three</a>
-        <ul>
-            <li>restriction requiring foo but not bar</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictController.restrictFour">Restrict Four</a>
-        <ul>
-            <li>restriction requiring hurdy</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-</ul>
-@*
-<h4>SBRestrictions</h4>
-<ul>
-    <li>
-        <a href="@routes.RestrictionsController.restrictionsOne">Restrictions One</a>
-        <ul>
-            <li>restriction requiring foo and bar</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictionsController.restrictionsTwo">Restrictions Two</a>
-        <ul>
-            <li>restriction requiring foo or bar</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictionsController.restrictionsThree">Restrictions Three</a>
-        <ul>
-            <li>restriction requiring hurdy AND gurdy, or foo</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictionsController.restrictionsFour">Restrictions Four</a>
-        <ul>
-            <li>restriction requiring foo OR NOT bar</li>
-            <li>should be visible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RestrictionsController.restrictionsFive">Restrictions Five</a>
-        <ul>
-            <li>restriction requiring hurdy and NOT foo</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-</ul>
-*@
-<h4>SBDynamic</h4>
-<ul>
-    <li>
-        <a href="@routes.DynamicRestrictionsController.pureLuck">Pure luck</a>
-        <ul>
-            <li>restriction requiring the system time in milliseconds to be exactly divisible by 2</li>
-            <li>may be visible, depends on your luck</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.DynamicRestrictionsController.noWayJose">No way, Jose</a>
-        <ul>
-            <li>restriction using the same resource name as "pure luck" above, but specifying a different handler</li>
-            <li>should NOT be visible</li>
-        </ul>
-    </li>
-</ul>
-
-<h4>SBRoleHolderPresent</h4>
-<ul>
-    <li>
-        <a href="@routes.RoleHolderPresentController.loggedIn">Logged in</a>
-        <ul>
-            <li>restriction requiring a role holder to be present (e.g. someone is logged in)</li>
-            <li>a user is logged in, so this is accessible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RoleHolderPresentController.notLoggedIn">Not logged in</a>
-        <ul>
-            <li>restriction requiring a role holder to be present (e.g. someone is logged in)</li>
-            <li>a user is not logged in, so this is NOT accessible</li>
-        </ul>
-    </li>
-</ul>
-
-<h4>SBRoleHolderNotPresent</h4>
-<ul>
-    <li>
-        <a href="@routes.RoleHolderNotPresentController.loggedIn">Logged in</a>
-        <ul>
-            <li>restriction requiring a role holder to be present (e.g. someone is logged in)</li>
-            <li>a user is not logged in, so this is NOT accessible</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@routes.RoleHolderNotPresentController.notLoggedIn">Not logged in</a>
-        <ul>
-            <li>restriction requiring a role holder to be present (e.g. someone is logged in)</li>
-            <li>a user is not logged in, so this is accessible</li>
-        </ul>
-    </li>
-</ul>
-
-
-<h3>Tag restrictions</h3>
-
-<h4>restrict</h4>
-<div class="tagSection">
-    Requires: foo and bar.  Expected result: contents are visible
-    <div class="box">
-        @restrict(handler, List(as("foo", "bar"))) {
-        This content should be visible
-        }
-    </div>
-</div>
-<div class="tagSection">
-    Requires: foo, bar, and hurdy. Expected result: contents are NOT visible
-    <div class="box">
-        @restrict(handler, List(as("foo", "bar", "hurdy"))) {
-        This content should NOT be visible
-        }
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <ul class="nav">
+                                    <li><a href="http://www.objectify.be" target="_blank"><i class="icon-globe"></i>
+                                        Objectify</a></li>
+                                    <li><a href="https://twitter.com/steve_objectify" target="_blank"><i
+                                            class="icon-twitter"></i> Twitter</a></li>
+                                    <li><a href="https://www.github.com/schaloner" target="_blank"><i
+                                            class="icon-github"></i> GitHub</a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<h4>restrictOr</h4>
-<div class="tagSection">
-    Requires: foo and bar.  Expected result: the original contents are displayed
-    <div class="box">
-        @restrictOr(handler, List(as("foo", "bar"))) {
-        This content should be visible
-        }{This will not be visible}
-    </div>
-</div>
-<div class="tagSection">
-    Requires: foo, bar, and hurdy. Expected result: Whoops
-    <div class="box">
-        @restrictOr(handler, List(as("foo", "bar", "hurdy"))) {
-        This content should NOT be visible
-        }{Whoops}
-    </div>
-</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span2">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">General</li>
+                    <li><a href="#config">Configuration</a></li>
+                    <li class="nav-header">Controllers</li>
+                    <li><a href="#controller-RoleHolderPresent">RoleHolderPresent</a></li>
+                    <li><a href="#controller-RoleHolderNotPresent">RoleHolderNotPresent</a></li>
+                    <li><a href="#controller-Restrict">Restrict</a></li>
+                    <li><a href="#controller-Restrictions">Restrictions</a></li>
+                    <li><a href="#controller-Dynamic">Dynamic</a></li>
+                    <li><a href="#controller-Pattern">Pattern</a></li>
+                    <li class="nav-header">Templates</li>
+                    <li><a href="#template-roleHolderPresent">@@roleHolderPresent</a></li>
+                    <li><a href="#template-roleHolderNotPresent">@@roleHolderNotPresent</a></li>
+                    <li><a href="#template-restrict">@@restrict</a></li>
+                    <li><a href="#template-restrictions">@@restrictions</a></li>
+                    <li><a href="#template-dynamic">@@dynamic</a></li>
+                    <li><a href="#template-pattern">@@pattern</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span10">
+            <div class="hero-unit">
+                <h1>Deadbolt 2 Scala</h1>
 
-<h4>roleHolderPresent</h4>
-<div class="tagSection">
-    Requires: a role holder to be present.  Expected result: A role holder is present, so the contents are visible
-    <div class="box">
-        @roleHolderPresent(handler) {
-        This content should be visible
-        }
-    </div>
-</div>
-<div class="tagSection">
-    Requires: a role holder to be present.  Expected result: A role holder is NOT present, so the contents are NOT visible
-    <div class="box">
-        @roleHolderPresent(new security.MyUserlessDeadboltHandler) {
-        This content should NOT be visible
-        }
-    </div>
-</div>
+                <p>This is a collection of examples using Deadbolt 2 at both the controller and template level to
+                    implement authorisation in your Play 2 application.</p>
+            </div>
+            <div class="row-fluid" id="config">
+                <div class="span10">
+                    <h2>Configuration</h2>
 
-<h4>roleHolderPresentOr</h4>
-<div class="tagSection">
-    Requires: a role holder to be present.  Expected result: A role holder is present, so the original contents are displayed
-    <div class="box">
-        @roleHolderPresentOr(handler) {
-        This content should be visible
-        }{Whoops}
-    </div>
-</div>
-<div class="tagSection">
-    Requires: a role holder to be present.  Expected result: A role holder is NOT present, so...whoops
-    <div class="box">
-        @roleHolderPresentOr(new security.MyUserlessDeadboltHandler) {
-        This content should NOT be visible
-        }{Whoops}
-    </div>
-</div>
+                    <p>For the purposes of these examples, except where stated otherwise, the user has the following roles:</p>
+                    <ul>
+                        @for(role <- handler.getRoleHolder(request).get.getRoles()){
+                        <li>@role.getRoleName</li>
+                        }
+                    </ul>
 
-<h4>roleHolderNotPresent</h4>
-<div class="tagSection">
-    Requires: a role holder to NOT be present.  Expected result: A role holder is present, so the contents are NOT visible
-    <div class="box">
-        @roleHolderNotPresent(handler) {
-        This content should NOT be visible
-        }
-    </div>
-</div>
-<div class="tagSection">
-    Requires: a role holder to NOT be present.  Expected result: A role holder is NOT present, so the contents are visible
-    <div class="box">
-        @roleHolderNotPresent(new security.MyUserlessDeadboltHandler) {
-        This content should be visible
-        }
-    </div>
-</div>
+                    <p>The user also has the following permissions:</p>
+                    <ul>
+                        @for(permission <- handler.getRoleHolder(request).get.getPermissions()){
+                        <li>@permission.getValue</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span10">
+                    <h2>Controller authorisation</h2>
 
-<h4>roleHolderNotPresentOr</h4>
-<div class="tagSection">
-    Requires: a role holder to NOT be present.  Expected result: A role holder is present, so...whoops
-    <div class="box">
-        @roleHolderNotPresentOr(handler) {
-        This content should NOT be visible
-        }{Whoops}
+                    <p>Protecting your controllers against unauthorised use is a key element of good application security.  Here, you'll find examples of each of the
+                        controller-level authorisations provided by Deadbolt 2.</p>
+                    <p>For each example, the action is shown on the left, and the result is loaded into an iframe on the right.</p>
+                </div>
+            </div>
+
+            @examples.controllers.RoleHolderPresent()
+            @examples.controllers.RoleHolderNotPresent()
+            @examples.controllers.Restrict()
+            @examples.controllers.Restrictions()
+            @examples.controllers.Dynamic()
+            @examples.controllers.Pattern()
+
+            <div class="row-fluid">
+                <div class="span10">
+                    <h2>Template authorisation</h2>
+
+                    <p>Deadbolt tags does not offer any real protected against misuse on your server side, but it does allow you to customise your UI according to the
+                       privileges of the current user.</p>
+                    <p>Each tag has an "Or" variant, e.g. restrictOr, that allows you to pass in a alternative body for when authorisation fails.</p>
+                    <p>For each example, the unprotected content is on the left, the Deadbolt tag is in the center and the result of the authorisation is on the right.</p>
+                </div>
+            </div>
+
+            @examples.templates.RoleHolderPresent(handler)
+            @examples.templates.RoleHolderNotPresent(handler)
+            @examples.templates.Restrict(handler)
+            @examples.templates.Dynamic(handler)
+            @examples.templates.Pattern(handler)
+
+        </div>
     </div>
+
+    <hr>
+
+    <footer>
+        <p>&copy; Steve Chaloner &amp; Objectify 2012</p>
+    </footer>
+
 </div>
-<div class="tagSection">
-    Requires: a role holder to NOT be present.  Expected result: A role holder is NOT present, so the original contents are displayed
-    <div class="box">
-        @roleHolderNotPresentOr(new security.MyUserlessDeadboltHandler) {
-        This content should be visible
-        }{Whoops}
-    </div>
-</div>}
+<!--/.fluid-container-->
+<script src='@routes.Assets.at("javascripts/jquery-1.7.1.min.js")' type="text/javascript"></script>
+<script src='@routes.Assets.at("javascripts/jquery-1.7.1.min.js")' type="text/javascript"></script>
+</body>
+</html>

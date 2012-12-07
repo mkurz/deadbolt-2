@@ -13,18 +13,14 @@ import be.objectify.deadbolt.scala.DeadboltActions
 object RoleHolderPresentController extends Controller with DeadboltActions
 {
 
-  def loggedIn = RoleHolderPresent(new MyDeadboltHandler)
-                 {
-                   Action
-                   {
+  def loggedIn = RoleHolderPresent(new MyDeadboltHandler) {
+                   Action {
                      Ok(accessOk())
                    }
                  }
 
-  def notLoggedIn = RoleHolderPresent(new MyUserlessDeadboltHandler)
-                    {
-                      Action
-                      {
+  def notLoggedIn = RoleHolderPresent(new MyUserlessDeadboltHandler) {
+                      Action {
                         Ok(accessOk())
                       }
                     }

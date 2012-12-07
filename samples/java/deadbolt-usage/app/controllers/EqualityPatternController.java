@@ -15,7 +15,7 @@
  */
 package controllers;
 
-import be.objectify.deadbolt.java.actions.DeadboltPattern;
+import be.objectify.deadbolt.java.actions.Pattern;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.accessOk;
@@ -23,7 +23,7 @@ import views.html.accessOk;
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-@DeadboltPattern("printers.edit")
+@Pattern("printers.edit")
 public class EqualityPatternController extends Controller
 {
     public static Result index()
@@ -31,7 +31,7 @@ public class EqualityPatternController extends Controller
         return ok(accessOk.render());
     }
 
-    @DeadboltPattern("printers.detonate")
+    @Pattern("printers.detonate")
     public static Result detonatePrinter()
     {
         return ok(accessOk.render());
