@@ -71,7 +71,7 @@ public class DeadboltPlugin extends Plugin
         }
 
 
-        cacheUserPerRequestEnabled = true;//configuration.getBoolean(PluginConfigKeys.CACHE_DEADBOLT_USER, false);
+        cacheUserPerRequestEnabled = configuration.getBoolean(PluginConfigKeys.CACHE_DEADBOLT_USER, false);
     }
 
     /**

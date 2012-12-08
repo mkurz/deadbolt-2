@@ -15,50 +15,27 @@
  */
 package controllers;
 
-import be.objectify.deadbolt.java.actions.And;
-import be.objectify.deadbolt.java.actions.Restrictions;
+import be.objectify.deadbolt.java.actions.Restrict;
+import be.objectify.deadbolt.java.actions.Unrestricted;
 import play.mvc.Controller;
 import play.mvc.Result;
+
 import views.html.accessOk;
 
 /**
+ *
  * @author Steve Chaloner (steve@objectify.be)
  */
-@Restrictions({@And("foo"),
-               @And("bar")})
-public class RestrictionsController extends Controller
+@Restrict("hurdy")
+public class UnrestrictedController extends Controller
 {
     public static Result index()
     {
         return ok(accessOk.render());
     }
 
-    @Restrictions({@And({"foo", "bar"})})
-    public static Result restrictionsOne()
-    {
-        return ok(accessOk.render());
-    }
-
-    @Restrictions({@And({"hurdy", "gurdy"}), @And("foo")})
-    public static Result restrictionsTwo()
-    {
-        return ok(accessOk.render());
-    }
-
-    @Restrictions({@And("foo"), @And("!bar")})
-    public static Result restrictionsThree()
-    {
-        return ok(accessOk.render());
-    }
-
-    @Restrictions(@And({"hurdy", "foo"}))
-    public static Result restrictionsFour()
-    {
-        return ok(accessOk.render());
-    }
-
-    @Restrictions(@And({"foo", "!bar"}))
-    public static Result restrictionsFive()
+    @Unrestricted
+    public static Result unrestrictedWithinAConstrainedController()
     {
         return ok(accessOk.render());
     }

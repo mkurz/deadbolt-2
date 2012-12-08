@@ -37,12 +37,12 @@
     </div>
     <div class="span5">
         <pre>
-@@roleHolderPresent(new security.MyAlternativeDeadboltHandler()) {
+@@roleHolderPresent(new security.NoUserDeadboltHandler()) {
   This content should NOT be visible
 }</pre>
     </div>
     <div class="span2">
-        @roleHolderPresent(new security.MyAlternativeDeadboltHandler()) {
+        @roleHolderPresent(new security.NoUserDeadboltHandler()) {
         This content should NOT be visible
         }
     </div>
@@ -72,12 +72,12 @@
     </div>
     <div class="span5">
         <pre>
-@@roleHolderPresentOr(new security.MyAlternativeDeadboltHandler()) {
+@@roleHolderPresentOr(new security.NoUserDeadboltHandler()) {
   This content should be NOT visible
 }{Sorry, no access}</pre>
     </div>
     <div class="span2">
-        @roleHolderPresentOr(new security.MyAlternativeDeadboltHandler()) {
+        @roleHolderPresentOr(new security.NoUserDeadboltHandler()) {
         This content should be NOT visible
         }{Sorry, no access}
     </div>

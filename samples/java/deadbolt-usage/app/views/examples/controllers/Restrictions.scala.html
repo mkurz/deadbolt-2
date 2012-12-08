@@ -43,7 +43,7 @@ public static Result restrictionsOne() {
 <div class="row-fluid">
     <div class="span5">
         <pre>
-@@Restrictions({@@And("foo"), @@And("foo")})
+@@Restrictions({@@And({"hurdy", "gurdy"}), @@And("foo")})
 public static Result restrictionsTwo() {
     return ok(accessOk.render());
 }</pre>
@@ -56,7 +56,7 @@ public static Result restrictionsTwo() {
 <div class="row-fluid">
     <div class="span5">
         <pre>
-@@Restrictions({@@And({"hurdy", "gurdy"}), @@And("foo")})
+@@Restrictions({@@And("foo"), @@And("!bar")})
 public static Result restrictionsThree() {
     return ok(accessOk.render());
 }</pre>
@@ -69,7 +69,7 @@ public static Result restrictionsThree() {
 <div class="row-fluid">
     <div class="span5">
         <pre>
-@@Restrictions({@@And("foo"), @@And("!bar")})
+@@Restrictions(@@And({"hurdy", "foo"}))
 public static Result restrictionsFour() {
     return ok(accessOk.render());
 }</pre>
@@ -82,7 +82,7 @@ public static Result restrictionsFour() {
 <div class="row-fluid">
     <div class="span5">
         <pre>
-@@Restrictions(@@And({"hurdy", "foo"}))
+@@Restrictions(@@And({"foo", "!bar"}))
 public static Result restrictionsFive() {
     return ok(accessOk.render());
 }</pre>

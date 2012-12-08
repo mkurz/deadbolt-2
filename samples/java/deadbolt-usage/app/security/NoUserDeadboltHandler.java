@@ -20,6 +20,7 @@ import be.objectify.deadbolt.java.DynamicResourceHandler;
 import be.objectify.deadbolt.core.models.RoleHolder;
 import play.mvc.Http;
 import play.mvc.Result;
+import views.html.accessFailed;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
@@ -38,7 +39,7 @@ public class NoUserDeadboltHandler extends AbstractDeadboltHandler
 
     public Result onAccessFailure(Http.Context context, String content)
     {
-        return forbidden();
+        return ok(accessFailed.render());
     }
 
     public DynamicResourceHandler getDynamicResourceHandler(Http.Context context)

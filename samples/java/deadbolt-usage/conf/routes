@@ -33,6 +33,8 @@ GET     /deferredPattern                controllers.DeferredController.deferredP
 GET     /deferredDynamic                controllers.DeferredController.deferredDynamic
 GET     /deferredRoleHolderPresent      controllers.DeferredController.deferredRoleHolderPresent
 GET     /deferredRoleHolderNotPresent   controllers.DeferredController.deferredRoleHolderNotPresent
+GET     /unrestrictedIndex              controllers.UnrestrictedController.index
+GET     /unrestrictedOpen               controllers.UnrestrictedController.unrestrictedWithinAConstrainedController
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

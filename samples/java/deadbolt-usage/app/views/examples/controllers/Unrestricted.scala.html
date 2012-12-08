@@ -1,0 +1,44 @@
+<div class="row-fluid" id="controller-Unrestricted">
+    <div class="span10">
+        <h3 class="subsection">Unrestricted</h3>
+
+        <p>Using Unrestricted allows you to ignore wider constraints.  For example, an entire controller may be protected with the Dynamic constraint, but methods in that
+            controller may be freed from constraints by marking them as @@Unrestrcted.</p>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span5 columnHeader">Specification</div>
+    <div class="span5 columnHeader">Result</div>
+</div>
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+@@Restrict("hurdy")
+public class UnrestrictedController extends Controller {
+
+    public static Result index() {
+        return ok(accessOk.render());
+    }
+}</pre>
+    </div>
+    <div class="span5">
+        <iframe src="@routes.UnrestrictedController.index"></iframe>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+@@Restrict("hurdy")
+public class UnrestrictedController extends Controller {
+
+    @@Unrestricted
+    public static Result unrestrictedWithinAConstrainedController() {
+        return ok(accessOk.render());
+    }
+}</pre>
+    </div>
+    <div class="span5">
+        <iframe src="@routes.UnrestrictedController.unrestrictedWithinAConstrainedController"></iframe>
+    </div>
+</div>
