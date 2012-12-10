@@ -15,8 +15,9 @@
  */
 package be.objectify.deadbolt.java.actions;
 
-import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.core.models.RoleHolder;
+import be.objectify.deadbolt.java.DeadboltHandler;
+import be.objectify.deadbolt.java.utils.RequestUtils;
 import play.mvc.Http;
 import play.mvc.Result;
 
@@ -63,5 +64,21 @@ public class RoleHolderNotPresentAction extends AbstractDeadboltAction<RoleHolde
         }
 
         return result;
+    }
+
+    /**
+     * Gets the {@link RoleHolder} from the {@link DeadboltHandler}, and logs an error if it's not present. Note that
+     * at least one actions ({@link Unrestricted} does not not require a RoleHolder to be present.
+     *
+     * @param ctx             the request context
+     * @param deadboltHandler the Deadbolt handler
+     * @return the RoleHolder, if any
+     */
+    @Override
+    protected RoleHolder getRoleHolder(Http.Context ctx,
+                                       DeadboltHandler deadboltHandler)
+    {
+        return RequestUtils.getRoleHolder(deadboltHandler,
+                                          ctx);
     }
 }
