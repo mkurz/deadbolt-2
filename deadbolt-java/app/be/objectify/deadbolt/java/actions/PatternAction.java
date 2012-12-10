@@ -66,7 +66,7 @@ public class PatternAction extends AbstractRestrictiveAction<Pattern>
         }
         else
         {
-            if (resourceHandler.checkPermission(configuration.value(),
+            if (resourceHandler.checkPermission(getValue(),
                                                 deadboltHandler,
                                                 ctx))
             {
@@ -84,12 +84,17 @@ public class PatternAction extends AbstractRestrictiveAction<Pattern>
         return result;
     }
 
+    public String getValue()
+    {
+        return configuration.value();
+    }
+
     private Result equality(Http.Context ctx,
                             DeadboltHandler deadboltHandler) throws Throwable
     {
         Result result;
 
-        final String patternValue = configuration.value();
+        final String patternValue = getValue();
 
         if (JavaDeadboltAnalyzer.checkPatternEquality(getRoleHolder(ctx,
                                                                     deadboltHandler),
@@ -122,7 +127,7 @@ public class PatternAction extends AbstractRestrictiveAction<Pattern>
     {
         Result result;
 
-        final String patternValue = configuration.value();
+        final String patternValue = getValue();
         java.util.regex.Pattern pattern = DeadboltViewSupport.getPattern(patternValue);
 
         if (JavaDeadboltAnalyzer.checkRegexPattern(getRoleHolder(ctx,

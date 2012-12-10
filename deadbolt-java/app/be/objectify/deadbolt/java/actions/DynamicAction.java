@@ -41,8 +41,8 @@ public class DynamicAction extends AbstractRestrictiveAction<Dynamic>
         }
         else
         {
-            if (resourceHandler.isAllowed(configuration.value(),
-                                          configuration.meta(),
+            if (resourceHandler.isAllowed(getValue(),
+                                          getMeta(),
                                           deadboltHandler,
                                           ctx))
             {
@@ -58,6 +58,16 @@ public class DynamicAction extends AbstractRestrictiveAction<Dynamic>
             }
         }
         return result;
+    }
+
+    public String getMeta()
+    {
+        return configuration.meta();
+    }
+
+    public String getValue()
+    {
+        return configuration.value();
     }
 
     @Override

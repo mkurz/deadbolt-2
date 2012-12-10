@@ -78,3 +78,29 @@ public static Result restrictFour() {
         <iframe src="@routes.RestrictController.restrictFour"></iframe>
     </div>
 </div>
+
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+@@CustomRestrict(value = {MyRoles.foo, MyRoles.bar}, config = @@Restrict(""))
+public static Result customRestrictionOne() {
+    return ok(accessOk.render());
+}</pre>
+    </div>
+    <div class="span5">
+        <iframe src="@routes.RestrictController.customRestrictOne"></iframe>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span5">
+        <pre>
+@@CustomRestrict(value = MyRoles.hurdy, config = @@Restrict(""))
+public static Result customRestrictionOne() {
+    return ok(accessOk.render());
+}</pre>
+    </div>
+    <div class="span5">
+        <iframe src="@routes.RestrictController.customRestrictTwo"></iframe>
+    </div>
+</div>

@@ -9,12 +9,16 @@ GET     /restrict1                      controllers.RestrictController.restrictO
 GET     /restrict2                      controllers.RestrictController.restrictTwo
 GET     /restrict3                      controllers.RestrictController.restrictThree
 GET     /restrict4                      controllers.RestrictController.restrictFour
+GET     /custom1                        controllers.RestrictController.customRestrictOne
+GET     /custom2                        controllers.RestrictController.customRestrictTwo
 GET     /restrictionsIndex              controllers.RestrictionsController.index
 GET     /restrictions1                  controllers.RestrictionsController.restrictionsOne
 GET     /restrictions2                  controllers.RestrictionsController.restrictionsTwo
 GET     /restrictions3                  controllers.RestrictionsController.restrictionsThree
 GET     /restrictions4                  controllers.RestrictionsController.restrictionsFour
 GET     /restrictions5                  controllers.RestrictionsController.restrictionsFive
+GET     /customRestriction1             controllers.RestrictionsController.customRestrictionOne
+GET     /customRestriction2             controllers.RestrictionsController.customRestrictionTwo
 GET     /index                          controllers.DynamicRestrictionsController.index
 GET     /pureLuck                       controllers.DynamicRestrictionsController.pureLuck
 GET     /noWayJose                      controllers.DynamicRestrictionsController.noWayJose

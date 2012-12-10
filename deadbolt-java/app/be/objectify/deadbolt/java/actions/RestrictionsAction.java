@@ -20,6 +20,9 @@ import be.objectify.deadbolt.core.models.RoleHolder;
 import play.mvc.Http;
 import play.mvc.Result;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Implements the {@link Restrictions} functionality, i.e. within an {@link And} roles are ANDed, and between
  * {@link And} the role groups are ORed.
@@ -61,16 +64,26 @@ public class RestrictionsAction extends AbstractRestrictiveAction<Restrictions>
         boolean roleOk = false;
         if (roleHolder != null)
         {
-            And[] andedRestrictions = configuration.value();
+            List<String[]> roleGroups = getRoleGroups();
 
-            for (int i = 0; !roleOk && i < andedRestrictions.length; i++)
+            for (int i = 0; !roleOk && i < roleGroups.size(); i++)
             {
                 roleOk = checkRole(roleHolder,
-                                   andedRestrictions[i].value());
+                                   roleGroups.get(i));
             }
         }
 
         return roleOk;
+    }
+
+    public List<String[]> getRoleGroups()
+    {
+        List<String[]> roleGroups = new ArrayList<String[]>();
+        for (And group : configuration.value())
+        {
+            roleGroups.add(group.value());
+        }
+        return roleGroups;
     }
 
     @Override

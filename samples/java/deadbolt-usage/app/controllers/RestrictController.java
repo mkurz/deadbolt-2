@@ -15,10 +15,12 @@
  */
 package controllers;
 
+import actions.CustomRestrict;
 import be.objectify.deadbolt.java.actions.Restrict;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import security.MyRoles;
 import views.html.accessOk;
 
 /**
@@ -52,6 +54,18 @@ public class RestrictController extends Controller
 
     @Restrict({"hurdy"})
     public static Result restrictFour()
+    {
+        return ok(accessOk.render());
+    }
+
+    @CustomRestrict(value = {MyRoles.foo, MyRoles.bar}, config = @Restrict(""))
+    public static Result customRestrictOne()
+    {
+        return ok(accessOk.render());
+    }
+
+    @CustomRestrict(value = MyRoles.hurdy, config = @Restrict(""))
+    public static Result customRestrictTwo()
     {
         return ok(accessOk.render());
     }

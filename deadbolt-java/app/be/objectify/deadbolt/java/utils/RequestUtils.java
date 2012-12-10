@@ -58,7 +58,8 @@ public class RequestUtils
         }
         catch (Exception e)
         {
-            Logger.error(e.getMessage());
+            Logger.error("Error getting role holder: " + e.getMessage(),
+                         e);
         }
         return roleHolder;
     }

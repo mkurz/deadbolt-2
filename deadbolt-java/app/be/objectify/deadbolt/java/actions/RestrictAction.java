@@ -61,7 +61,7 @@ public class RestrictAction extends AbstractRestrictiveAction<Restrict>
         if (roleHolder != null)
         {
             roleOk = checkRole(roleHolder,
-                               configuration.value());
+                               getRoleNames());
         }
 
         return roleOk;
@@ -71,5 +71,10 @@ public class RestrictAction extends AbstractRestrictiveAction<Restrict>
     public Class<? extends DeadboltHandler> getDeadboltHandlerClass()
     {
         return configuration.handler();
+    }
+
+    public String[] getRoleNames()
+    {
+        return configuration.value();
     }
 }
