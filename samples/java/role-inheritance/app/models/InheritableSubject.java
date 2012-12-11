@@ -13,24 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package actions;
+package models;
 
-import security.MyRoles;
+import be.objectify.deadbolt.core.models.Subject;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.util.List;
 
 /**
  * @author Steve Chaloner (steve@objectify.be)
  */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface RoleGroup
+public interface InheritableSubject extends Subject
 {
-    /**
-     * The roles with access to the target.
-     *
-     * @return the role names
-     */
-    MyRoles[] value();
+    public List<? extends InheritableRole> getInheritableRoles();
 }

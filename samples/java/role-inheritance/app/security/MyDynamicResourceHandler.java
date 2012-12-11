@@ -15,12 +15,12 @@
  */
 package security;
 
+import be.objectify.deadbolt.core.models.Subject;
 import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.java.DynamicResourceHandler;
 import be.objectify.deadbolt.core.models.Permission;
-import be.objectify.deadbolt.core.models.RoleHolder;
 import models.InheritableRole;
-import models.InheritableRoleHolder;
+import models.InheritableSubject;
 import models.SecurityRole;
 import play.Logger;
 import play.mvc.Http;
@@ -48,8 +48,8 @@ public class MyDynamicResourceHandler implements DynamicResourceHandler
                                                   Http.Context context)
                          {
                              boolean isAllowed = false;
-                             InheritableRoleHolder roleHolder = ((MyDeadboltHandler) deadboltHandler).getRoleHolder(context);
-                             List<? extends InheritableRole> inheritableRoles = roleHolder.getInheritableRoles();
+                             InheritableSubject subject = ((MyDeadboltHandler) deadboltHandler).getSubject(context);
+                             List<? extends InheritableRole> inheritableRoles = subject.getInheritableRoles();
                              SecurityRole requiredRole = SecurityRole.findByRoleName(roleName);
                              Map<String, InheritableRole> checkedRoles = new HashMap<String, InheritableRole>();
                              for (Iterator<? extends InheritableRole> iterator = inheritableRoles.iterator(); !isAllowed && iterator.hasNext(); )
@@ -121,11 +121,11 @@ public class MyDynamicResourceHandler implements DynamicResourceHandler
                                    Http.Context ctx)
     {
         boolean permissionOk = false;
-        RoleHolder roleHolder = deadboltHandler.getRoleHolder(ctx);
+        Subject subject = deadboltHandler.getSubject(ctx);
         
-        if (roleHolder != null)
+        if (subject != null)
         {
-            List<? extends Permission> permissions = roleHolder.getPermissions();
+            List<? extends Permission> permissions = subject.getPermissions();
             for (Iterator<? extends Permission> iterator = permissions.iterator(); !permissionOk && iterator.hasNext(); )
             {
                 Permission permission = iterator.next();

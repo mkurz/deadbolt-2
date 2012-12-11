@@ -1,7 +1,0 @@
-@(name: String, meta: String = null, handler: be.objectify.deadbolt.java.DeadboltHandler = null)(body: => Html)(alternativeBody: => Html)
-
-@if(be.objectify.deadbolt.java.DeadboltViewSupport.viewDynamic(name, meta, handler)) {
-@body
-} else {
-@alternativeBody
-}

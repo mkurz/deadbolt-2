@@ -1,7 +1,0 @@
-@(handler: be.objectify.deadbolt.scala.DeadboltHandler)(body: => Html)(implicit request: Request[Any])
-
-@import scala.collection.JavaConversions._
-
-@if(!handler.getRoleHolder(request).isDefined) {
-@body
-}

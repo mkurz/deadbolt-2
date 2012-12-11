@@ -1,7 +1,0 @@
-@(value: String, patternType: be.objectify.deadbolt.core.PatternType = be.objectify.deadbolt.core.PatternType.EQUALITY, handler: be.objectify.deadbolt.java.DeadboltHandler = null)(body: => Html)(alternativeBody: => Html)
-
-@if(be.objectify.deadbolt.java.DeadboltViewSupport.viewPattern(value, patternType, handler)) {
-@body
-} else {
-@alternativeBody
-}

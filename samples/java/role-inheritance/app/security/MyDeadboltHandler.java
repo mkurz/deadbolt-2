@@ -17,7 +17,7 @@ package security;
 
 import be.objectify.deadbolt.java.AbstractDeadboltHandler;
 import be.objectify.deadbolt.java.DynamicResourceHandler;
-import models.InheritableRoleHolder;
+import models.InheritableSubject;
 import models.User;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -27,14 +27,14 @@ import play.mvc.Result;
  */
 public class MyDeadboltHandler extends AbstractDeadboltHandler
 {
-    public Result beforeRoleCheck(Http.Context context)
+    public Result beforeAuthCheck(Http.Context context)
     {
         // returning null means that everything is OK.  Return a real result if you want a redirect to a login page or
         // somewhere else
         return null;
     }
 
-    public InheritableRoleHolder getRoleHolder(Http.Context context)
+    public InheritableSubject getSubject(Http.Context context)
     {
         // in a real application, the user name would probably be in the session following a login process
         return User.findByUserName("foo");

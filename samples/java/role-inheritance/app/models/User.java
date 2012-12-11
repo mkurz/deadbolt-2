@@ -29,7 +29,7 @@ import java.util.List;
  * @author Steve Chaloner (steve@objectify.be)
  */
 @Entity
-public class User extends Model implements InheritableRoleHolder
+public class User extends Model implements InheritableSubject
 {
     @Id
     public Long id;
