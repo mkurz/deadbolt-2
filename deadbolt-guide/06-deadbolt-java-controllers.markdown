@@ -67,3 +67,86 @@ A better way is to set the `deferred` parameter of the D2 annotation to `true`, 
         }
     }
 
+## Customising the inputs of annotation-driven actions ##
+One of the problems with D2's annotations is they require strings to specify, for example, role names or pattern values.  It would be far safer to use enums, but this is not possible for a module - it would completely kill the generic applicability of the annotations.  If D2 shipped with an enum containing roles, how would you extend it?  You would be stuck with whatever was specified, or forced to fork the codebase and customise it.  Similarly, annotations can neither implement, extend or be extended.
+
+To address this situation, D2 has four constraints whose inputs can be customised to some degree.  The trick lies, not with inheritence, but delegation and wrapping.  The constraints are
+
+ * Restrict
+ * Restrictions
+ * Dynamic
+ * Pattern
+
+Here, I'll explain how to customise the Restrict constraint to use enums as annotation parameters, but the principle is the same for each constraint.
+
+To start, create an enum that represents your roles.
+
+    public enum MyRoles implements Role {
+        foo,
+        bar,
+        hurdy;
+
+        @Override
+        public String getRoleName() {
+            return name();
+        }
+    }
+
+Next, create a new annotation to drive your custom version of Restrict.  Note that an array of `MyRoles` values can be placed in the annotation.  The standard `Restrict` annotation is also present to provide further configuration.  This means your customisations are minimised. 
+
+    @With(CustomRestrictAction.class)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Documented
+    @Inherited
+    public @interface CustomRestrict {
+        MyRoles[] value();
+
+        Restrict config();
+    }
+
+The code above contains `@With(CustomRestrictAction.class)` in order to specify the action that should be triggered by the annotation.  This action can be implemented as follows. 
+
+    public class CustomRestrictAction extends Action<CustomRestrict> {
+        
+        @Override
+        public Result call(Http.Context context) throws Throwable {
+            final List<String> roleNames = new ArrayList<String>();
+            // get the string values from the enums
+            for (MyRoles role : configuration.value()) {
+                roleNames.add(role.getRoleName());
+            }
+
+            // Programatically construct the standard action for Restrict
+            RestrictAction restrictAction = new RestrictAction() {
+                @Override
+                public String[] getRoleNames() {
+                    // Return the roles as strings
+                    return roleNames.toArray(new String[roleNames.size()]);
+                }
+            };
+            // Get the nested Restrict annotation from CustomRestrict and set it as the configuration of the standard action
+            restrictAction.configuration = configuration.config();
+            // Pass the delegate to the nested action, to ensure forward calls work correctly
+            restrictAction.delegate = this.delegate;
+            // Invoke the action
+            return restrictAction.call(context);
+        }
+    }
+
+Pretty simple stuff - the code is basically converting an array of enum values to an array of strings.
+
+To use your custom annotation, you apply it as you would any other D2 annotation.
+
+    @CustomRestrict(value = {MyRoles.foo, MyRoles.bar}, config = @Restrict(""))
+    public static Result customRestrictOne() {
+        return ok(accessOk.render());
+    }
+
+Each customisable action has one or more extension points.  These are
+
+ * RestrictAction - String[] getRoleNames()
+ * RestrictionsAction - List<String[]> getRoleGroups()
+ * Dynamic - String getValue(), String getMeta()
+ * Pattern - String getValue()
+ 
