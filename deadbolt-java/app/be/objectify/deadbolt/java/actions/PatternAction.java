@@ -19,6 +19,7 @@ import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.java.DynamicResourceHandler;
 import be.objectify.deadbolt.java.DeadboltViewSupport;
 import be.objectify.deadbolt.java.JavaDeadboltAnalyzer;
+import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
 
@@ -27,6 +28,18 @@ import play.mvc.Result;
  */
 public class PatternAction extends AbstractRestrictiveAction<Pattern>
 {
+    public PatternAction()
+    {
+        // no-op
+    }
+
+    public PatternAction(Pattern configuration,
+                         Action<?> delegate)
+    {
+        this.configuration = configuration;
+        this.delegate = delegate;
+    }
+
     @Override
     public Result applyRestriction(Http.Context ctx,
                                    DeadboltHandler deadboltHandler) throws Throwable
@@ -62,7 +75,8 @@ public class PatternAction extends AbstractRestrictiveAction<Pattern>
 
         if (resourceHandler == null)
         {
-            throw new RuntimeException("A custom permission type is specified but no dynamic resource handler is provided");
+            throw new RuntimeException(
+                    "A custom permission type is specified but no dynamic resource handler is provided");
         }
         else
         {

@@ -17,6 +17,7 @@ package be.objectify.deadbolt.java.actions;
 
 import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.java.DynamicResourceHandler;
+import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
 
@@ -28,6 +29,18 @@ import play.mvc.Result;
  */
 public class DynamicAction extends AbstractRestrictiveAction<Dynamic>
 {
+    public DynamicAction()
+    {
+        // no-op
+    }
+
+    public DynamicAction(Dynamic configuration,
+                         Action<?> delegate)
+    {
+        this.configuration = configuration;
+        this.delegate = delegate;
+    }
+
     @Override
     public Result applyRestriction(Http.Context ctx,
                                    DeadboltHandler deadboltHandler) throws Throwable

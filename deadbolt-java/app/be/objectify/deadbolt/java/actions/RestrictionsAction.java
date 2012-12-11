@@ -17,6 +17,7 @@ package be.objectify.deadbolt.java.actions;
 
 import be.objectify.deadbolt.java.DeadboltHandler;
 import be.objectify.deadbolt.core.models.RoleHolder;
+import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
 
@@ -31,6 +32,18 @@ import java.util.List;
  */
 public class RestrictionsAction extends AbstractRestrictiveAction<Restrictions>
 {
+    public RestrictionsAction()
+    {
+        // no-op
+    }
+
+    public RestrictionsAction(Restrictions configuration,
+                              Action<?> delegate)
+    {
+        this.configuration = configuration;
+        this.delegate = delegate;
+    }
+
     @Override
     public Result applyRestriction(Http.Context ctx,
                                    DeadboltHandler deadboltHandler) throws Throwable

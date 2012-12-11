@@ -107,31 +107,25 @@ Next, create a new annotation to drive your custom version of Restrict.  Note th
 
 The code above contains `@With(CustomRestrictAction.class)` in order to specify the action that should be triggered by the annotation.  This action can be implemented as follows. 
 
-    public class CustomRestrictAction extends Action<CustomRestrict> {
-        
-        @Override
-        public Result call(Http.Context context) throws Throwable {
-            final List<String> roleNames = new ArrayList<String>();
-            // get the string values from the enums
-            for (MyRoles role : configuration.value()) {
-                roleNames.add(role.getRoleName());
-            }
+    @Override
+    public Result call(Http.Context context) throws Throwable {
 
-            // Programatically construct the standard action for Restrict
-            RestrictAction restrictAction = new RestrictAction() {
-                @Override
-                public String[] getRoleNames() {
-                    // Return the roles as strings
-                    return roleNames.toArray(new String[roleNames.size()]);
+        final CustomRestrict outerConfig = configuration;
+        RestrictAction restrictAction = new RestrictAction(configuration.config(),
+                                                           this.delegate)
+        {
+            @Override
+            public String[] getRoleNames()
+            {
+                List<String> roleNames = new ArrayList<String>();
+                for (MyRoles role : outerConfig.value())
+                {
+                    roleNames.add(role.getRoleName());
                 }
-            };
-            // Get the nested Restrict annotation from CustomRestrict and set it as the configuration of the standard action
-            restrictAction.configuration = configuration.config();
-            // Pass the delegate to the nested action, to ensure forward calls work correctly
-            restrictAction.delegate = this.delegate;
-            // Invoke the action
-            return restrictAction.call(context);
-        }
+                return roleNames.toArray(new String[roleNames.size()]);
+            }
+        };
+        return restrictAction.call(context);
     }
 
 Pretty simple stuff - the code is basically converting an array of enum values to an array of strings.
