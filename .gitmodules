@@ -1,0 +1,18 @@
+[submodule "deadbolt-2-core"]
+	path = deadbolt-2-core
+	url = git@github.com:schaloner/deadbolt-2-core.git
+[submodule "deadbolt-2-java"]
+	path = deadbolt-2-java
+	url = git@github.com:schaloner/deadbolt-2-java.git
+[submodule "deadbolt-2-scala"]
+	path = deadbolt-2-scala
+	url = git@github.com:schaloner/deadbolt-2-scala.git
+[submodule "deadbolt-2-guide"]
+	path = deadbolt-2-guide
+	url = git@github.com:schaloner/deadbolt-2-guide.git
+[submodule "deadbolt-2-scala-examples"]
+	path = deadbolt-2-scala-examples
+	url = git@github.com:schaloner/deadbolt-2-scala-examples.git
+[submodule "deadbolt-2-java-examples"]
+	path = deadbolt-2-java-examples
+	url = git@github.com:schaloner/deadbolt-2-java-examples.git

@@ -1,9 +1,0 @@
-@(user: User, availableRoles: List[SecurityRole])
-
-@main(user, availableRoles) {
-    <ul>
-        <li><a href="@routes.Application.adminFunction()">Minimum level - admin</a></li>
-        <li><a href="@routes.Application.editorFunction()">Minimum level - editor</a></li>
-        <li><a href="@routes.Application.viewerFunction()">Minimum level - viewer</a></li>
-    </ul>
-}
