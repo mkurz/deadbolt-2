@@ -1,6 +1,0 @@
-h1. Deadbolt 2 - An authorisation system for Play 2
-
-Deadbolt is a powerful authorisation mechanism for defining access rights to certain controller methods or parts of a view.
-
-For a complete guide, please refer to the "deadbolt-2-guide (https://github.com/schaloner/deadbolt-2-guide)":https://github.com/schaloner/deadbolt-2-guide
-
