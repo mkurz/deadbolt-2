@@ -17,7 +17,6 @@ package be.objectify.deadbolt;
 
 import play.Application;
 import play.Configuration;
-import play.Logger;
 import play.Plugin;
 
 import java.util.Set;
@@ -28,6 +27,10 @@ import java.util.Set;
  */
 public class DeadboltPlugin extends Plugin
 {
+    public static final String DEADBOLT_HANDLER_KEY = "deadbolt.handler";
+
+    public static final String CACHE_USER = "deadbolt.cache-user";
+
     private boolean cacheUserPerRequestEnabled = false;
     private DeadboltHandler deadboltHandler;
 
@@ -45,32 +48,32 @@ public class DeadboltPlugin extends Plugin
     public void onStart()
     {
         Configuration configuration = application.configuration();
-        Set<String> configurationKeys = configuration.keys();
-
-        if (configurationKeys.contains(PluginConfigKeys.DEADBOLT_JAVA_HANDLER_KEY))
+        if (!configuration.keys().contains(DEADBOLT_HANDLER_KEY))
         {
-            String deadboltHandlerName = null;
-            try
-            {
-                deadboltHandlerName = configuration.getString(PluginConfigKeys.DEADBOLT_JAVA_HANDLER_KEY);
-                deadboltHandler = (DeadboltHandler) Class.forName(deadboltHandlerName,
-                        true,
-                        application.classloader()).newInstance();
-            }
-            catch (Exception e)
-            {
-                throw configuration.reportError(PluginConfigKeys.DEADBOLT_JAVA_HANDLER_KEY,
-                        "Error creating Deadbolt handler: " + deadboltHandlerName,
-                        e);
-            }
-        }
-        else
-        {
-            Logger.warn("No Java handler declared for Deadbolt");
+            throw configuration.reportError(DEADBOLT_HANDLER_KEY,
+                    "A Deadbolt handler must be defined",
+                    null);
         }
 
+        String deadboltHandlerName = null;
+        try
+        {
+            deadboltHandlerName = configuration.getString(DEADBOLT_HANDLER_KEY);
+            deadboltHandler = (DeadboltHandler) Class.forName(deadboltHandlerName,
+                    true,
+                    application.classloader()).newInstance();
+        }
+        catch (Exception e)
+        {
+            throw configuration.reportError(DEADBOLT_HANDLER_KEY,
+                    "Error creating Deadbolt handler: " + deadboltHandlerName,
+                    e);
+        }
 
-        cacheUserPerRequestEnabled = configuration.getBoolean(PluginConfigKeys.CACHE_DEADBOLT_USER, false);
+        if (configuration.keys().contains(CACHE_USER))
+        {
+            cacheUserPerRequestEnabled = configuration.getBoolean(CACHE_USER);
+        }
     }
 
     /**
@@ -86,7 +89,7 @@ public class DeadboltPlugin extends Plugin
     /**
      * Getter for the registered Deadbolt Handler
      *
-     * @return the registered Deadbolt handler, or null if it's not defined
+     * @return DeadboltHandler registered Deadbolt handler
      */
     public DeadboltHandler getDeadboltHandler()
     {
