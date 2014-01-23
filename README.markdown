@@ -54,4 +54,13 @@ For Play 2.1, you need to use the Deadbolt 2.1 in your project. Add one or both 
     )
 
 
+### Play 2.2 ###
+For Play 2.2, you need to use the Deadbolt 2.2 in your project. Add one or both of the following to Build.scala according to your requirements
+
+    val appDependencies = Seq(
+      "be.objectify" %% "deadbolt-java" % "2.2-RC2",
+      "be.objectify" %% "deadbolt-scala" % "2.2-RC2"
+    )
+
+
 
