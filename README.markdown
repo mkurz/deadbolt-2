@@ -1,4 +1,4 @@
-# Deadbolt 2 - An authorisation system for Play 2 #
+# Deadbolt 2 - An authorization system for Play 2 #
 
 Deadbolt is a powerful authorisation mechanism for defining access rights to certain controller methods or parts of a view.
 
