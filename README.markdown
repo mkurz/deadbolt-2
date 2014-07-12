@@ -2,7 +2,7 @@
 
 Deadbolt is a powerful authorisation mechanism for defining access rights to certain controller methods or parts of a view.
 
-For a complete guide, please refer to the [deadbolt-2-guide](https://github.com/schaloner/deadbolt-2-guide).
+For a complete guide, please refer to the [Deadbolt website](http://deadbolt.ws).
 
 The deadbolt-2 repository in GitHub is a collection of submodules.  I highly recommend that you fork/follow/clone specific submodules in place of this aggregate module.  The submodules are:
 
