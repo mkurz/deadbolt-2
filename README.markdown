@@ -10,6 +10,7 @@ The deadbolt-2 repository in GitHub is a collection of submodules.  I highly rec
  * [![Build Status](https://travis-ci.org/schaloner/deadbolt-2-core.svg?branch=master)](https://travis-ci.org/schaloner/deadbolt-2-core)
  * <https://github.com/schaloner/deadbolt-2-core>
 * deadbolt-2-java
+ * [![Build Status](https://travis-ci.org/schaloner/deadbolt-2-java.svg?branch=master)](https://travis-ci.org/schaloner/deadbolt-2-java)
  * <https://github.com/schaloner/deadbolt-2-java>
 * deadbolt-2-scala
  * <https://github.com/schaloner/deadbolt-2-scala>
