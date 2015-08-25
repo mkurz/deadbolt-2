@@ -1,5 +1,7 @@
 # Deadbolt 2 - An authorisation system for Play 2 #
 
+[![Join the chat at https://gitter.im/schaloner/deadbolt-2](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/schaloner/deadbolt-2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Deadbolt is a powerful authorisation mechanism for defining access rights to certain controller methods or parts of a view.
 
 For a complete guide, please refer to the [Deadbolt website](http://deadbolt.ws).
