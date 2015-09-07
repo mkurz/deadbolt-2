@@ -9,14 +9,16 @@ For a complete guide, please refer to the [Deadbolt website](http://deadbolt.ws)
 The deadbolt-2 repository in GitHub is a collection of submodules.  I highly recommend that you fork/follow/clone specific submodules in place of this aggregate module.  The submodules are:
 
 * deadbolt-2-core 
- * [![Build Status](https://travis-ci.org/schaloner/deadbolt-2-core.svg?branch=master)](https://travis-ci.org/schaloner/deadbolt-2-core)
+ * [![Build Status](https://travis-ci.org/schaloner/deadbolt-2-core.svg)](https://travis-ci.org/schaloner/deadbolt-2-core)
  * <https://github.com/schaloner/deadbolt-2-core>
 * deadbolt-2-java
- * [![Build Status](https://travis-ci.org/schaloner/deadbolt-2-java.svg?branch=master)](https://travis-ci.org/schaloner/deadbolt-2-java)
+ * [![Build Status](https://travis-ci.org/schaloner/deadbolt-2-java.svg)](https://travis-ci.org/schaloner/deadbolt-2-java)
  * <https://github.com/schaloner/deadbolt-2-java>
+ * Quick start guide: https://github.com/schaloner/deadbolt-2-java/blob/master/QuickStart.md
 * deadbolt-2-scala
- * [![Build Status](https://travis-ci.org/schaloner/deadbolt-2-scala.svg?branch=master)](https://travis-ci.org/schaloner/deadbolt-2-scala)
+ * [![Build Status](https://travis-ci.org/schaloner/deadbolt-2-scala.svg)](https://travis-ci.org/schaloner/deadbolt-2-scala)
  * <https://github.com/schaloner/deadbolt-2-scala>
+ * Quick start guide: https://github.com/schaloner/deadbolt-2-scala/blob/master/QuickStart.md
 * deadbolt-2-guide
  * <https://github.com/schaloner/deadbolt-2-guide>
 
