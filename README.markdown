@@ -33,6 +33,9 @@ Demonstration applications can be found at
 * deadbolt-2-scala-examples
  * <https://github.com/schaloner/deadbolt-2-scala-examples>
  * see it in action at <http://deadbolt-2-scala.herokuapp.com>
+* Integrating Deadbolt for Scala with Auth0
+ * [GitHub](https://github.com/schaloner/deadbolt-auth0-scala)
+ * [Activator template](http://www.lightbend.com/activator/template/play-with-deadbolt-and-auth0)
 
 
 ## The Deadbolt book
