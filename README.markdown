@@ -9,7 +9,8 @@ For a complete guide, please refer to the [Deadbolt website](http://deadbolt.ws)
 The deadbolt-2 repository in GitHub is a collection of submodules.  I highly recommend that you fork/follow/clone specific submodules in place of this aggregate module.  The submodules are:
 
 * deadbolt-2-core 
- * [![Build Status](https://travis-ci.org/schaloner/deadbolt-2-core.svg)](https://travis-ci.org/schaloner/deadbolt-2-core)
+ * Note: deadbolt-2-core is no longer used from Deadbolt 2.5 onwards.
+ * [![Build Status](https://api.travis-ci.org/schaloner/deadbolt-2-core.svg?branch=2.4.x)](https://travis-ci.org/schaloner/deadbolt-2-core)
  * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/be.objectify/deadbolt-core_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/be.objectify/deadbolt-core_2.11)
  * <https://github.com/schaloner/deadbolt-2-core>
 * deadbolt-2-java
