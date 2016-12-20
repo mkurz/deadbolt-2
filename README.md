@@ -48,4 +48,4 @@ If you want the most complete documentation on Deadbolt, take a look at the book
 ![The Deadbolt book](/images/book-cover.jpg)
 
 ## Which version should I use? ##
-See <http://schaloner.github.io/> for version and usage information.
+See <http://deadbolt.ws/> for version and usage information.
