@@ -43,7 +43,7 @@ Demonstration applications can be found at
 
 
 ## The Deadbolt book
-If you want to most complete documentation on Deadbolt, take a look at the book!  You can find it [at the Leanpub website](https://leanpub.com/deadbolt-2).
+If you want the most complete documentation on Deadbolt, take a look at the book!  You can find it [at the Leanpub website](https://leanpub.com/deadbolt-2).
 
 ![The Deadbolt book](/images/book-cover.jpg)
 
