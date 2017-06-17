@@ -16,3 +16,6 @@
 [submodule "deadbolt-2-java-examples"]
 	path = deadbolt-2-java-examples
 	url = git@github.com:schaloner/deadbolt-2-java-examples.git
+[submodule "deadbolt-2-java-global-state"]
+	path = deadbolt-2-java-global-state
+	url = git@github.com:schaloner/deadbolt-2-java-global-state.git
