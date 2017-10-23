@@ -50,6 +50,6 @@ If you want the most complete documentation on Deadbolt, take a look at the book
 ## Which version should I use? ##
 See <http://deadbolt.ws/> for version and usage information.
 
-## Supported by ![](http://passportjs.org/images/supported_logo.svg) [Auth0](https://auth0.com).
+## Supported by ![](http://passportjs.org/images/supported_logo.svg) [Auth0](https://auth0.com?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=deadbolt&utm_content=auth).
 
 If you want to easily add secure authentication and authorization to your Java or Scala projects, feel free to check out Auth0's Java SDK, Scala examples and free plan at [auth0.com/overview](https://auth0.com/overview?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=deadbolt&utm_content=auth) 
